@@ -1,0 +1,40 @@
+{
+  "name": "scripts-cherry-monster",
+  "version": "0.0.1",
+  "description": "A command line tool for anything: the Scripts Cherry Monster can do anything for you!",
+  "main": "main.js",
+  "scripts": {
+    "test": "test",
+    "compile": "tsc -p ./"
+  },
+  "bin":{
+    "scm":"./dist/Main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ScriptsCherryMonster"
+  },
+  "keywords": [
+    "scripts",
+    "cherry",
+    "monster",
+    "anything",
+    "command",
+    "line",
+    "tool",
+    "crazy",
+    "kool"
+  ],
+  "author": "Mark Fainstein",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.9.0",
+    "jasmine": "^2.5.2",
+    "progress": "^1.1.8",
+    "typescript": "^2.0.8",
+    "typings": "^2.0.0"
+  }
+}
