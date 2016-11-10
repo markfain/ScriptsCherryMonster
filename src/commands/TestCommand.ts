@@ -1,29 +1,44 @@
 import {CLProgram} from "../core/CLProgram";
 import {Command} from "../core/Command";
 import {Logger} from "../core/Logger";
+import {HTTPClient} from "../core/HTTPClient";
 declare var require:any;
 declare var process:any;
 export class TestCommand extends Command {
 
-    constructor(){
-        super();
-        this.setName("exec")
+    constructor() {
+        super("TestCommand", "description1", 100);
     }
 
-    doSetArguments(){};
+    doSetArguments() {
+    };
 
-    doAddOptions(){
+    doAddOptions() {
         this.addOption("-e, --exec_mode <mode>", "Which exec mode to use");
     }
 
-    doAddDescription(){
+    doAddDescription() {
         this.addDescription("does something 1");
     }
 
-    doAddAction(){
+    doAddAction() {
         this.addAction(
-            (arg: string, options) : void => {
-                Logger.highlight("oh my god");
+            (arg:string, options):void => {
+                let numberOfTens:number = 0;
+                while (numberOfTens < 100) {
+                    let rand:number = Math.floor(Math.random() * 10000000) + 1;
+                    if (rand == 10) {
+                        numberOfTens = numberOfTens + 1;
+                        this.finishTask();
+                    }
+                }
+                /*
+                 curl http://localhost:8333/executeCommand --data "command=UpdateDependenciesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=WebPacking.json&outputFilename=gen/\$Dependencies.js"
+
+                 */
+                Logger.log("Finished this task");
+
+
             }
         )
     }

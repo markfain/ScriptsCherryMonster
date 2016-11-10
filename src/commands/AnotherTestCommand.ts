@@ -5,8 +5,7 @@ declare var process:any;
 export class AnotherTestCommand extends Command {
 
     constructor(){
-        super();
-        this.setName("exec2")
+        super("AnotherTestCommand", "description2");
     }
 
     doSetArguments(){};

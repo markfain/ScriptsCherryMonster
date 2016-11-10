@@ -1,19 +1,32 @@
 import {CLProgram} from "./CLProgram";
+import {ProgressBar} from "./ProgressBar";
 declare var require:any;
 declare var process:any;
 export abstract class Command {
 
     private prog:any;
-    private command:any;
-    private name:string;
-    private commandArguments:string[] = [];
+    protected command:any;
+    protected name:string;
+    protected commandArguments:string[] = [];
+    protected description:string = "";
+    private progressBar:ProgressBar;
+
+    constructor(name:string, description:string, numberOfTasks?:number){
+        this.name = name;
+        this.description = description;
+
+        this.validateCommand(); //Throws exception
+        this.progressBar = new ProgressBar(this.name, numberOfTasks);
+    }
 
     getName() {
         return this.name;
     }
 
-    setName(name) {
-        this.name = name;
+    validateCommand(){
+        if (this.name.length == 0 || this.description.length == 0){
+            throw new Error("command validation failed");
+        }
     }
 
     setProgram(program:CLProgram) {
@@ -44,9 +57,15 @@ export abstract class Command {
         this.command.description(desc);
     }
 
-    abstract doAddAction();
+    doAddDescription(){
+        this.addDescription(this.description);
+    }
 
-    abstract doAddDescription();
+    finishTask(){
+        this.progressBar.finishTask();
+    }
+
+    abstract doAddAction();
 
     abstract doAddOptions();
 
