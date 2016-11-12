@@ -2,10 +2,12 @@
 import {TestCommand} from "./commands/TestCommand";
 import {CLProgram} from "./core/CLProgram";
 import {AnotherTestCommand} from "./commands/AnotherTestCommand";
+import {UpdateDependencies} from "./commands/UpdateDependencies";
 
 let CLI = new CLProgram();
 CLI.installCommand(new TestCommand());
 CLI.installCommand(new AnotherTestCommand());
+CLI.installCommand(new UpdateDependencies());
 
 CLI.parse();
 

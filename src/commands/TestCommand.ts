@@ -1,7 +1,5 @@
-import {CLProgram} from "../core/CLProgram";
 import {Command} from "../core/Command";
 import {Logger} from "../core/Logger";
-import {HTTPClient} from "../core/HTTPClient";
 declare var require:any;
 declare var process:any;
 export class TestCommand extends Command {
@@ -23,7 +21,7 @@ export class TestCommand extends Command {
 
     doAddAction() {
         this.addAction(
-            (arg:string, options):void => {
+            (options:any):void => {
                 let numberOfTens:number = 0;
                 while (numberOfTens < 100) {
                     let rand:number = Math.floor(Math.random() * 10000000) + 1;

@@ -1,0 +1,8 @@
+1. Execute toolbox command
+2. Update episode command
+3. Generate new class (service, utils...?) - typescript + optional test
+4. Generate new interface - typescript
+5. run episode in browser command
+6. Generate new command! :)
+
+

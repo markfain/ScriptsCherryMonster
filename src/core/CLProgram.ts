@@ -18,6 +18,7 @@ export class CLProgram{
         command.doAddOptions();
         command.doAddAction();
         command.doAddDescription();
+        command.finalize();
     }
 
     parse(){
