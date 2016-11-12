@@ -1,6 +1,6 @@
 {
   "name": "scripts-cherry-monster",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A command line tool for anything: the Scripts Cherry Monster can do anything for you!",
   "main": "Main.js",
   "scripts": {
