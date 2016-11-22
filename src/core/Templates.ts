@@ -10,13 +10,13 @@ export class Templates {
         let handlebars: any = require('handlebars');
 
         let templateFileAsString: string = Files.readFile(template).toString();
-        let template: any = handlebars.compile(templateFileAsString);
-        return template;
+        let templtaeConstructor: any = handlebars.compile(templateFileAsString);
+        return templtaeConstructor;
     }
 
     public static createTemplateInstance(template: File, data: any): any {
-        let template = this.getTemplateConstructor(template);
-        let instance: any = template(data);
+        let templateConstructor = this.getTemplateConstructor(template);
+        let instance: any = templateConstructor(data);
         return instance;
     }
 

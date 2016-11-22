@@ -4,6 +4,7 @@ import {Files} from "../utils/Files";
 import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
 import {Prompt} from "../core/Prompt";
+import {Logger} from "../core/Logger";
 declare var require: any;
 declare var process: any;
 
@@ -22,7 +23,7 @@ export class {{name}} extends Command {
     }
 
     doAddAction(options: any): void {
-        console.log("my new {{name}}");
+        Logger.shockTheUser("my new {{name}}");
         /*
             here is the actual action
 
