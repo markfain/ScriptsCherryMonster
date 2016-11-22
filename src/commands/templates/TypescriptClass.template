@@ -1,0 +1,9 @@
+{{#if extendsClass}}
+{{#if shouldExport}}export{{/if}} class {{className}} extends {{extendsClass}} {
+{{else}}
+export class {{className}} {
+{{/if}}
+    constructor() {
+
+    }
+}

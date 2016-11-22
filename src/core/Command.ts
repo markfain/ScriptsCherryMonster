@@ -1,5 +1,6 @@
 import {CLProgram} from "./CLProgram";
 import {ProgressBar} from "./ProgressBar";
+import {GenerateTypescriptClass} from "../commands/generation/GenerateTypescriptClass";
 declare var require: any;
 declare var process: any;
 export abstract class Command {
@@ -17,9 +18,7 @@ export abstract class Command {
         this.name = name;
         this.description = description;
         this.numberOfTasks = numberOfTasks;
-
         this.validateCommand(); //Throws exception
-
     }
 
     getName() {
@@ -47,18 +46,8 @@ export abstract class Command {
 
     setProgram(program: CLProgram) {
         this.prog = program.getEngine();
-        if (this.commandArguments.length == 0) {
-            this.command = this.prog.command(this.getName());
-        }
-        else {
-            let argumentsString: string = "";
-            for (let i = 0; i < this.commandArguments.length; i++) {
-                let argumentString = "<" + this.commandArguments[i] + ">";
-                argumentsString = argumentsString + argumentString + " ";
-            }
-            this.command = this.prog.command(this.getName() + argumentsString);
+        this.command = this.prog.command(this.getName());
 
-        }
     }
 
     addOption(parameter: string, description: string) {
@@ -68,39 +57,54 @@ export abstract class Command {
         this.command.option(parameter, description);
     }
 
-    addAction(action: (...arg: any[]) => any) {
-        this.command.action(action);
+    addOptions(){
+        this.doAddOptions();
     }
 
-    addDescription(desc: string) {
+    addAction() {
+        this.command.action(
+            (options:any) => this.doAddAction(options)
+        );
+    }
+
+    addDescription() {
+        this.doAddDescription(this.description)
+    }
+
+    doAddDescription(desc:string) {
         this.command.description(desc);
     }
 
-    doAddDescription() {
-        this.addDescription(this.description);
+    private setCommandArguments(){
+        let argumentsString:string = "";
+        for (let i=0; i<this.commandArguments.length; i++){
+            argumentsString = argumentsString + "<"+this.commandArguments[i]+ ">"+" ";
+        }
+        this.command.arguments(argumentsString);
     }
 
     finalize() {
+        this.setCommandArguments();
         this.progressBar = new ProgressBar(this.name, this.numberOfTasks);
     }
 
-    setArguments(argumentName: string, options: string[]) {
-        let optionsString: string = "";
-        for (let i = 0; i < options.length; i++) {
-            optionsString = "[" + optionsString + "]" + " ";
-        }
-        this.command.arguments("<" + argumentName + ">" + optionsString);
+    addArguments(){
+        this.doAddArguments();
+    }
+
+    addArgument(argument:string){
+        this.commandArguments.push(argument);
     }
 
     finishTask() {
         this.progressBar.finishTask();
     }
 
-
-
-    abstract doAddAction();
+    abstract doAddArguments();
 
     abstract doAddOptions();
 
-    abstract doSetArguments();
+    abstract doAddAction(options);
+
+
 }

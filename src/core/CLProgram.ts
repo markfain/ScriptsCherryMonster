@@ -7,6 +7,12 @@ export class CLProgram{
 
     constructor(){
         this.prog = require('commander');
+        this.addDescription();
+
+    }
+
+    addDescription():void{
+        this.prog.description("A command line tool for anything: the Scripts Cherry Monster can do anything for you!")
     }
 
     getEngine():any{
@@ -15,9 +21,10 @@ export class CLProgram{
 
     installCommand(command:Command){
         command.setProgram(this);
-        command.doAddOptions();
-        command.doAddAction();
-        command.doAddDescription();
+        command.addArguments();
+        command.addOptions();
+        command.addAction();
+        command.addDescription();
         command.finalize();
     }
 

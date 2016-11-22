@@ -1,14 +1,18 @@
 #!/usr/bin/env node
-import {TestCommand} from "./commands/TestCommand";
 import {CLProgram} from "./core/CLProgram";
-import {AnotherTestCommand} from "./commands/AnotherTestCommand";
-import {UpdateDependencies} from "./commands/UpdateDependencies";
+import {Files} from "./utils/Files";
+import {GenerateTypescriptClass} from "./commands/generation/GenerateTypescriptClass";
+import {GenerateScmCommand} from "./commands/generation/GenerateScmCommand";
+import {MyCommand} from "./commands/MyCommand";
+
+Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
+Files.setPlaceholder("$TOOLS_SERVER$", "/Dev/SlateTools/ToolsServer");
+Files.setPlaceholder("$SCM$", "/Dev/ScriptsCherryMonster");
+Files.setPlaceholder("$SCM_COMMANDS$", "/Dev/ScriptsCherryMonster/src/commands");
 
 let CLI = new CLProgram();
-CLI.installCommand(new TestCommand());
-CLI.installCommand(new AnotherTestCommand());
-CLI.installCommand(new UpdateDependencies());
+CLI.installCommand(new GenerateTypescriptClass());
+CLI.installCommand(new GenerateScmCommand());
+CLI.installCommand(new MyCommand());
 
 CLI.parse();
-
-//http://localhost:8333/executeCommand --data "command=RunEpisodeInBrowserCommand&episodeFolderPath=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&language=$2&openFile=true"
