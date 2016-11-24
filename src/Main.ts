@@ -3,6 +3,7 @@ import {CLProgram} from "./core/CLProgram";
 import {Files} from "./utils/Files";
 import {GenerateTypescriptClass} from "./commands/generation/GenerateTypescriptClass";
 import {GenerateScmCommand} from "./commands/generation/GenerateScmCommand";
+import {GitResetClean} from "./commands/GitResetClean";
 
 Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
 Files.setPlaceholder("$TOOLS_SERVER$", "/Dev/SlateTools/ToolsServer");
@@ -12,6 +13,14 @@ Files.setPlaceholder("$SCM_COMMANDS$", "/Dev/ScriptsCherryMonster/src/commands")
 let CLI = new CLProgram();
 CLI.installCommand(new GenerateTypescriptClass());
 CLI.installCommand(new GenerateScmCommand());
+CLI.installCommand(new GitResetClean());
+
+CLI.addAutoComplete();
+
+
+
+
 
 
 CLI.parse();
+

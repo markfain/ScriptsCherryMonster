@@ -13,13 +13,13 @@ export class GenerateScmCommand extends Command {
     constructor() {
         super("GenerateScmCommand", "Generates a new SCM command", 3);
     }
-    
-    handleAnswer(answer): void {
+
+    handleAnswer(answer: any): void {
         this.createTemplate(answer);
     }
 
     createTemplate(data: any): void {
-        let commandDestinationFile = Files.file("$SCM_COMMANDS$", data.name+".ts");
+        let commandDestinationFile = Files.file("$SCM_COMMANDS$", data.name + ".ts");
         let templateFile: File = Files.file("$SCM$", "src/commands/templates/ScmCommand.template");
         Templates.writeTemplateInstanceToFile(templateFile, commandDestinationFile, data);
     }

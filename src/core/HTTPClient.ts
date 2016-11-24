@@ -2,7 +2,7 @@ declare var require:any;
 declare var process:any;
 export class HTTPClient {
 
-    public static post(url, data, callback:(err:any, res:any)=>void){
+    public static post(url:string, data:any, callback:(err:any, res:any)=>void){
         let request = require("superagent");
         request.post(url)
             .send(data)
@@ -11,7 +11,7 @@ export class HTTPClient {
             .end(callback);
     }
 
-    public static postSync(url, data):any{
+    public static postSync(url:string, data:any):any{
         let request = require("superagent-sync");
         let res = request.post(url)
             .send(data)

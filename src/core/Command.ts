@@ -35,76 +35,81 @@ export abstract class Command {
         }
     }
 
-    updateNumberOfTasks(newNumberOfTasks: number) {
+    updateNumberOfTasks(newNumberOfTasks: number): void {
         this.numberOfTasks = newNumberOfTasks;
         this.validateCommand();
     }
 
-    incrementNumberOfTasks() {
+    incrementNumberOfTasks(): void {
         this.numberOfTasks = this.numberOfTasks + 1;
     }
 
-    setProgram(program: CLProgram) {
+    setProgram(program: CLProgram): void {
         this.prog = program.getEngine();
         this.command = this.prog.command(this.getName());
 
     }
 
-    addOption(parameter: string, description: string) {
+    addOption(parameter: string, description: string): void {
         let myRegexp = /--(\w+)/g;
-        let options = myRegexp.exec(parameter);
+        let options: any = myRegexp.exec(parameter);
         this.options.push(options[1]);
         this.command.option(parameter, description);
     }
 
-    addOptions(){
+    addOptions(): void {
         this.doAddOptions();
     }
 
-    addAction() {
+    addAction(): void {
         this.command.action(
-            (options:any) => this.doAddAction(options)
+            (options: any): any => this.doAddAction(options)
         );
     }
 
-    addDescription() {
+    addDescription(): void {
         this.doAddDescription(this.description)
     }
 
-    doAddDescription(desc:string) {
+    doAddDescription(desc: string): void {
         this.command.description(desc);
     }
 
-    private setCommandArguments(){
-        let argumentsString:string = "";
-        for (let i=0; i<this.commandArguments.length; i++){
-            argumentsString = argumentsString + "<"+this.commandArguments[i]+ ">"+" ";
+    private setCommandArguments(): void {
+        let argumentsString: string = "";
+        for (let i = 0; i < this.commandArguments.length; i++) {
+            argumentsString = argumentsString + "<" + this.commandArguments[i] + ">" + " ";
         }
         this.command.arguments(argumentsString);
     }
 
-    finalize() {
+    finalize(): void {
         this.setCommandArguments();
         this.progressBar = new ProgressBar(this.name, this.numberOfTasks);
     }
 
-    addArguments(){
+    addArguments(): void {
         this.doAddArguments();
     }
 
-    addArgument(argument:string){
+    addArgument(argument: string): void {
         this.commandArguments.push(argument);
     }
 
-    finishTask() {
+    finishTask(): void {
         this.progressBar.finishTask();
     }
 
-    abstract doAddArguments();
+    execSync(command: string): any {
+        let execSync = require("child_process").execSync;
+        return execSync(command);
+    }
 
-    abstract doAddOptions();
+    abstract doAddArguments(): void;
 
-    abstract doAddAction(options);
+    abstract doAddOptions(): void;
+
+    abstract doAddAction(options: any): void;
 
 
 }

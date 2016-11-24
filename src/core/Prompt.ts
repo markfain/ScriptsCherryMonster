@@ -46,7 +46,7 @@ export class Prompt {
 
     public bind(object:any, callback: (answer: any) => void) {
         var inquirer = require("inquirer");
-        inquirer.prompt(this.questions).then(function (answers) {
+        inquirer.prompt(this.questions).then(function (answers:any) {
             callback.call(object, answers);
         });
     }
