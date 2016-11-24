@@ -1,20 +1,12 @@
 import {Logger} from "../core/Logger";
-import {Files} from "../utils/Files";
-import {File} from "../utils/File";
-import {TextFiles} from "../utils/TextFiles";
-import {Prompt} from "../core/Prompt";
-{{#if isToolbox}}
-import {Command} from "../core/ToolboxCommand";
-{{else}}
 import {Command} from "../core/Command";
-{{/if}}
 declare var require: any;
 declare var process: any;
 
-export class {{name}} extends {{#if isToolbox}}Toolbox{{/if}}Command {
+export class ShockTheUser extends Command {
 
     constructor() {
-        super("{{name}}", "{{description}}", {{tasks}});
+        super("ShockTheUser", "A command that shocks the user and tests a few aspects of the SCM", 20);
     }
 
     doAddArguments(): void {
@@ -26,16 +18,25 @@ export class {{name}} extends {{#if isToolbox}}Toolbox{{/if}}Command {
     }
 
     doAddAction(options: any): void {
-        Logger.shockTheUser("my new {{name}}");
+
+        let command:Command = this;
+        let counter = 0;
+        var timer = setInterval(function () {
+            counter++;
+            command.finishTask();
+            if (counter == 20){
+                Logger.shockTheUser("SjknanIJSIDNIU hDsuh DuI SHD UIhIuISh IUHSIuI HSIuFH IUhFIsuH IUf UISFH IUfh IUH uFIHuI H HIsuFH s ");
+                clearInterval(timer);
+            }
+        }, 200);
+
+
+
+
+
+
         /*
             here is the actual action
-            {{#if isToolbox}}
-                let myToolboxCommandCommand:IToolboxCommandData = {
-                        command:"MyToolboxCommand",
-                };
-
-                this.executeToolboxCommand(myToolboxCommand);
-            {{/if}}
             prompt the user for something:
             userPrompt
                 .input("name", "Command Name:")

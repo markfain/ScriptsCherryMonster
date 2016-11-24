@@ -4,6 +4,8 @@ import {Files} from "./utils/Files";
 import {GenerateTypescriptClass} from "./commands/generation/GenerateTypescriptClass";
 import {GenerateScmCommand} from "./commands/generation/GenerateScmCommand";
 import {GitResetClean} from "./commands/GitResetClean";
+import {UpdateEpisode} from "./commands/UpdateEpisode";
+import {ShockTheUser} from "./commands/ShockTheUser";
 
 Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
 Files.setPlaceholder("$TOOLS_SERVER$", "/Dev/SlateTools/ToolsServer");
@@ -14,7 +16,8 @@ let CLI = new CLProgram();
 CLI.installCommand(new GenerateTypescriptClass());
 CLI.installCommand(new GenerateScmCommand());
 CLI.installCommand(new GitResetClean());
-
+CLI.installCommand(new UpdateEpisode());
+CLI.installCommand(new ShockTheUser());
 CLI.addAutoComplete();
 
 

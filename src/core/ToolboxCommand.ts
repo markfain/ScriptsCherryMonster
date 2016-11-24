@@ -6,6 +6,7 @@ declare var process: any;
 
 export interface IToolboxCommandData {
     command: string;
+    [other: string]: any
 }
 
 export abstract class ToolboxCommand extends Command {

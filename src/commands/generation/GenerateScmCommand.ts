@@ -45,6 +45,7 @@ export class GenerateScmCommand extends Command {
         userPrompt
             .input("name", "Command Name:")
             .input("description", "Command Description:")
+            .confirm("isToolbox", "Is this a toolbox command?")
             .input("subfolder", "Subfolder to add this task (leave blank if wanted under general commands)")
             .input("tasks", "Number of tasks:")
             .bind(this, this.handleAnswer);

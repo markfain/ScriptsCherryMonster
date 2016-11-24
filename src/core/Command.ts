@@ -105,6 +105,11 @@ export abstract class Command {
         return execSync(command);
     }
 
+    getCurrentDir(): string {
+        let dir: string = this.execSync("pwd");
+        return dir;
+    }
+
     abstract doAddArguments(): void;
 
     abstract doAddOptions(): void;

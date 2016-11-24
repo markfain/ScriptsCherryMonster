@@ -32,7 +32,7 @@ export class GitResetClean extends Command {
     }
 
     doAddAction(options: any): void {
-        let dir: string = this.execSync("pwd");
+        let dir:string = this.getCurrentDir();
 
         let userPrompt = new Prompt();
 
