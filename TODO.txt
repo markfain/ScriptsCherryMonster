@@ -2,7 +2,11 @@
 2. Update episode command
 3. Generate new class (service, utils...?) - typescript + optional test
 4. Generate new interface - typescript
-5. run episode in browser command
-6. Generate new command! :)
+5. Run episode in browser command
+6. Generate new command! :) (V) - continue with new command task
+7. Find file in folder... Find in file contents...
+8. Auto write completion to bash and zsh (npm post install)
+9. tests folder
+10. better test command for shock the user
 
 

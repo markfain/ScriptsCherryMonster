@@ -24,7 +24,6 @@ export class GenerateTypescriptClass extends Command {
     }
 
     handleAnswer(answer: any): void {
-        console.log("asdasd");
     }
 
     doAddAction(options: any): void {
