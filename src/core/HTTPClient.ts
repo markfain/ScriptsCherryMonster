@@ -1,5 +1,7 @@
 declare var require:any;
-declare var process:any;
+/**
+ * TODO: get rid of require and find typings for superagent-sync
+ */
 export class HTTPClient {
 
     public static post(url:string, data:any, callback:(err:any, res:any)=>void){

@@ -4,6 +4,7 @@
     "commander": "registry:dt/commander#2.3.0+20160317120654",
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504",
     "handlebars": "registry:dt/handlebars#4.0.5+20160804082238",
+    "node": "registry:dt/node#6.0.0+20161110151007",
     "progress": "registry:dt/progress#1.1.8+20160906145338",
     "superagent": "registry:dt/superagent#2.0.0+20160906143408"
   }

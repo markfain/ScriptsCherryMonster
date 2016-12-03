@@ -1,13 +1,14 @@
 import {Command} from "./Command";
+import * as Commander from 'commander';
 declare var require: any;
 declare var process: any;
 export class CLProgram {
 
-    private prog: any;
+    private commander: any;
     private commands:Command[] = [];
 
     constructor() {
-        this.prog = require('commander');
+        this.commander = Commander;
         this.addDescription();
 
     }
@@ -34,24 +35,28 @@ export class CLProgram {
     }
 
     addDescription(): void {
-        this.prog.description("A command line tool for anything: the Scripts Cherry Monster can do anything for you!")
+        this.commander.description("A command line tool for anything: the Scripts Cherry Monster can do anything for you!")
     }
 
     getEngine(): any {
-        return this.prog;
+        return this.commander;
     }
 
-    installCommand(command: Command) {
-        command.setProgram(this);
-        command.addArguments();
-        command.addOptions();
-        command.addAction();
-        command.addDescription();
-        command.finalize();
-        this.commands.push(command);
+    installCommand(commandToInstall: Command) {
+
+        let command = this.commander.command(commandToInstall.getName());
+        command.description(commandToInstall.getDescription());
+
+        for (let option of commandToInstall.getOptions()){
+            command.option(option.flags, option.description);
+        }
+        command.arguments(commandToInstall.getCommandArguments());
+        command.action(commandToInstall.getAction());
+        commandToInstall.finalize();
+        this.commands.push(commandToInstall);
     }
 
     parse() {
-        this.prog.parse(process.argv);
+        this.commander.parse(process.argv);
     }
 }

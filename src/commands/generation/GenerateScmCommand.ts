@@ -24,14 +24,6 @@ export class GenerateScmCommand extends Command {
         Templates.writeTemplateInstanceToFile(templateFile, commandDestinationFile, data);
     }
 
-    doAddArguments(): void {
-        //this.addArgument("name");
-    }
-
-    doAddOptions(): void {
-        //this.addOption("-o, --option <option>", "An option");
-    }
-
     /**
      * TODO: add also options and arguments for generation
      * TODO: add the ability to generate command in a subfolder
@@ -39,7 +31,7 @@ export class GenerateScmCommand extends Command {
      * @param options
      */
 
-    doAddAction(options: any): void {
+    action(options: any): void {
         let userPrompt = new Prompt();
 
         userPrompt

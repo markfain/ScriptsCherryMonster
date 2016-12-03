@@ -1,16 +1,15 @@
 import {Files} from "../utils/Files";
 import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
+import * as Handlebars from 'handlebars';
 
 declare var require: any;
 declare var process: any;
 export class Templates {
 
     public static getTemplateConstructor(template: File): any {
-        let handlebars: any = require('handlebars');
-
         let templateFileAsString: string = Files.readFile(template).toString();
-        let templtaeConstructor: any = handlebars.compile(templateFileAsString);
+        let templtaeConstructor: any = Handlebars.compile(templateFileAsString);
         return templtaeConstructor;
     }
 

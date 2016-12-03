@@ -1,58 +1,135 @@
 import {ToolboxCommand, IToolboxCommandData} from "../core/ToolboxCommand";
+import {Files} from "../utils/Files";
+import {File} from "../utils/File";
+import {Logger} from "../core/Logger";
 declare var require: any;
 declare var process: any;
+
+interface IUpdateEpisodeData extends IToolboxCommandData {
+    episodeFolder: string;
+    useExplodedApiVersion: string;
+    configFileName: string;
+    outputFilename: string;
+}
 
 export class UpdateEpisode extends ToolboxCommand {
 
     constructor() {
-        super("UpdateEpisode", "Update an episode using the toolbox", 4);
+        super("update", "Update an episode using the toolbox", 7);
+        this.options = [
+            {
+                flags: "-e, --episode <episode>",
+                description: "The episode name to update"
+            }
+        ]
     }
 
-    doAddArguments(): void {
-        //thiss.addArgument("argName");
+    /**
+     *
+     * returns error string
+     * @param episodeDir
+     */
+    private validateEpisodeDir(episodeDirPath: string): string {
+        if (episodeDirPath == ""){
+            return "Episode Folder does not exist";
+        }
+        let episodeFolder: File = Files.file(episodeDirPath);
+        if (!episodeFolder.exists()) {
+            return "Episode Folder does not exist: "+episodeFolder.getAbsolutePath();
+        }
+        let episodeMetadata: File = Files.file(episodeDirPath, ".slate.episode.json");
+        if (!episodeMetadata.exists()) {
+            return episodeDirPath + " Is not an episode path (missing .slate.episode.json)";
+        }
+        return "";
     }
 
-    doAddOptions(): void {
-        this.addOption("-ep, --episode <episode>", "The episode name to update");
+    private getEpisodeDirPath(episode): string {
+        let episodeDir: string;
+        if (episode) {
+            let episodeFolder: File = Files.file("$EPISODES$", episode);
+            if (!episodeFolder.exists()) {
+                episodeDir = episodeFolder.getAbsolutePath();
+            }
+            else {
+                episodeDir = episodeFolder.getAbsolutePath();
+            }
+        }
+        else {
+            episodeDir = this.getCurrentDir();
+        }
+        return episodeDir;
     }
-    doAddAction(options: any): void {
 
-        let dir = this.getCurrentDir();
+    action(options: any): void {
+        let episodeDir: string = this.getEpisodeDirPath(options.episode);
+        let error = this.validateEpisodeDir(episodeDir);
+        if (error != "") {
+            Logger.error(error);
+            return;
+        }
 
-        let updateDependenciesCommand:IToolboxCommandData = {
+        let updateDependenciesData: IUpdateEpisodeData = {
             command: "UpdateDependenciesCommand",
-            episodeFolder: dir.toString(),
+            episodeFolder: episodeDir.toString(),
+            useExplodedApiVersion: "true",
+            configFileName: "WebPacking.json",
+            outputFilename: "Dependencies.js"
+        };
+
+        let updateDependenciesDataGen: IUpdateEpisodeData = {
+            command: "UpdateDependenciesCommand",
+            episodeFolder: episodeDir.toString(),
             useExplodedApiVersion: "true",
             configFileName: "WebPacking.json",
             outputFilename: "gen/\$Dependencies.js"
         };
 
-        this.executeToolboxCommand(updateDependenciesCommand);
+        let updateResourcesDataGen: IUpdateEpisodeData = {
+            command: "UpdateResourcesCommand",
+            episodeFolder: episodeDir.toString(),
+            useExplodedApiVersion: "true",
+            configFileName: "WebPacking.json",
+            outputFilename: "gen/\$Resources.js"
+        };
 
-        /*
-         curl http://localhost:8333/executeCommand --data "command=UpdateDependenciesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=WebPacking.json&outputFilename=gen/\$Dependencies.js"
-         curl http://localhost:8333/executeCommand --data "command=UpdateDependenciesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=WebPacking.json&outputFilename=Dependencies.js"
-         curl http://localhost:8333/executeCommand --data "command=UpdateResourcesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=WebPacking.json&outputFilename=gen/\$Resources.js"
-         curl http://localhost:8333/executeCommand --data "command=UpdateResourcesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=WebPacking.json&outputFilename=Resources.js"
-         curl http://localhost:8333/executeCommand --data "command=UpdateResourcesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=NativePacking.json&outputFilename=gen/\$NativeResources.js"
-         curl http://localhost:8333/executeCommand --data "command=UpdateResourcesCommand&episodeFolder=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&useExplodedApiVersion=true&configFileName=NativePacking.json&outputFilename=NativeResources.js"
-         curl http://localhost:8333/executeCommand --data "command=UpdateEpisodeCommand&targetFolderPath=/Users/markfainstein/Dev/SlateRoot/Content/MathEpisodes/episodes/$1&native=true"
-         */
+        let updateResourcesData: IUpdateEpisodeData = {
+            command: "UpdateResourcesCommand",
+            episodeFolder: episodeDir.toString(),
+            useExplodedApiVersion: "true",
+            configFileName: "WebPacking.json",
+            outputFilename: "Resources.js"
+        };
 
-        //this.executeToolboxCommand();
+        let updateResourcesDataNative: IUpdateEpisodeData = {
+            command: "UpdateResourcesCommand",
+            episodeFolder: episodeDir.toString(),
+            useExplodedApiVersion: "true",
+            configFileName: "NativePacking.json",
+            outputFilename: "NativeResources.js"
+        };
 
-        /*
-            here is the actual action
+        let updateResourcesDataNativeGen: IUpdateEpisodeData = {
+            command: "UpdateResourcesCommand",
+            episodeFolder: episodeDir.toString(),
+            useExplodedApiVersion: "true",
+            configFileName: "NativePacking.json",
+            outputFilename: "gen/\$NativeResources.js"
+        };
 
+        let updateEpisodeNative: IToolboxCommandData = {
+            command: "UpdateEpisodeCommand",
+            targetFolderPath: episodeDir.toString(),
+            native: "true"
+        };
 
-            prompt the user for something:
-            userPrompt
-                .input("name", "Command Name:")
-                .input("description", "Command Description:")
-                .input("tasks", "Number of tasks:")
-                .bind(this, this.handleAnswer);
-
-        */
+        this.executeToolboxCommand(updateDependenciesData);
+        this.executeToolboxCommand(updateDependenciesDataGen);
+        this.executeToolboxCommand(updateResourcesData);
+        this.executeToolboxCommand(updateResourcesDataGen);
+        this.executeToolboxCommand(updateResourcesDataNative);
+        this.executeToolboxCommand(updateResourcesDataNativeGen);
+        this.executeToolboxCommand(updateEpisodeNative);
     }
 
 }

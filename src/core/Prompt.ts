@@ -5,11 +5,10 @@ interface IPromptable {
     type: string;
     name: string;
     message: string;
-    choices?:string[];
+    choices?: string[];
 }
 
 export class Prompt {
-
     private questions: IPromptable[];
 
     constructor() {
@@ -44,9 +43,11 @@ export class Prompt {
         return this;
     }
 
-    public bind(object:any, callback: (answer: any) => void) {
-        var inquirer = require("inquirer");
-        inquirer.prompt(this.questions).then(function (answers:any) {
+    public bind(object: any, callback: (answer: any) => void) {
+        let inquirer = require("inquirer");
+        //TODO: check why Inquirer is not working after import
+
+        inquirer.prompt(this.questions).then(function (answers: any) {
             callback.call(object, answers);
         });
     }

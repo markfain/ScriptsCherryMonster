@@ -25,7 +25,7 @@ export class {{name}} extends {{#if isToolbox}}Toolbox{{/if}}Command {
         //this.addOption("-0, --option <option>", "A command option");
     }
 
-    doAddAction(options: any): void {
+    action(options: any): void {
         Logger.shockTheUser("my new {{name}}");
         /*
             here is the actual action

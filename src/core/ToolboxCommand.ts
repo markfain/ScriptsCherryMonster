@@ -29,7 +29,7 @@ export abstract class ToolboxCommand extends Command {
                 Logger.error("\n"+JSON.stringify(res.body) +"\n");
             }
             else {
-                Logger.log("\n"+JSON.stringify(res.body) +"\n");
+                //Logger.log("\n"+JSON.stringify(res.body) +"\n");
             }
         }
         else {

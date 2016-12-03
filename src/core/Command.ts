@@ -3,15 +3,20 @@ import {ProgressBar} from "./ProgressBar";
 import {GenerateTypescriptClass} from "../commands/generation/GenerateTypescriptClass";
 declare var require: any;
 declare var process: any;
+
+interface ICommandOption {
+    flags: string;
+    description: string;
+}
+
 export abstract class Command {
 
-    private prog: any;
     protected command: any;
     protected name: string;
     protected commandArguments: string[] = [];
-    protected description: string = "";
+    protected description;
     private progressBar: ProgressBar;
-    private options: string[] = [];
+    protected options: ICommandOption[] = [];
     private numberOfTasks: number = 0;
 
     constructor(name: string, description: string, numberOfTasks?: number) {
@@ -25,7 +30,7 @@ export abstract class Command {
         return this.name;
     }
 
-    getOptions() {
+    getOptions():ICommandOption[] {
         return this.options;
     }
 
@@ -44,52 +49,52 @@ export abstract class Command {
         this.numberOfTasks = this.numberOfTasks + 1;
     }
 
-    setProgram(program: CLProgram): void {
-        this.prog = program.getEngine();
-        this.command = this.prog.command(this.getName());
-
+    findInArguments(argName: string): number {
+        for (let i = 0; i < this.commandArguments.length; i++) {
+            if (this.commandArguments[i] == argName) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    addOption(parameter: string, description: string): void {
-        let myRegexp = /--(\w+)/g;
-        let options: any = myRegexp.exec(parameter);
-        this.options.push(options[1]);
-        this.command.option(parameter, description);
+    getOption(optionName: string, commandOptions: any[]): string {
+        let i = this.commandArguments.length;
+        let option: any = commandOptions[i][optionName];
+        if (typeof option == "boolean") {
+            option.toString();
+        }
+        else {
+            return option;
+        }
     }
 
-    addOptions(): void {
-        this.doAddOptions();
+    getArgument(argName: string, commandOptions: any[]): string {
+        let argIndex = this.findInArguments(argName);
+        if (argIndex > -1) {
+            return commandOptions[argIndex];
+        }
     }
 
-    addAction(): void {
-        this.command.action(
-            (options: any): any => this.doAddAction(options)
-        );
+    getAction(): (options)=>any {
+        return (...options: any[]): any => this.action(options)
     }
 
-    addDescription(): void {
-        this.doAddDescription(this.description)
+    getDescription(): string {
+        return this.description
     }
 
-    doAddDescription(desc: string): void {
-        this.command.description(desc);
-    }
-
-    private setCommandArguments(): void {
+    getCommandArguments(): string {
         let argumentsString: string = "";
         for (let i = 0; i < this.commandArguments.length; i++) {
             argumentsString = argumentsString + "<" + this.commandArguments[i] + ">" + " ";
         }
-        this.command.arguments(argumentsString);
+        return argumentsString;
     }
 
     finalize(): void {
-        this.setCommandArguments();
+        //this.setCommandArguments();
         this.progressBar = new ProgressBar(this.name, this.numberOfTasks);
-    }
-
-    addArguments(): void {
-        this.doAddArguments();
     }
 
     addArgument(argument: string): void {
@@ -100,21 +105,21 @@ export abstract class Command {
         this.progressBar.finishTask();
     }
 
+    finishTasks(tasks: number): void {
+        this.progressBar.finishTasks(tasks);
+    }
+
     execSync(command: string): any {
         let execSync = require("child_process").execSync;
         return execSync(command);
     }
 
     getCurrentDir(): string {
-        let dir: string = this.execSync("pwd");
-        return dir;
+        let dir: string = this.execSync("pwd").toString();
+        return dir.replace(/^\s+|\s+$/g, '');
     }
 
-    abstract doAddArguments(): void;
-
-    abstract doAddOptions(): void;
-
-    abstract doAddAction(options: any): void;
+    abstract action(...options: any[]): void;
 
 
 }

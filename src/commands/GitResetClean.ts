@@ -7,15 +7,7 @@ declare var process: any;
 export class GitResetClean extends Command {
 
     constructor() {
-        super("GitResetClean", "reset and clean git repo", 2);
-    }
-
-    doAddArguments(): void {
-        //thiss.addArgument("argName");
-    }
-
-    doAddOptions(): void {
-        //this.addOption("-0, --option <option>", "A command option");
+        super("gitresetclean", "reset and clean git repo", 2);
     }
 
     executeGitCleanAndReset(): void {
@@ -31,7 +23,7 @@ export class GitResetClean extends Command {
         }
     }
 
-    doAddAction(options: any): void {
+    action(options: any): void {
         let dir:string = this.getCurrentDir();
 
         let userPrompt = new Prompt();

@@ -1,5 +1,6 @@
 declare var require: any;
 declare var process: any;
+import * as Chalk from 'chalk';
 export class Logger {
 
     private static WITH_BG_PERCENT = 30;
@@ -62,24 +63,20 @@ export class Logger {
 
 
     public static log(message: string) {
-        let chalk = require('chalk');
-        chalk.bg
-        console.log(chalk.cyan(message));
+        console.log(Chalk.cyan(message));
     }
 
     public static warn(message: string) {
-        let chalk = require('chalk');
-        console.log(chalk.bold.magenta(message));
+        console.log(Chalk.bold.magenta(message));
     }
 
     public static highlight(message: string) {
-        let chalk = require('chalk');
-        console.log(chalk.white.bgYellow(message));
+        console.log(Chalk.white.bgYellow(message));
     }
 
     public static error(message: string) {
-        let chalk = require('chalk');
-        console.log(chalk.bold.red(message));
+
+        console.log(Chalk.bold.red(message));
     }
 
     /**
@@ -88,17 +85,14 @@ export class Logger {
      * @param message
      */
     public static shockTheUser(message: string, percentage?: number) {
-
-
         for (let i = 0; i < message.length; i++) {
             let char = message.charAt(i);
-            let chalk = require('chalk');
             let shouldAlsoHaveBg = this.randomizeInRange(0, 100);
             if (shouldAlsoHaveBg < percentage || this.WITH_BG_PERCENT) {
-                process.stdout.write(chalk[this.getRandomBackground()][this.getRandomColor()](char));
+                process.stdout.write(Chalk[this.getRandomBackground()][this.getRandomColor()](char));
             }
             else {
-                process.stdout.write(chalk[this.getRandomColor()](char));
+                process.stdout.write(Chalk[this.getRandomColor()](char));
             }
         }
         process.stdout.write("\n");

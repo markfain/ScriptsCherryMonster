@@ -1,5 +1,5 @@
 1. Execute toolbox command
-2. Update episode command
+2. Update episode command (V)
 3. Generate new class (service, utils...?) - typescript + optional test
 4. Generate new interface - typescript
 5. Run episode in browser command
@@ -8,5 +8,7 @@
 8. Auto write completion to bash and zsh (npm post install)
 9. tests folder
 10. better test command for shock the user
-
+11. command for git status of all relevant branches (the format can be a nice template)
+12. Think about where to organize the scripts
+13. Generate main automatically... run through the files, gather the commands and scripts... install them...
 
