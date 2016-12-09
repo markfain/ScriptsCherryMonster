@@ -8,7 +8,6 @@
     "precompile": "cp -R ../SlateTools/ToolsServer/src/utils/. src/utils/",
     "getUtils": "cp -R ../SlateTools/ToolsServer/src/utils/. src/utils/",
     "compile": "tsc -p ./",
-    "postinstall": "typings install",
     "link": "npm link"
   },
   "bin": {

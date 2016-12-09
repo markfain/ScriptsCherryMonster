@@ -9,6 +9,9 @@ import {ShockTheUser} from "./commands/ShockTheUser";
 import {FindFile} from "./commands/FindFile";
 import {AddNewUIAndNITTrueToAllEpisodes} from "./scripts/AddNewUIAndNITTrueToAllEpisodes";
 import {EpisodesWithInvalidJsonDescriptors} from "./scripts/EpisodesWithInvalidJsonDescriptors";
+import {DeleteFiles} from "./commands/DeleteFiles";
+import {AnnotateJsClass} from "./scripts/AnnotateJsClass";
+import {ExecuteScript} from "./commands/ExecuteScript";
 
 Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
 Files.setPlaceholder("$EPISODES$", "/Dev/SlateRoot/Content/MathEpisodes/episodes/");
@@ -26,15 +29,17 @@ CLI.installCommand(new GitResetClean());
 CLI.installCommand(new UpdateEpisode());
 CLI.installCommand(new ShockTheUser());
 CLI.installCommand(new FindFile());
+CLI.installCommand(new DeleteFiles());
+CLI.installCommand(new ExecuteScript());
 
 //Scripts
-CLI.installCommand(new AddNewUIAndNITTrueToAllEpisodes());
-CLI.installCommand(new EpisodesWithInvalidJsonDescriptors());
+CLI.installScript(new AddNewUIAndNITTrueToAllEpisodes());
+CLI.installScript(new EpisodesWithInvalidJsonDescriptors());
+CLI.installScript(new AnnotateJsClass());
 
 
 
-CLI.addAutoComplete();
-
+CLI.addAutoCompleteCommands();
 
 
 

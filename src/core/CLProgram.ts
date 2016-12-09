@@ -6,6 +6,7 @@ export class CLProgram {
 
     private commander: any;
     private commands:Command[] = [];
+    private scripts:Command[] = [];
 
     constructor() {
         this.commander = Commander;
@@ -13,22 +14,30 @@ export class CLProgram {
 
     }
 
-    addAutoComplete(): void {
+    addAutoCompleteCommands(): void {
+
+        let scripts:string[] = [];
+        for (let script of this.scripts){
+            scripts.push(script.getName());
+        }
 
         let commands:string[] = [];
         for (let command of this.commands){
             commands.push(command.getName());
         }
 
-        let comp, omelette;
+        let comp, comp1, omelette;
 
         omelette = require("omelette");
 
-        comp = omelette("scm <command>");
-
+        comp = omelette("scm <command> <script>");
 
         comp.on("command", function () {
             return this.reply(commands);
+        });
+
+        comp.on("script", function () {
+            return this.reply(scripts);
         });
 
         comp.init();
@@ -40,6 +49,10 @@ export class CLProgram {
 
     getEngine(): any {
         return this.commander;
+    }
+
+    private install(instabllable: Command){
+
     }
 
     installCommand(commandToInstall: Command) {
@@ -54,6 +67,14 @@ export class CLProgram {
         command.action(commandToInstall.getAction());
         commandToInstall.finalize();
         this.commands.push(commandToInstall);
+    }
+
+    installScript(scriptToInstall: Command){
+        let command = this.commander.command(scriptToInstall.getName());
+        command.description(scriptToInstall.getDescription());
+        command.action(scriptToInstall.getAction());
+        scriptToInstall.finalize();
+        this.scripts.push(scriptToInstall);
     }
 
     parse() {

@@ -11,10 +11,11 @@ declare var process: any;
 export class GenerateScmCommand extends Command {
 
     constructor() {
-        super("GenerateScmCommand", "Generates a new SCM command", 3);
+        super("generateScm", "Generates a new SCM command", 3);
     }
 
     handleAnswer(answer: any): void {
+        answer.dataInLowercase = answer.name.toLowerCase();
         this.createTemplate(answer);
     }
 

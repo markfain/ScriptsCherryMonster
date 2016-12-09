@@ -14,19 +14,12 @@ declare var process: any;
 export class {{name}} extends {{#if isToolbox}}Toolbox{{/if}}Command {
 
     constructor() {
-        super("{{name}}", "{{description}}", {{tasks}});
-    }
-
-    doAddArguments(): void {
-        //thiss.addArgument("argName");
-    }
-
-    doAddOptions(): void {
-        //this.addOption("-0, --option <option>", "A command option");
+        super("{{nameInLowercase}}", "{{description}}", {{tasks}});
     }
 
     action(options: any): void {
         Logger.shockTheUser("my new {{name}}");
+        this.finishTask();
         /*
             here is the actual action
             {{#if isToolbox}}

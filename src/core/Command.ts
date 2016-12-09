@@ -109,9 +109,16 @@ export abstract class Command {
         this.progressBar.finishTasks(tasks);
     }
 
+    execSyncRedirectOutput(command:string):any{
+        let execSync = require("child_process").execSync;
+        return execSync(command, {stdio:[0,1,2]});
+    }
+
     execSync(command: string): any {
         let execSync = require("child_process").execSync;
-        return execSync(command);
+        return execSync(command, function(){
+
+        });
     }
 
     getCurrentDir(): string {

@@ -11,4 +11,8 @@
 11. command for git status of all relevant branches (the format can be a nice template)
 12. Think about where to organize the scripts
 13. Generate main automatically... run through the files, gather the commands and scripts... install them...
+13. generated scm command should have class named with CamelCase although name is lower cased
+14. GENERATE THE MAIN CLASS according to scripts and commands
+15. find exact file name
+17. find in contents (also with exact, starts with, ends with... by regex...)
 

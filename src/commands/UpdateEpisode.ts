@@ -15,7 +15,7 @@ interface IUpdateEpisodeData extends IToolboxCommandData {
 export class UpdateEpisode extends ToolboxCommand {
 
     constructor() {
-        super("update", "Update an episode using the toolbox", 7);
+        super("updateEpisode", "Update an episode using the toolbox", 7);
         this.options = [
             {
                 flags: "-e, --episode <episode>",

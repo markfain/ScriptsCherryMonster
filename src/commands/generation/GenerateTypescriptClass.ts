@@ -10,7 +10,7 @@ declare var process: any;
 export class GenerateTypescriptClass extends Command {
 
     constructor() {
-        super("GenerateTypescriptClass", "Generates a typescript class", 3);
+        super("generateTs", "Generates a typescript class", 3);
         this.commandArguments = [
             "class"
         ];
