@@ -35,7 +35,7 @@ export class DeleteFiles extends Command {
 
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         let startsWith = this.getOption("startsWith", options);
         let dir = this.getCurrentDir();
 

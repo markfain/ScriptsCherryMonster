@@ -109,7 +109,7 @@ export class FindFile extends Command {
         return count;
     }
 
-    action(options: any[]): void {
+    execute(options: any[]): void {
         let rootPath: string = this.getOption("root", options);
 
         if (rootPath) {

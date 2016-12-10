@@ -27,7 +27,7 @@ export class ShockTheUser extends Command {
         }, 200);
     }
 
-    action(options: any): void {
+    execute(options: any): void {
 
         let userPrompt = new Prompt();
         userPrompt.confirm("shock", "Would you like to be shocked?").bind(this, this.handleAnswer);

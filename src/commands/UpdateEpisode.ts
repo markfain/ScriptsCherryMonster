@@ -61,7 +61,7 @@ export class UpdateEpisode extends ToolboxCommand {
         return episodeDir;
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         let episodeDir: string = this.getEpisodeDirPath(options.episode);
         let error = this.validateEpisodeDir(episodeDir);
         if (error != "") {

@@ -17,11 +17,11 @@ export class {{name}} extends {{#if isToolbox}}Toolbox{{/if}}Command {
         super("{{nameInLowercase}}", "{{description}}", {{tasks}});
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         Logger.shockTheUser("my new {{name}}");
         this.finishTask();
         /*
-            here is the actual action
+            here is the actual execute
             {{#if isToolbox}}
                 let myToolboxCommandCommand:IToolboxCommandData = {
                         command:"MyToolboxCommand",

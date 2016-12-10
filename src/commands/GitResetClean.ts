@@ -23,7 +23,7 @@ export class GitResetClean extends Command {
         }
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         let dir:string = this.getCurrentDir();
 
         let userPrompt = new Prompt();

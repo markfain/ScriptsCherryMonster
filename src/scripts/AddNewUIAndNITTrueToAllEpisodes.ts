@@ -5,16 +5,17 @@ import {TextFiles} from "../utils/TextFiles";
 import {Prompt} from "../core/Prompt";
 import {Command} from "../core/Command";
 import {JavascriptUtils} from "../utils/JavascriptUtils";
+import {Script} from "../core/Script";
 declare var require: any;
 declare var process: any;
 
-export class AddNewUIAndNITTrueToAllEpisodes extends Command {
+export class AddNewUIAndNITTrueToAllEpisodes extends Script {
 
     constructor() {
-        super("AddNewUIAndNITTrueToAllEpisodes", "Adds newUI&#x3D;true and NIT&#x3D;true to all episodes", 5);
+        super("AddNewUIAndNITTrueToAllEpisodes", "Adds newUI&#x3D;true and NIT&#x3D;true to all episodes");
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         Logger.shockTheUser("my new AddNewUIAndNITTrueToAllEpisodes");
 
         let episodes:File = Files.file("$SLATE_ROOT$/Content/MathEpisodes/episodes/");

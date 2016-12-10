@@ -15,7 +15,7 @@ export class GenerateScmCommand extends Command {
     }
 
     handleAnswer(answer: any): void {
-        answer.dataInLowercase = answer.name.toLowerCase();
+        answer.nameInLowercase = answer.name.toLowerCase();
         this.createTemplate(answer);
     }
 
@@ -32,7 +32,7 @@ export class GenerateScmCommand extends Command {
      * @param options
      */
 
-    action(options: any): void {
+    execute(options: any): void {
         let userPrompt = new Prompt();
 
         userPrompt

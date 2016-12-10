@@ -1,0 +1,8 @@
+{
+    "scripts": [
+        "AddNewUIAndNITTrueToAllEpisodes",
+        "AnnotateJsClass",
+        "EpisodesWithInvalidJsonDescriptors",
+        "NewScript"
+    ]
+}

@@ -5,16 +5,17 @@ import {TextFiles} from "../utils/TextFiles";
 import {Prompt} from "../core/Prompt";
 import {Command} from "../core/Command";
 import {JavascriptUtils} from "../utils/JavascriptUtils";
+import {Script} from "../core/Script";
 declare var require: any;
 declare var process: any;
 
-export class EpisodesWithInvalidJsonDescriptors extends Command {
+export class EpisodesWithInvalidJsonDescriptors extends Script {
 
     constructor() {
-        super("EpisodesWithInvalidJsonDescriptors", "finds all episodes with an invalid json descriptor", 5);
+        super("EpisodesWithInvalidJsonDescriptors", "finds all episodes with an invalid json descriptor");
     }
 
-    action(options: any): void {
+    execute(options: any): void {
 
         let episodes:File = Files.file("$SLATE_ROOT$/Content/MathEpisodes/episodes/");
         //let episode:File = Files.file("$SLATE_ROOT$/Content/MathEpisodes/episodes/", "AreaOfRectangles");

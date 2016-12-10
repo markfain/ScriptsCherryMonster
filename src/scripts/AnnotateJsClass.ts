@@ -4,13 +4,14 @@ import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
 import {Prompt} from "../core/Prompt";
 import {Command} from "../core/Command";
+import {Script} from "../core/Script";
 declare var require: any;
 declare var process: any;
 
-export class AnnotateJsClass extends Command {
+export class AnnotateJsClass extends Script {
 
     constructor() {
-        super("AnnotateJsClass", "annotate a js infra class for the jsdoc", 3);
+        super("AnnotateJsClass", "annotate a js infra class for the jsdoc");
     }
 
     checkIfThisIsReallyAVarWeAreLookingFor(index:number, file:string):number{
@@ -86,7 +87,7 @@ export class AnnotateJsClass extends Command {
         }
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         let infra:File = Files.file("$SLATE_ROOT$/Infrastructure");
         let webSrc:File = Files.file(infra, "/src/common/");
         this.annotateFiles(webSrc);

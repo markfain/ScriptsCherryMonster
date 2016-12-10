@@ -1,6 +1,7 @@
 import {CLProgram} from "./CLProgram";
 import {ProgressBar} from "./ProgressBar";
 import {GenerateTypescriptClass} from "../commands/generation/GenerateTypescriptClass";
+import {Script} from "./Script";
 declare var require: any;
 declare var process: any;
 
@@ -9,25 +10,20 @@ interface ICommandOption {
     description: string;
 }
 
-export abstract class Command {
+export abstract class Command extends Script{
 
     protected command: any;
-    protected name: string;
+
     protected commandArguments: string[] = [];
-    protected description;
+
     private progressBar: ProgressBar;
     protected options: ICommandOption[] = [];
     private numberOfTasks: number = 0;
 
     constructor(name: string, description: string, numberOfTasks?: number) {
-        this.name = name;
-        this.description = description;
+        super(name, description);
         this.numberOfTasks = numberOfTasks;
         this.validateCommand(); //Throws exception
-    }
-
-    getName() {
-        return this.name;
     }
 
     getOptions():ICommandOption[] {
@@ -77,7 +73,7 @@ export abstract class Command {
     }
 
     getAction(): (options)=>any {
-        return (...options: any[]): any => this.action(options)
+        return (...options: any[]): any => this.execute(options)
     }
 
     getDescription(): string {
@@ -109,24 +105,7 @@ export abstract class Command {
         this.progressBar.finishTasks(tasks);
     }
 
-    execSyncRedirectOutput(command:string):any{
-        let execSync = require("child_process").execSync;
-        return execSync(command, {stdio:[0,1,2]});
-    }
 
-    execSync(command: string): any {
-        let execSync = require("child_process").execSync;
-        return execSync(command, function(){
-
-        });
-    }
-
-    getCurrentDir(): string {
-        let dir: string = this.execSync("pwd").toString();
-        return dir.replace(/^\s+|\s+$/g, '');
-    }
-
-    abstract action(...options: any[]): void;
 
 
 }

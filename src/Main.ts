@@ -12,33 +12,40 @@ import {EpisodesWithInvalidJsonDescriptors} from "./scripts/EpisodesWithInvalidJ
 import {DeleteFiles} from "./commands/DeleteFiles";
 import {AnnotateJsClass} from "./scripts/AnnotateJsClass";
 import {ExecuteScript} from "./commands/ExecuteScript";
+import {CreateScript} from "./commands/generation/CreateScript";
+import {DeleteScript} from "./commands/generation/DeleteScript";
 
 Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
 Files.setPlaceholder("$EPISODES$", "/Dev/SlateRoot/Content/MathEpisodes/episodes/");
 Files.setPlaceholder("$TOOLS_SERVER$", "/Dev/SlateTools/ToolsServer");
 Files.setPlaceholder("$SCM$", "/Dev/ScriptsCherryMonster");
+Files.setPlaceholder("$SCM_SCRIPTS$", "/Dev/ScriptsCherryMonster/src/scripts");
 Files.setPlaceholder("$SCM_COMMANDS$", "/Dev/ScriptsCherryMonster/src/commands");
 
 //TODO: scripts and command should be separated
 
 let CLI = new CLProgram();
-//Commands
+
+//============================= Commands =============================
+//Generation
 CLI.installCommand(new GenerateTypescriptClass());
 CLI.installCommand(new GenerateScmCommand());
-CLI.installCommand(new GitResetClean());
+
+//Toolbox related
 CLI.installCommand(new UpdateEpisode());
+
+//General
+CLI.installCommand(new GitResetClean());
 CLI.installCommand(new ShockTheUser());
 CLI.installCommand(new FindFile());
 CLI.installCommand(new DeleteFiles());
-CLI.installCommand(new ExecuteScript());
 
 //Scripts
-CLI.installScript(new AddNewUIAndNITTrueToAllEpisodes());
-CLI.installScript(new EpisodesWithInvalidJsonDescriptors());
-CLI.installScript(new AnnotateJsClass());
+CLI.installCommand(new ExecuteScript());
+CLI.installCommand(new CreateScript());
+CLI.installCommand(new DeleteScript());
 
-
-
+//============================= Autocompletion =============================
 CLI.addAutoCompleteCommands();
 
 

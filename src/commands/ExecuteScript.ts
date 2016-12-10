@@ -16,12 +16,15 @@ export class ExecuteScript extends Command {
         ]
     }
 
-    action(options: any): void {
+    execute(options: any): void {
         let scriptName = this.getArgument("scriptName", options);
         //TODO: how can I avoid compiling the whole project...?
         //TODO: what do to with subfolders...?
-        this.execSync("tsc -p ./ --outDir ./dist");
-        this.execSyncRedirectOutput("node ./dist/scripts/"+scriptName+".js");
+        //TODO: make this not dependent on path
+        //this.execSync("tsc /Users/markfainstein/Dev/ScriptsCherryMonster/src/scripts/"+scriptName+".ts"+" --outDir ./Users/markfainstein/Dev/ScriptsCherryMonster/dist");
+        this.execSync("tsc -p /Users/markfainstein/Dev/ScriptsCherryMonster/ --outDir ./Users/markfainstein/Dev/ScriptsCherryMonster/dist");
+
+        this.execSyncRedirectOutput("node /Users/markfainstein/Dev/ScriptsCherryMonster/dist/scripts/"+scriptName+".js");
     }
 
 }

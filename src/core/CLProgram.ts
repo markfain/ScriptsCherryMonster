@@ -1,5 +1,9 @@
 import {Command} from "./Command";
 import * as Commander from 'commander';
+import {TextFiles} from "../utils/TextFiles";
+import {JavascriptUtils} from "../utils/JavascriptUtils";
+import {Files} from "../utils/Files";
+import {File} from "../utils/File";
 declare var require: any;
 declare var process: any;
 export class CLProgram {
@@ -14,12 +18,15 @@ export class CLProgram {
 
     }
 
+    getScripts(): string[]{
+        let scriptsList:File = Files.file("$SCM_SCRIPTS$", "scripts.json");
+        let scripts:any = JSON.parse(TextFiles.read(scriptsList));
+        return scripts.scripts;
+    }
+
     addAutoCompleteCommands(): void {
 
-        let scripts:string[] = [];
-        for (let script of this.scripts){
-            scripts.push(script.getName());
-        }
+        let scripts:string[] = this.getScripts();
 
         let commands:string[] = [];
         for (let command of this.commands){
@@ -67,14 +74,6 @@ export class CLProgram {
         command.action(commandToInstall.getAction());
         commandToInstall.finalize();
         this.commands.push(commandToInstall);
-    }
-
-    installScript(scriptToInstall: Command){
-        let command = this.commander.command(scriptToInstall.getName());
-        command.description(scriptToInstall.getDescription());
-        command.action(scriptToInstall.getAction());
-        scriptToInstall.finalize();
-        this.scripts.push(scriptToInstall);
     }
 
     parse() {
