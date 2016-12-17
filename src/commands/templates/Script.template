@@ -11,3 +11,6 @@ export class {{name}} extends Script{
 
 let {{name}}Instance = new {{name}}("{{name}}", "{{description}}");
 {{name}}Instance.execute();
+
+//@name:{{name}}
+//@description:{{description}}

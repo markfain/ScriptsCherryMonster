@@ -58,7 +58,7 @@ export abstract class Command extends Script{
         let i = this.commandArguments.length;
         let option: any = commandOptions[i][optionName];
         if (typeof option == "boolean") {
-            option.toString();
+            return option.toString();
         }
         else {
             return option;

@@ -14,11 +14,13 @@ import {AnnotateJsClass} from "./scripts/AnnotateJsClass";
 import {ExecuteScript} from "./commands/ExecuteScript";
 import {CreateScript} from "./commands/generation/CreateScript";
 import {DeleteScript} from "./commands/generation/DeleteScript";
+import {ListScripts} from "./commands/ListScripts";
 
 Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
 Files.setPlaceholder("$EPISODES$", "/Dev/SlateRoot/Content/MathEpisodes/episodes/");
 Files.setPlaceholder("$TOOLS_SERVER$", "/Dev/SlateTools/ToolsServer");
 Files.setPlaceholder("$SCM$", "/Dev/ScriptsCherryMonster");
+Files.setPlaceholder("$SCM_DISTRIBUTION$", "/Dev/ScriptsCherryMonster/dist");
 Files.setPlaceholder("$SCM_SCRIPTS$", "/Dev/ScriptsCherryMonster/src/scripts");
 Files.setPlaceholder("$SCM_COMMANDS$", "/Dev/ScriptsCherryMonster/src/commands");
 
@@ -44,6 +46,7 @@ CLI.installCommand(new DeleteFiles());
 CLI.installCommand(new ExecuteScript());
 CLI.installCommand(new CreateScript());
 CLI.installCommand(new DeleteScript());
+CLI.installCommand(new ListScripts());
 
 //============================= Autocompletion =============================
 CLI.addAutoCompleteCommands();
