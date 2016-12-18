@@ -15,6 +15,7 @@ import {ExecuteScript} from "./commands/ExecuteScript";
 import {CreateScript} from "./commands/generation/CreateScript";
 import {DeleteScript} from "./commands/generation/DeleteScript";
 import {ListScripts} from "./commands/ListScripts";
+import {Compare} from "./commands/Compare";
 
 Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
 Files.setPlaceholder("$EPISODES$", "/Dev/SlateRoot/Content/MathEpisodes/episodes/");
@@ -41,6 +42,7 @@ CLI.installCommand(new GitResetClean());
 CLI.installCommand(new ShockTheUser());
 CLI.installCommand(new FindFile());
 CLI.installCommand(new DeleteFiles());
+CLI.installCommand(new Compare());
 
 //Scripts
 CLI.installCommand(new ExecuteScript());

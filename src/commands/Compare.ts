@@ -18,11 +18,14 @@ export class Compare extends Command {
     }
 
     execute(options: any): void {
-        Logger.shockTheUser("Happy comparing...");
+        //let meld:File = Files.file("/Applications/Meld.app");
+        //No support for this because Files.file needs to support path without home
+        let meldPath = "/Applications/Meld.app"
+        Logger.log("Happy comparing...");
         //TODO: allow a file like $SLATE_ROOT$/...
         let file1:string = this.getArgument("file1",options);
         let file2:string = this.getArgument("file2",options);
-        this.execSyncRedirectOutput("open -a /Applications/Meld.app --args "+file1+" "+file2);
+        this.execSyncRedirectOutput("open -a "+meldPath+" --args "+file1+" "+file2);
     }
 
 }
