@@ -18,7 +18,7 @@ import {ListScripts} from "./commands/ListScripts";
 import {Compare} from "./commands/Compare";
 import {Configs} from "./utils/Configs";
 
-Files.setPlaceholders(Configs.get<IConfig>("config.json"));
+Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
 //TODO: scripts and command should be separated
 
 let CLI = new CLProgram();

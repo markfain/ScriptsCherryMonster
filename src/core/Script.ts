@@ -1,3 +1,5 @@
+import {Files} from "../utils/Files";
+import {File} from "../utils/File";
 declare var require;
 export abstract class Script {
 
@@ -14,7 +16,11 @@ export abstract class Script {
         return this.name;
     }
 
-    execSyncRedirectOutput(command: string): any {
+    execSyncRedirectOutput(command: string, workingDir?:File): any {
+        if (workingDir){
+            let process = require("process");
+            process.chdir(workingDir.getAbsolutePath())
+        }
         let execSync = require("child_process").execSync;
         return execSync(command, {stdio: [0, 1, 2]});
     }

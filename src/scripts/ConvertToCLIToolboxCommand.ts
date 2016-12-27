@@ -41,7 +41,8 @@ export class ConvertToCLIToolboxCommand extends Script{
 
 
     execute(){
-        Files.setPlaceholder("$PLAY$", "/Dev/Playground");
+        Files.setPlaceholder("$PLAY$", "/Playground");
+
         let commandPrefix = "./executeToolbox.sh -headless -command ";
         let commandFile:File = Files.file("$PLAY$", "convertToolboxCommands/command.txt");
         let command:string = TextFiles.read(commandFile);
@@ -57,7 +58,7 @@ export class ConvertToCLIToolboxCommand extends Script{
 
             let firstChunk:string = splittedByAnd[0];
             commandName = firstChunk.substr(firstChunk.indexOf("=")+1);
-            Logger.log("coommand name is" +commandName);
+            Logger.log("coommand name is " +commandName);
             let argumentsStr:string = " ";
             for (let i=1; i<splittedByAnd.length-1; i++){
                 let chunk:string = splittedByAnd[i];

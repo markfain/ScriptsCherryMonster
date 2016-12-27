@@ -34,10 +34,11 @@ export class ExecuteScript extends Command {
 
         if (scriptName){
             let scriptFileTs:File = Files.file("$SCM_SCRIPTS$", scriptName+".ts");
-            let scriptFileJs:File = Files.file("$SCM_DISTRIBUTION$/scripts/", scriptName+".js");
-            let distFolder:File = Files.file("$SCM_DISTRIBUTION$");
-            this.execSyncRedirectOutput("tsc "+scriptFileTs.getAbsolutePath()+" --outDir "+distFolder.getAbsolutePath());
-            this.execSyncRedirectOutput("node "+scriptFileJs.getAbsolutePath());
+            let distFolder = Files.file("$SCM_DISTRIBUTION$");
+            let scriptFileJs:File = Files.file(distFolder, "scripts/"+scriptName+".js");
+            let scmProject = Files.file("$SCM$");
+            this.execSyncRedirectOutput("tsc "+scriptFileTs.getAbsolutePath()+" --outDir "+distFolder.getAbsolutePath(), scmProject);
+            this.execSyncRedirectOutput("node "+scriptFileJs.getAbsolutePath(), scmProject);
         }
 
     }
