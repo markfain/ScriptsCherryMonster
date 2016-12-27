@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import {CLProgram} from "./core/CLProgram";
-import {Files} from "./utils/Files";
+import {Files, IConfig} from "./utils/Files";
 import {GenerateTypescriptClass} from "./commands/generation/GenerateTypescriptClass";
 import {GenerateScmCommand} from "./commands/generation/GenerateScmCommand";
 import {GitResetClean} from "./commands/GitResetClean";
@@ -16,15 +16,9 @@ import {CreateScript} from "./commands/generation/CreateScript";
 import {DeleteScript} from "./commands/generation/DeleteScript";
 import {ListScripts} from "./commands/ListScripts";
 import {Compare} from "./commands/Compare";
+import {Configs} from "./utils/Configs";
 
-Files.setPlaceholder("$SLATE_ROOT$", "/Dev/SlateRoot");
-Files.setPlaceholder("$EPISODES$", "/Dev/SlateRoot/Content/MathEpisodes/episodes/");
-Files.setPlaceholder("$TOOLS_SERVER$", "/Dev/SlateTools/ToolsServer");
-Files.setPlaceholder("$SCM$", "/Dev/ScriptsCherryMonster");
-Files.setPlaceholder("$SCM_DISTRIBUTION$", "/Dev/ScriptsCherryMonster/dist");
-Files.setPlaceholder("$SCM_SCRIPTS$", "/Dev/ScriptsCherryMonster/src/scripts");
-Files.setPlaceholder("$SCM_COMMANDS$", "/Dev/ScriptsCherryMonster/src/commands");
-
+Files.setPlaceholders(Configs.get<IConfig>("config.json"));
 //TODO: scripts and command should be separated
 
 let CLI = new CLProgram();

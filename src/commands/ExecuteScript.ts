@@ -36,7 +36,7 @@ export class ExecuteScript extends Command {
             let scriptFileTs:File = Files.file("$SCM_SCRIPTS$", scriptName+".ts");
             let scriptFileJs:File = Files.file("$SCM_DISTRIBUTION$/scripts/", scriptName+".js");
             let distFolder:File = Files.file("$SCM_DISTRIBUTION$");
-            this.execSync("tsc "+scriptFileTs.getAbsolutePath()+" --outDir "+distFolder.getAbsolutePath());
+            this.execSyncRedirectOutput("tsc "+scriptFileTs.getAbsolutePath()+" --outDir "+distFolder.getAbsolutePath());
             this.execSyncRedirectOutput("node "+scriptFileJs.getAbsolutePath());
         }
 

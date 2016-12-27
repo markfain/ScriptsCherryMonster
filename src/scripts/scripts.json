@@ -2,6 +2,7 @@
     "scripts": [
         "AddNewUIAndNITTrueToAllEpisodes",
         "AnnotateJsClass",
+        "ConvertToCLIToolboxCommand",
         "EpisodesWithInvalidJsonDescriptors",
         "NewScript"
     ]

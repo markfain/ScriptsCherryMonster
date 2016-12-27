@@ -5,6 +5,7 @@ import {File} from "../../utils/File";
 import {TextFiles} from "../../utils/TextFiles";
 import {Prompt} from "../../core/Prompt";
 import {Templates} from "../../core/Templates";
+import template = Handlebars.template;
 declare var require: any;
 declare var process: any;
 
@@ -21,7 +22,9 @@ export class GenerateScmCommand extends Command {
 
     createTemplate(data: any): void {
         let commandDestinationFile = Files.file("$SCM_COMMANDS$", data.name + ".ts");
+        console.log(commandDestinationFile);
         let templateFile: File = Files.file("$SCM$", "src/commands/templates/ScmCommand.template");
+        console.log(templateFile);
         Templates.writeTemplateInstanceToFile(templateFile, commandDestinationFile, data);
     }
 
