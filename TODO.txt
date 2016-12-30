@@ -15,4 +15,5 @@
 14. GENERATE THE MAIN CLASS according to scripts and commands
 15. find exact file name
 17. find in contents (also with exact, starts with, ends with... by regex...)
+18. executeScript with -noCompile
 
