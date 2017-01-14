@@ -13,16 +13,34 @@ export interface IToolboxCommandData {
 
 export abstract class ToolboxCommand extends Command {
 
-    private TOOLBOX_PORT:number = 8333;
-    private TOOLBOX_API:string = "/executeCommand";
-    private TOOLBOX_URL:string = "http://localhost";
-    private TOOLBOX_WORKING_DIR:File = Files.file("$SLATE_ROOT$/../toolbox");
+    private TOOLBOX_PORT: number = 8333;
+    private TOOLBOX_API: string = "/executeCommand";
+    private TOOLBOX_URL: string = "http://localhost";
+    private TOOLBOX_WORKING_DIR: File = Files.file("$SLATE_ROOT$/../toolbox");
 
-    private getUrl():string{
-        return this.TOOLBOX_URL+":"+this.TOOLBOX_PORT+this.TOOLBOX_API;
+    private getUrl(): string {
+        return this.TOOLBOX_URL + ":" + this.TOOLBOX_PORT + this.TOOLBOX_API;
     }
 
-    /*executeToolboxCommand(data:IToolboxCommandData){
+    executeToolboxCommand(data: IToolboxCommandData, shouldRedirectOutput?: boolean) {
+        let commandPrefix: string = "./toolbox.sh -headless -command " + data.command + " ";
+        let commandArguments: string = "";
+        for (let argument in data) {
+            if (argument == "command") {
+                continue;
+            }
+            commandArguments = commandArguments + argument + " " + data[argument] + " ";
+        }
+        this.finishTask();
+        //TODO: add an option with output redirection
+
+        this.execSync(commandPrefix + commandArguments, this.TOOLBOX_WORKING_DIR);
+
+    }
+
+    /*
+    Old way to execute toolbox commands (using a web api - http)
+    executeToolboxCommand(data:IToolboxCommandData){
         let res:any = HTTPClient.postSync(
             this.getUrl(),
             data,
@@ -41,20 +59,7 @@ export abstract class ToolboxCommand extends Command {
         }
 
         this.finishTask();
-    }*/
-    executeToolboxCommand(data:IToolboxCommandData, shouldRedirectOutput?:boolean){
-        let commandPrefix:string = "./toolbox.sh -headless -command "+data.command+" ";
-        let commandArguments:string = "";
-        for (let argument in data){
-            if (argument == "command"){
-                continue;
-            }
-            commandArguments = commandArguments + argument+" "+data[argument]+ " ";
-        }
-        this.finishTask();
-
-        this.execSync(commandPrefix + commandArguments, this.TOOLBOX_WORKING_DIR);
-
     }
+    */
 
 }

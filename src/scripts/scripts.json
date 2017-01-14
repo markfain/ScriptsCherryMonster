@@ -3,6 +3,7 @@
         "AddNewUIAndNITTrueToAllEpisodes",
         "AnnotateJsClass",
         "ConvertToCLIToolboxCommand",
-        "EpisodesWithInvalidJsonDescriptors"
+        "EpisodesWithInvalidJsonDescriptors",
+        "PopulateWorksheetsAppDatabase"
     ]
 }

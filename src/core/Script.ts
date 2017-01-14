@@ -19,7 +19,6 @@ export abstract class Script {
     execSyncRedirectOutput(command: string, workingDir?:File): any {
         if (workingDir){
             let process = require("process");
-            console.log(workingDir.getAbsolutePath());
             process.chdir(workingDir.getAbsolutePath())
         }
         let execSync = require("child_process").execSync;
