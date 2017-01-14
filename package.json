@@ -31,9 +31,11 @@
   "author": "Mark Fainstein",
   "license": "ISC",
   "dependencies": {
+    "@types/chai": "^3.4.34",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "file-system": "^2.2.1",
+    "firebase-admin": "^4.0.4",
     "handlebars": "^4.0.6",
     "inquirer": "^1.2.3",
     "jasmine": "^2.5.2",

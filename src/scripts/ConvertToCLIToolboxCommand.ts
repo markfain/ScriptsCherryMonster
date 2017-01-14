@@ -3,7 +3,6 @@ import {Script} from "../core/Script";
 import {Files} from "../utils/Files";
 import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
-import {JavascriptUtils} from "../utils/JavascriptUtils";
 export class ConvertToCLIToolboxCommand extends Script{
 
     public extractTextBetweenTwoSymbols(text:string, startIndex:number, openSymbol:string, closeSymbol:string){
@@ -42,14 +41,13 @@ export class ConvertToCLIToolboxCommand extends Script{
 
     execute(){
         Files.setPlaceholder("$PLAY$", "/Playground");
-
-        let commandPrefix = "./executeToolbox.sh -headless -command ";
+        let commandPrefix = "./toolbox.sh -headless -command ";
         let commandFile:File = Files.file("$PLAY$", "convertToolboxCommands/command.txt");
         let command:string = TextFiles.read(commandFile);
         let commandName:string;
         if (command.indexOf("&")<0){
             //case there are no parameters
-            commandName = this.extractTextBetweenTwoSymbols(command, command.indexOf("="), "=", "&")
+            commandName = this.extractTextBetweenTwoSymbols(command, command.indexOf("="), "=", "&");
             Logger.log("Command name is "+commandName);
             Logger.log("command should be: "+commandPrefix+commandName);
         }
@@ -68,7 +66,9 @@ export class ConvertToCLIToolboxCommand extends Script{
                 Logger.log(parameter);
                 argumentsStr = argumentsStr + parameterName + " "+parameter+" ";
             }
-            Logger.log("command should be: "+commandPrefix+commandName+argumentsStr);
+            Logger.log("command should be:");
+            Logger.log("cd /Users/jenkins/1Dev/toolbox");
+            Logger.log(commandPrefix+commandName+argumentsStr);
 
         }
 

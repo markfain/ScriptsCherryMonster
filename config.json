@@ -1,8 +1,8 @@
 {
 	"placeholders":{
-		"$SLATE_ROOT$":"../SlateRoot",
-		"$EPISODES$":"../SlateRoot/Content/MathEpisodes/episodes/",
-		"$TOOLS_SERVER$":"../ToolsServer",
+		"$SLATE_ROOT$":"SlateRoot",
+		"$EPISODES$":"SlateRoot/Content/MathEpisodes/episodes/",
+		"$TOOLS_SERVER$":"/SlateTools/ToolsServer",
 		"$SCM$": "ScriptsCherryMonster/",
 		"$PLAY$": "Playground/",
 		"$SCM_DISTRIBUTION$": "ScriptsCherryMonster/dist",

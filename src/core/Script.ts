@@ -19,17 +19,20 @@ export abstract class Script {
     execSyncRedirectOutput(command: string, workingDir?:File): any {
         if (workingDir){
             let process = require("process");
+            console.log(workingDir.getAbsolutePath());
             process.chdir(workingDir.getAbsolutePath())
         }
         let execSync = require("child_process").execSync;
         return execSync(command, {stdio: [0, 1, 2]});
     }
 
-    execSync(command: string): any {
+    execSync(command: string, workingDir?:File): any {
+        if (workingDir){
+            let process = require("process");
+            process.chdir(workingDir.getAbsolutePath())
+        }
         let execSync = require("child_process").execSync;
-        return execSync(command, function () {
-
-        });
+        return execSync(command);
     }
 
     getCurrentDir(): string {

@@ -3,7 +3,6 @@
         "AddNewUIAndNITTrueToAllEpisodes",
         "AnnotateJsClass",
         "ConvertToCLIToolboxCommand",
-        "EpisodesWithInvalidJsonDescriptors",
-        "NewScript"
+        "EpisodesWithInvalidJsonDescriptors"
     ]
 }
