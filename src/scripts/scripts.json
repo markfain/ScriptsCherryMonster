@@ -2,8 +2,11 @@
     "scripts": [
         "AddNewUIAndNITTrueToAllEpisodes",
         "AnnotateJsClass",
+        "CheckVoConventionInEpisodes",
         "ConvertToCLIToolboxCommand",
         "EpisodesWithInvalidJsonDescriptors",
+        "GitStatus",
+        "PackagesJsonSupportedInfras",
         "PopulateWorksheetsAppDatabase"
     ]
 }

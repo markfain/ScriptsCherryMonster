@@ -17,6 +17,8 @@ import {DeleteScript} from "./commands/generation/DeleteScript";
 import {ListScripts} from "./commands/ListScripts";
 import {Compare} from "./commands/Compare";
 import {Configs} from "./utils/Configs";
+import {Logger} from "./core/Logger";
+
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
 //TODO: scripts and command should be separated

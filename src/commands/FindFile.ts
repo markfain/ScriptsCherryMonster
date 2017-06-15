@@ -56,6 +56,9 @@ export class FindFile extends Command {
         return progressEstimation;
     }
 
+    /**
+     * TODO: should use Finder class instead.
+     */
     private findFileInFolder(root: File, find: string, list: string[], progressStep: number, ignoreCase = false): string[] {
         if (!root.isDirectory()) {
             return;
