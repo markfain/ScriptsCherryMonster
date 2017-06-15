@@ -2,7 +2,7 @@ import {Logger} from "../core/Logger";
 import {Script} from "../core/Script";
 import {Files} from "../utils/Files";
 import {File} from "../utils/File";
-import {Finder} from "../utils/Finder";
+import {Finder} from "../scmUtils/Finder";
 export class CheckVoConventionInEpisodes extends Script {
 
     private namePredicate(str:string){

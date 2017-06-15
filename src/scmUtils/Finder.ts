@@ -1,4 +1,4 @@
-import {File} from "./File";
+import {File} from "../utils/File";
 export class Finder {
 
     public static findFileInFolderStartingWith(root: File,
