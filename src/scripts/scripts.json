@@ -5,8 +5,11 @@
         "CheckVoConventionInEpisodes",
         "ConvertToCLIToolboxCommand",
         "EpisodesWithInvalidJsonDescriptors",
+        "FindAllEpisodesPublishedBy",
         "GitStatus",
         "PackagesJsonSupportedInfras",
-        "PopulateWorksheetsAppDatabase"
+        "PopulateWorksheetsAppDatabase",
+        "WatsonToken",
+        "WatsonVoices"
     ]
 }
