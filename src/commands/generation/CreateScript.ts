@@ -15,6 +15,21 @@ export class CreateScript extends Command {
         super("createScript", "Creates a script (as fast as possible)", 1);
     }
 
+    private cleanSubfolderName(subfolderName:string):string{
+        if (subfolderName.length == 0){
+            return ""
+        }
+        var cleanName = subfolderName;
+        if (subfolderName.endsWith("/")){
+            cleanName.substring(0, subfolderName.length-1);
+        }
+        if (subfolderName.startsWith("/")){
+            cleanName.substring(1);
+        }
+        return cleanName;
+
+    }
+
     handleAnswer(answer: any): void {
         answer.nameInLowercase = answer.name.toLowerCase();
         let scriptDestinationFile = Files.file("$SCM_SCRIPTS$", answer.name + ".ts");
@@ -29,7 +44,10 @@ export class CreateScript extends Command {
     }
 
     createTemplate(data: any): void {
-        let scriptDestinationFile = Files.file("$SCM_SCRIPTS$", data.name + ".ts");
+        let subfolderName:string = this.cleanSubfolderName(data.subfolder);
+        Logger.warn(subfolderName);
+        let scriptDestinationFile = Files.file("$SCM_SCRIPTS$", subfolderName+"/"+data.name + ".ts");
+
         let templateFile: File = Files.file("$SCM$", "src/commands/templates/Script.template");
         Templates.writeTemplateInstanceToFile(templateFile, scriptDestinationFile, data);
     }
