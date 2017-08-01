@@ -1,7 +1,12 @@
-import {Logger} from "../core/Logger";
-import {Script} from "../core/Script";
-import {Files} from "../utils/Files";
-export class GitStatus extends Script {
+import {Logger} from "../../core/Logger";
+import {Script} from "../../core/Script";
+import {Files} from "../../utils/Files";
+import {Command} from "../../core/Command";
+export class GitStatus extends Command {
+
+    constructor() {
+        super("gitstatus", "get the git status of some important repositories", 2);
+    }
 
     createRepositoryMap() {
         Files.setPlaceholder("$SLATE_ROOT$", "SlateRoot");
@@ -30,9 +35,3 @@ export class GitStatus extends Script {
 
     }
 }
-
-let GitStatusInstance = new GitStatus("GitStatus", "gets the git status of all relevant dev. branches");
-GitStatusInstance.execute();
-
-//@name:GitStatus
-//@description:gets the git status of all relevant dev. branches

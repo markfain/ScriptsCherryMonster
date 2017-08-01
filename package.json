@@ -5,7 +5,7 @@
   "main": "Main.js",
   "scripts": {
     "test": "test",
-    "precompile": "cp -R ../SlateTools/ToolsServer/src/utils/. src/utils/",
+    "precompileX": "cp -R ../SlateTools/ToolsServer/src/utils/. src/utils/",
     "getUtils": "cp -R ../SlateTools/ToolsServer/src/utils/. src/utils/",
     "compile": "tsc -p ./",
     "link": "npm link"

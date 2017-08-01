@@ -1,5 +1,6 @@
-import {Files} from "../utils/Files";
+import {Files, IConfig} from "../utils/Files";
 import {File} from "../utils/File";
+import {Configs} from "../utils/Configs";
 declare var require;
 export abstract class Script {
 
@@ -10,6 +11,8 @@ export abstract class Script {
         this.name = name;
         this.description = description;
 
+        //TODO: move this from here
+        Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
     }
 
     getName() {
@@ -41,9 +44,6 @@ export abstract class Script {
         let dir: string = this.execSync("pwd").toString();
         return dir.replace(/^\s+|\s+$/g, '');
     }
-
-
-
 
     abstract execute(...options: any[]): void;
 

@@ -5,11 +5,9 @@
         "CheckVoConventionInEpisodes",
         "ConvertToCLIToolboxCommand",
         "EpisodesWithInvalidJsonDescriptors",
-        "FindAllEpisodesPublishedBy",
-        "GitStatus",
         "PackagesJsonSupportedInfras",
         "PopulateWorksheetsAppDatabase",
-        "WatsonToken",
-        "WatsonVoices"
+        "ReleasePort",
+        "RenameImagesWithHandsUp"
     ]
 }

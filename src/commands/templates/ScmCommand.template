@@ -2,6 +2,8 @@ import {Logger} from "../core/Logger";
 import {Files} from "../utils/Files";
 import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
+import {Files} from "../utils/Files";
+import {File} from "../utils/File";
 import {Prompt} from "../core/Prompt";
 {{#if isToolbox}}
 import {Command} from "../core/ToolboxCommand";
@@ -18,6 +20,7 @@ export class {{name}} extends {{#if isToolbox}}Toolbox{{/if}}Command {
     }
 
     execute(options: any): void {
+        Files.setPlaceholder("$DESKTOP$", "../Desktop/");
         Logger.shockTheUser("my new {{name}}");
         this.finishTask();
         /*

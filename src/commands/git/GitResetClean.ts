@@ -1,8 +1,8 @@
-import {Command} from "../core/Command";
-import {Logger} from "../core/Logger";
-import {Prompt} from "../core/Prompt";
-import {File} from "../utils/File";
-import {Files} from "../utils/Files";
+import {Command} from "../../core/Command";
+import {Logger} from "../../core/Logger";
+import {Prompt} from "../../core/Prompt";
+import {File} from "../../utils/File";
+import {Files} from "../../utils/Files";
 declare var require: any;
 declare var process: any;
 
