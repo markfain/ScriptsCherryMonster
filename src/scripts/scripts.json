@@ -4,8 +4,8 @@
         "AnnotateJsClass",
         "ConvertToCLIToolboxCommand",
         "EpisodesWithInvalidJsonDescriptors",
-        "GetInstructionsFromTemplates",
-        "PackagesJsonSupportedInfras",
-        "PopulateWorksheetsAppDatabase"
+        "PopulateWorksheetsAppDatabase",
+        "WorksheetsAddDerivedValue",
+        "WorksheetsCleanParametersFile"
     ]
 }

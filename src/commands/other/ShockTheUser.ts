@@ -1,6 +1,6 @@
-import {Logger} from "../core/Logger";
-import {Command} from "../core/Command";
-import {Prompt} from "../core/Prompt";
+import {Logger} from "../../core/Logger";
+import {Command} from "../../core/Command";
+import {Prompt} from "../../core/Prompt";
 declare var require: any;
 declare var process: any;
 declare var clearInterval;

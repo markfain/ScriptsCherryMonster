@@ -1,22 +1,22 @@
 #!/usr/bin/env node
 import {CLProgram} from "./core/CLProgram";
 import {Files, IConfig} from "./utils/Files";
-import {GenerateTypescriptClass} from "./commands/generation/GenerateTypescriptClass";
-import {GenerateScmCommand} from "./commands/generation/GenerateScmCommand";
+import {GenerateTypescriptClass} from "./commands/other/GenerateTypescriptClass";
+import {CreateScmCommand} from "./commands/CreateScmCommand";
 import {GitResetClean} from "./commands/git/GitResetClean";
-import {UpdateEpisode} from "./commands/UpdateEpisode";
-import {ShockTheUser} from "./commands/ShockTheUser";
-import {FindFile} from "./commands/FindFile";
-import {DeleteFiles} from "./commands/DeleteFiles";
-import {ExecuteScript} from "./commands/ExecuteScript";
-import {CreateScript} from "./commands/generation/CreateScript";
-import {DeleteScript} from "./commands/generation/DeleteScript";
-import {ListScripts} from "./commands/ListScripts";
-import {Compare} from "./commands/Compare";
+import {UpdateEpisode} from "./commands/episodes/UpdateEpisode";
+import {ShockTheUser} from "./commands/other/ShockTheUser";
+import {FindFile} from "./commands/filesystem/FindFile";
+import {DeleteFiles} from "./commands/filesystem/DeleteFiles";
+import {ExecuteScript} from "./commands/scripts/ExecuteScript";
+import {CreateScript} from "./commands/scripts/CreateScript";
+import {DeleteScript} from "./commands/scripts/DeleteScript";
+import {ListScripts} from "./commands/scripts/ListScripts";
+import {Compare} from "./commands/other/Compare";
 import {Configs} from "./utils/Configs";
 import {GitStatus} from "./commands/git/GitStatus";
-import {ArchiveScript} from "./commands/generation/ArchiveScript";
-import {RestoreScript} from "./commands/generation/RestoreScript";
+import {ArchiveScript} from "./commands/scripts/ArchiveScript";
+import {RestoreScript} from "./commands/scripts/RestoreScript";
 import {ReleasePort} from "./commands/network/ReleasePort";
 
 
@@ -28,7 +28,7 @@ let CLI = new CLProgram();
 //============================= Commands =============================
 //Generation
 CLI.installCommand(new GenerateTypescriptClass());
-CLI.installCommand(new GenerateScmCommand());
+CLI.installCommand(new CreateScmCommand());
 
 //Toolbox related
 CLI.installCommand(new UpdateEpisode());

@@ -1,6 +1,6 @@
 import {CLProgram} from "./CLProgram";
 import {ProgressBar} from "./ProgressBar";
-import {GenerateTypescriptClass} from "../commands/generation/GenerateTypescriptClass";
+import {GenerateTypescriptClass} from "../commands/other/GenerateTypescriptClass";
 import {Script} from "./Script";
 declare var require: any;
 declare var process: any;

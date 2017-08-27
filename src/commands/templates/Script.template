@@ -5,7 +5,6 @@ import {File} from "../utils/File";
 import {Prompt} from "../core/Prompt";
 export class {{name}} extends Script{
     execute(){
-        Files.setPlaceholder("$EPISODES$", "SlateRoot/Content/MathEpisodes/episodes/");
         Logger.log("hello there, this is a new script running");
         Logger.error("this is an error");
         Logger.highlight("now added also highlight");

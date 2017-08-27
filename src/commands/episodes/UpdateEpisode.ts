@@ -1,7 +1,7 @@
-import {ToolboxCommand, IToolboxCommandData} from "../core/ToolboxCommand";
-import {Files} from "../utils/Files";
-import {File} from "../utils/File";
-import {Logger} from "../core/Logger";
+import {ToolboxCommand, IToolboxCommandData} from "../../core/ToolboxCommand";
+import {Files} from "../../utils/Files";
+import {File} from "../../utils/File";
+import {Logger} from "../../core/Logger";
 declare var require: any;
 declare var process: any;
 

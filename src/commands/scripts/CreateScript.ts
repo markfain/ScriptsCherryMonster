@@ -58,9 +58,7 @@ export class CreateScript extends Command {
         userPrompt
             .input("name", "Script Name:")
             .input("description", "Script Description:")
-            .input("subfolder", "Subfolder to add this task (leave blank if wanted under general commands)")
             .bind(this, this.handleAnswer);
-
     }
 
 }

@@ -1,15 +1,15 @@
-import {Command} from "../../core/Command";
-import {Logger} from "../../core/Logger";
-import {Files} from "../../utils/Files";
-import {File} from "../../utils/File";
-import {TextFiles} from "../../utils/TextFiles";
-import {Prompt} from "../../core/Prompt";
-import {Templates} from "../../core/Templates";
+import {Command} from "../core/Command";
+import {Logger} from "../core/Logger";
+import {Files} from "../utils/Files";
+import {File} from "../utils/File";
+import {TextFiles} from "../utils/TextFiles";
+import {Prompt} from "../core/Prompt";
+import {Templates} from "../core/Templates";
 import template = Handlebars.template;
 declare var require: any;
 declare var process: any;
 
-export class GenerateScmCommand extends Command {
+export class CreateScmCommand extends Command {
 
     constructor() {
         super("generateScm", "Generates a new SCM command", 3);
