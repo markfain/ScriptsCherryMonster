@@ -2,6 +2,7 @@
 	"placeholders":{
 		"$SLATE_ROOT$":"SlateRoot",
 		"$EPISODES$":"SlateRoot/Content/MathEpisodes/episodes/",
+		"$INFRASTRUCTURE$":"SlateRoot/Infrastructure/",
 		"$TOOLS_SERVER$":"/SlateTools/ToolsServer",
 		"$SCM$": "ScriptsCherryMonster/",
 		"$PLAY$": "Playground/",
