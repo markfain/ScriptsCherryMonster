@@ -44,10 +44,9 @@ export class CreateScript extends Command {
     }
 
     createTemplate(data: any): void {
-        let subfolderName:string = this.cleanSubfolderName(data.subfolder);
-        Logger.warn(subfolderName);
-        let scriptDestinationFile = Files.file("$SCM_SCRIPTS$", subfolderName+"/"+data.name + ".ts");
-
+        //let subfolderName:string = this.cleanSubfolderName(data.subfolder);
+        //Logger.warn(subfolderName);
+        let scriptDestinationFile = Files.file("$SCM_SCRIPTS$", data.name + ".ts");
         let templateFile: File = Files.file("$SCM$", "src/commands/templates/Script.template");
         Templates.writeTemplateInstanceToFile(templateFile, scriptDestinationFile, data);
     }

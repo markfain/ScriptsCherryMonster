@@ -2,6 +2,7 @@ import {Files} from "../utils/Files";
 import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
 import * as Handlebars from 'handlebars';
+import {Logger} from "./Logger";
 
 declare var require: any;
 declare var process: any;

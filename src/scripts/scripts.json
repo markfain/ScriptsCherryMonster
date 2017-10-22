@@ -4,6 +4,9 @@
         "AnnotateJsClass",
         "ConvertToCLIToolboxCommand",
         "EpisodesWithInvalidJsonDescriptors",
+        "ExtractSpineFolderFromPop",
+        "FilterPackagesJson",
+        "ImportSpineFoldersToPop",
         "PopulateWorksheetsAppDatabase",
         "WorksheetsAddDerivedValue",
         "WorksheetsCleanParametersFile"
