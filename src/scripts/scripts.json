@@ -3,11 +3,13 @@
         "AddNewUIAndNITTrueToAllEpisodes",
         "AnnotateJsClass",
         "ConvertToCLIToolboxCommand",
+        "DiscoverPublishedEpisodes",
         "EpisodesWithInvalidJsonDescriptors",
         "ExtractSpineFolderFromPop",
         "FilterPackagesJson",
         "ImportSpineFoldersToPop",
         "PopulateWorksheetsAppDatabase",
+        "ToolboxBuildShAndCmd",
         "WorksheetsAddDerivedValue",
         "WorksheetsCleanParametersFile"
     ]
