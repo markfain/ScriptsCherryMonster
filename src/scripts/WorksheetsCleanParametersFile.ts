@@ -24,30 +24,41 @@ export class WorksheetsCleanParametersFile extends Script{
         }*/
 
 
-        let dbFile = Files.file("$PLAY$", "db.json");
+        /*let dbFile = Files.file("$PLAY$", "db.json");
         let db = TextFiles.readJson(dbFile);
-        let worksheets = db["worksheets-editor"]["worksheets"];
+        let worksheets = db["worksheets-editor"]["worksheets"];*/
 
 
         let problems = Files.file(worksheetEpisode, "src/common/problems");
         for (let generatedProblems of problems.listFiles()){
             let strippedName = generatedProblems.getName().replace("Worksheet_", "").replace("_GeneratedProblems","");
             if (!parametersStripped[strippedName]){
-                //Logger.log(strippedName+" does not exist in parameters file");
-                if (worksheets[strippedName]){
-                    Logger.highlight("cannot delete file ");
-                }
-                else {
-                    Files.delete(generatedProblems);
-                }
-
+                Logger.log(strippedName+" does not exist in parameters file");
+                parametersStripped[strippedName] = {
+                    "type": "sections",
+                    "sections": [
+                        {
+                            "type": "sampleSection",
+                            "repeats": "10",
+                            "problems": [
+                                {
+                                    "type": "",
+                                    "problemType": "STANDARD_EXERCISE"
+                                }
+                            ]
+                        }
+                    ]
+                };
             }
             else {
-                if (worksheets[strippedName]){
+
+                //if (worksheets[strippedName]){
                     //Logger.log("found worksheet!")
-                }
+                //}
                 //Logger.highlight(strippedName+ " exists");
             }
+            let content = JavascriptUtils.wrapJsonInDescriptorDeclaration("Parameters", JSON.stringify(parametersStripped, null, 4));
+            TextFiles.write(parameters, content);
         }
 
 
@@ -62,7 +73,7 @@ export class WorksheetsCleanParametersFile extends Script{
                 .bind(this, this.handleAnswer);
         */
 
-        for (let parameter in parametersStripped){
+        /*for (let parameter in parametersStripped){
             if (!worksheets[parameter]){
                 if (parameter == "type"){
                     continue;
@@ -77,7 +88,7 @@ export class WorksheetsCleanParametersFile extends Script{
 
                 Logger.log("should delete "+parameter+" from parameters");
             }
-        }
+        }*/
 
 
 

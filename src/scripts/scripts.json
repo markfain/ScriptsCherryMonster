@@ -1,16 +1,21 @@
 {
     "scripts": [
-        "AddNewUIAndNITTrueToAllEpisodes",
-        "AnnotateJsClass",
+        "AddEnableVoiceoverInLanguagesInfo",
+        "AggregateFiles",
+        "AnalyzeJson",
+        "CleanWorksheetParamatersFileFromDebug",
         "ConvertToCLIToolboxCommand",
         "DiscoverPublishedEpisodes",
         "EpisodesWithInvalidJsonDescriptors",
         "ExtractSpineFolderFromPop",
-        "FilterPackagesJson",
         "ImportSpineFoldersToPop",
-        "PopulateWorksheetsAppDatabase",
+        "InspectSourceOfEpisodes",
+        "InspectSpineAtlasesForPop",
+        "MultiplicationRunningTimeTest",
+        "OldPublishedToNewPublished",
+        "SomeTest",
         "ToolboxBuildShAndCmd",
-        "WorksheetsAddDerivedValue",
+        "WorksheetsCleanGeneratedFilesFromDebug",
         "WorksheetsCleanParametersFile"
     ]
 }
