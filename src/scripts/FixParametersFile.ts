@@ -6,22 +6,20 @@ import {JavascriptUtils} from "../utils/JavascriptUtils";
 import {TextFiles} from "../utils/TextFiles";
 export class FixParametersFile extends Script{
     execute(){
-        Files.setPlaceholder("$PLAY$", "/Playground");
-        let parametersFile:File = Files.file("$PLAY$", "Parameters.js");
+        let parametersFile:File = Files.file("$EPISODES$", "Worksheet/parameters/Parameters.js");
         let json = JavascriptUtils.extractJsonFromClassDeclaration(TextFiles.read(parametersFile));
+        let possibleThemes = ["LighthouseTheme", "SpaceTheme", "UnderwaterTheme"];
         for (let parameter in json){
             if (parameter!="type"){
                 let parameterContent = json[parameter];
-                if (parameterContent && parameterContent["sections"]){
-                    let sections = parameterContent["sections"];
-                    if (!sections[0]["repeats"]){
-                        sections[0]["repeats"] = "10";
-                    }
+                if (parameterContent && !parameterContent["theme"]){
+                    let randomThemeIndex = Math.floor(Math.random()*possibleThemes.length);
+                    parameterContent["theme"] = possibleThemes[randomThemeIndex];
                 }
             }
-            let textToWrite:string = JavascriptUtils.wrapJsonInDescriptorDeclaration("Parameters", JSON.stringify(json, null, 4));
-            TextFiles.write(Files.file("$PLAY$", "Parameters1.js"), textToWrite);
         }
+        let textToWrite:string = JavascriptUtils.wrapJsonInDescriptorDeclaration("Parameters", JSON.stringify(json, null, 4));
+        TextFiles.write(parametersFile, textToWrite);
     }
 }
 

@@ -1,20 +1,20 @@
 {
     "scripts": [
-        "AddEnableVoiceoverInLanguagesInfo",
         "AggregateFiles",
         "AnalyzeJson",
         "CleanWorksheetParamatersFileFromDebug",
         "ConvertToCLIToolboxCommand",
         "DiscoverPublishedEpisodes",
         "EpisodesWithInvalidJsonDescriptors",
-        "ExtractSpineFolderFromPop",
+        "FixParametersFile",
         "ImportSpineFoldersToPop",
+        "InfrastructureTypes",
         "InspectSourceOfEpisodes",
         "InspectSpineAtlasesForPop",
         "MultiplicationRunningTimeTest",
         "OldPublishedToNewPublished",
-        "SomeTest",
         "ToolboxBuildShAndCmd",
+        "WorksheetVariantsWithText",
         "WorksheetsCleanGeneratedFilesFromDebug",
         "WorksheetsCleanParametersFile"
     ]

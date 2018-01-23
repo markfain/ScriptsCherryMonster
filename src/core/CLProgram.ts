@@ -4,6 +4,9 @@ import {TextFiles} from "../utils/TextFiles";
 import {JavascriptUtils} from "../utils/JavascriptUtils";
 import {Files} from "../utils/Files";
 import {File} from "../utils/File";
+import {Logger} from "./Logger";
+import {ProcessUtils} from "../utils/ProcessUtils";
+import {GitUtils} from "../utils/GitUtils";
 declare var require: any;
 declare var process: any;
 export class CLProgram {
@@ -33,17 +36,21 @@ export class CLProgram {
             commands.push(command.getName());
         }
 
-        let comp, comp1, omelette;
+        let comp, omelette;
 
         omelette = require("omelette");
 
         comp = omelette("scm <command> <script>");
 
         comp.on("command", function () {
+
             return this.reply(commands);
         });
 
-        comp.on("script", function () {
+        comp.on("script", function (userReply) {
+            if (userReply == "gitadd"){
+                return this.reply(GitUtils.getOptionalFilesToAdd());
+            }
             return this.reply(scripts);
         });
 

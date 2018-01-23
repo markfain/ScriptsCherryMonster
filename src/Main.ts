@@ -18,6 +18,8 @@ import {GitStatus} from "./commands/git/GitStatus";
 import {ArchiveScript} from "./commands/scripts/ArchiveScript";
 import {RestoreScript} from "./commands/scripts/RestoreScript";
 import {ReleasePort} from "./commands/network/ReleasePort";
+import {DescribeScript} from "./commands/scripts/DescribeScript";
+import {GitAdd} from "./commands/git/GitAdd";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -42,6 +44,7 @@ CLI.installCommand(new Compare());
 //Git
 CLI.installCommand(new GitResetClean());
 CLI.installCommand(new GitStatus());
+CLI.installCommand(new GitAdd());
 
 //Network
 CLI.installCommand(new ReleasePort());
@@ -51,8 +54,8 @@ CLI.installCommand(new ReleasePort());
 CLI.installCommand(new ExecuteScript());
 CLI.installCommand(new CreateScript());
 CLI.installCommand(new DeleteScript());
+CLI.installCommand(new DescribeScript());
 CLI.installCommand(new ListScripts());
-CLI.installCommand(new DeleteScript());
 CLI.installCommand(new ArchiveScript());
 CLI.installCommand(new RestoreScript());
 

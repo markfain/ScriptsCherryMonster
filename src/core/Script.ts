@@ -2,6 +2,7 @@ import {Files, IConfig} from "../utils/Files";
 import {File} from "../utils/File";
 import {Configs} from "../utils/Configs";
 import {Logger} from "./Logger";
+import {ProcessUtils} from "../utils/ProcessUtils";
 declare var require;
 export abstract class Script {
 
@@ -20,24 +21,11 @@ export abstract class Script {
     }
 
     execSyncRedirectOutput(command: string, workingDir?:File, shouldReturnOutput?:boolean): any {
-        if (workingDir){
-            let process = require("process");
-            process.chdir(workingDir.getAbsolutePath())
-        }
-        let execSync = require("child_process").execSync;
-        if (shouldReturnOutput){
-            return execSync(command);
-        }
-        return execSync(command, {stdio: [0, 1, 2]});
+        return ProcessUtils.execSyncRedirectOutput(command, workingDir, shouldReturnOutput);
     }
 
     execSync(command: string, workingDir?:File): any {
-        if (workingDir){
-            let process = require("process");
-            process.chdir(workingDir.getAbsolutePath())
-        }
-        let execSync = require("child_process").execSync;
-        return execSync(command);
+        return ProcessUtils.execSync(command, workingDir);
     }
 
     getCurrentDir(): string {
