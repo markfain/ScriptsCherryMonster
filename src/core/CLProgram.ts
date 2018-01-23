@@ -48,8 +48,8 @@ export class CLProgram {
         });
 
         comp.on("script", function (userReply) {
-            if (userReply == "gitadd"){
-                return this.reply(GitUtils.getOptionalFilesToAdd());
+            if (userReply.indexOf("git")>=0){
+                return this.reply(GitUtils.getOptionalFilesToAdd(true));
             }
             return this.reply(scripts);
         });
