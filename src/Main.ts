@@ -20,6 +20,9 @@ import {RestoreScript} from "./commands/scripts/RestoreScript";
 import {ReleasePort} from "./commands/network/ReleasePort";
 import {DescribeScript} from "./commands/scripts/DescribeScript";
 import {GitAdd} from "./commands/git/GitAdd";
+import {GitDiff} from "./commands/git/GitDiff";
+import {GitReset} from "./commands/git/GitReset";
+import {GitCheckout} from "./commands/git/GitCheckout";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -45,6 +48,9 @@ CLI.installCommand(new Compare());
 CLI.installCommand(new GitResetClean());
 CLI.installCommand(new GitStatus());
 CLI.installCommand(new GitAdd());
+CLI.installCommand(new GitDiff());
+CLI.installCommand(new GitReset());
+CLI.installCommand(new GitCheckout());
 
 //Network
 CLI.installCommand(new ReleasePort());
