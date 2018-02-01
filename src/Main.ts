@@ -23,6 +23,14 @@ import {GitAdd} from "./commands/git/GitAdd";
 import {GitDiff} from "./commands/git/GitDiff";
 import {GitReset} from "./commands/git/GitReset";
 import {GitCheckout} from "./commands/git/GitCheckout";
+import {GitLog} from "./commands/git/GitLog";
+import {AddTask} from "./commands/tasks/AddTask";
+import {RemoveTask} from "./commands/tasks/RemoveTask";
+import {ListTasks} from "./commands/tasks/ListTasks";
+import {StartTask} from "./commands/tasks/StartTask";
+import {CompleteTask} from "./commands/tasks/CompleteTask";
+import {PauseTask} from "./commands/tasks/PauseTask";
+import {AddNote} from "./commands/tasks/AddNote";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -51,6 +59,17 @@ CLI.installCommand(new GitAdd());
 CLI.installCommand(new GitDiff());
 CLI.installCommand(new GitReset());
 CLI.installCommand(new GitCheckout());
+CLI.installCommand(new GitLog());
+
+//Tasks
+CLI.installCommand(new AddTask());
+CLI.installCommand(new RemoveTask());
+CLI.installCommand(new ListTasks());
+CLI.installCommand(new StartTask());
+CLI.installCommand(new CompleteTask());
+CLI.installCommand(new PauseTask());
+CLI.installCommand(new AddNote());
+
 
 //Network
 CLI.installCommand(new ReleasePort());

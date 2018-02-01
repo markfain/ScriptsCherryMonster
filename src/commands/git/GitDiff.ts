@@ -5,14 +5,28 @@ import {Command} from "../../core/Command";
 export class GitDiff extends Command {
 
     constructor() {
-        super("gitdiff", "compare with diff tool", 2);
+        super("gitdiff", "see commit changes (specify commit hash)", 2);
         this.commandArguments = [
-            "filePath"
+            "commit"
         ];
+
+        this.options = [
+            {
+                flags: "-f, --file <file>",
+                description: "file to show diff for"
+            }
+        ]
     }
 
     execute(options) {
-        let filePath = this.getArgument("filePath", options);
-        Logger.log(this.execSyncRedirectOutput("git diff ^HEAD "+filePath, null, true));
+        let commit = this.getArgument("commit", options);
+        let file = this.getOption("file", options);
+        if (file){
+            Logger.log(this.execSyncRedirectOutput("git diff "+commit+"^! "+file, null, true));
+        }
+        else {
+            Logger.log(this.execSyncRedirectOutput("git diff "+commit+"^! --name-only", null, true));
+        }
+
     }
 }

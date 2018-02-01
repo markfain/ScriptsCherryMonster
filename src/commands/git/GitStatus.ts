@@ -25,6 +25,8 @@ export class GitStatus extends Command {
         let repositoryMap = this.createRepositoryMap();
         for (let repositoryName in repositoryMap) {
             let repositoryFile = repositoryMap[repositoryName];
+            let gitStatus = this.execSyncRedirectOutput("git status", repositoryFile, true);
+
             Logger.log(
                 repositoryName + ": " +
                 this.execSyncRedirectOutput("git branch | grep \\*", repositoryFile, true) +
