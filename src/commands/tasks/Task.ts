@@ -31,20 +31,24 @@ export class Task {
         this.notes.push(note);
     }
 
+    getNotes(){
+        return this.notes;
+    }
+
     setDescription(description: string) {
         this.description = description;
     }
 
     toJson(): any {
-        Logger.log(this.description);
         return {
             name: this.name,
             status: this.status,
-            startTime: this.startTime? this.startTime.toString(): null,
+            startTime: this.startTime? this.startTime.toDateString(): null,
             notes: this.notes,
-            completionTime: this.completionTime? this.completionTime.toString(): null,
+            completionTime: this.completionTime? this.completionTime.toDateString(): null,
             description: this.description.toString()
         }
+
     }
 
     setStatus(status: TaskStatus): void {
@@ -58,6 +62,9 @@ export class Task {
 
     complete(): void{
         this.completionTime = new Date();
+        if (this.status==TaskStatus.DEFINED){
+            Logger.warn("Completing a task that was not started or paused!")
+        }
         this.setStatus(TaskStatus.COMPLETED);
     }
 

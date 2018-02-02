@@ -51,8 +51,10 @@ export class RemoteTasks {
         return new Promise<Task>(resolve=>{
             var database = firebaseConnection.database();
             var reference = database.ref("tasks/"+id);
-            reference.once("value", (tasksJson)=>{
-                let task:Task = new Task(tasksJson.val());
+            reference.once("value", (taskJsonRemote)=>{
+                let taskJson = taskJsonRemote.val();
+                taskJson["id"] = id;
+                let task:Task = Tasks.taskFromJson(taskJson);
                 resolve(task);
                 this.firebsaeDisconnect(firebaseConnection);
             });

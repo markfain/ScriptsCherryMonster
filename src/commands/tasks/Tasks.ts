@@ -31,6 +31,7 @@ export class Tasks{
         let task = await RemoteTasks.fetchById(id);
         task.complete();
         await RemoteTasks.pushTask(task);
+        Logger.log("Completed task "+id);
     }
 
     public static async pauseTaskById(id:string){
@@ -52,6 +53,18 @@ export class Tasks{
         }
         console.log(table.toString());
 
+    }
+
+    public static async listTaskNotes(id){
+        let task = await RemoteTasks.fetchById(id);
+        var table = new Table({
+            head: ['#', "Note (Task '"+task.getName()+"')"]
+        });
+        let notes = task.getNotes();
+        for (let i=0; i<notes.length; i++){
+            table.push([i+1, notes[i]]);
+        }
+        console.log(table.toString());
     }
 
     public static async addNoteToTaskById(id:string, note:string){

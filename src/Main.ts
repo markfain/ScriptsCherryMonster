@@ -31,6 +31,7 @@ import {StartTask} from "./commands/tasks/StartTask";
 import {CompleteTask} from "./commands/tasks/CompleteTask";
 import {PauseTask} from "./commands/tasks/PauseTask";
 import {AddNote} from "./commands/tasks/AddNote";
+import {TaskNotes} from "./commands/tasks/TaskNotes";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -69,6 +70,7 @@ CLI.installCommand(new StartTask());
 CLI.installCommand(new CompleteTask());
 CLI.installCommand(new PauseTask());
 CLI.installCommand(new AddNote());
+CLI.installCommand(new TaskNotes());
 
 
 //Network

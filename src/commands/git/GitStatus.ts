@@ -1,7 +1,8 @@
-import {Logger} from "../../core/Logger";
-import {Script} from "../../core/Script";
 import {Files} from "../../utils/Files";
 import {Command} from "../../core/Command";
+import {TextUtils} from "../../utils/TextUtils";
+import * as Table from 'cli-table';
+import {Logger} from "../../core/Logger";
 export class GitStatus extends Command {
 
     constructor() {
@@ -21,19 +22,27 @@ export class GitStatus extends Command {
     }
 
     execute() {
-
+        let statusMap = {};
         let repositoryMap = this.createRepositoryMap();
         for (let repositoryName in repositoryMap) {
             let repositoryFile = repositoryMap[repositoryName];
             let gitStatus = this.execSyncRedirectOutput("git status", repositoryFile, true);
 
-            Logger.log(
-                repositoryName + ": " +
-                this.execSyncRedirectOutput("git branch | grep \\*", repositoryFile, true) +
-                " "
-                //this.execSyncRedirectOutput("git status -sb", repositoryFile, true)
-            );
+            let repositoryStatusRegex = /Your branch is (.+)(with|\,).+/g;
+            let branchRegex = /On branch (.+)/g;
+            let status = TextUtils.getRegexGroups(gitStatus, repositoryStatusRegex)[0];
+            let branch = TextUtils.getRegexGroups(gitStatus, branchRegex)[0];
+            statusMap[repositoryName] = {"status":status, "branch":branch};
         }
 
+        var table = new Table({
+            head: ['Repository', "Branch", "Status"]
+        });
+
+        for (let repositoryName in statusMap){
+
+            table.push([repositoryName, statusMap[repositoryName]["branch"], statusMap[repositoryName]["status"]]);
+        }
+        console.log(table.toString());
     }
 }
