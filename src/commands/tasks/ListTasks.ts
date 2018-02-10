@@ -12,11 +12,23 @@ export class ListTasks extends Command {
 
     constructor() {
         super("listtasks", "lists tasks", 1);
+        this.options = [
+            {
+                flags: "-c, --completed",
+                description: "completed"
+            },
+            {
+                flags: "-g, --group <group>",
+                description: "group name"
+            }
+        ];
         //TODO: add listing tasks options
     }
 
     execute(options: any): void {
-       Tasks.listTasks();
+       let listCompletedTasks:string = this.getOption("completed",options);
+       let group:string = this.getOption("group",options);
+       Tasks.listTasks(listCompletedTasks, group);
     }
 
 }

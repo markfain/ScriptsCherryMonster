@@ -26,6 +26,7 @@ export class GitStatus extends Command {
         let repositoryMap = this.createRepositoryMap();
         for (let repositoryName in repositoryMap) {
             let repositoryFile = repositoryMap[repositoryName];
+            this.execSyncRedirectOutput("git fetch", repositoryFile, true);
             let gitStatus = this.execSyncRedirectOutput("git status", repositoryFile, true);
 
             let repositoryStatusRegex = /Your branch is (.+)(with|\,).+/g;

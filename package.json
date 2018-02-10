@@ -40,6 +40,8 @@
     "file-system": "^2.2.1",
     "firebase-admin": "^4.2.1",
     "fs-extra": "^4.0.2",
+    "google-auth-library": "^1.2.1",
+    "googleapis": "^25.0.0",
     "handlebars": "^4.0.6",
     "inquirer": "^1.2.3",
     "jasmine": "^2.5.2",

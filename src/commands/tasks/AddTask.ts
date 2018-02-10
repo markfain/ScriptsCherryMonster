@@ -20,6 +20,14 @@ export class AddTask extends Command {
             {
                 flags: "-d, --description <description>",
                 description: "description"
+            },
+            {
+                flags: "-g, --group <group>",
+                description: "group name"
+            },
+            {
+                flags: "-p, --priority <priority>",
+                description: "task priority (number, not -1)"
             }
         ]
     }
@@ -27,7 +35,9 @@ export class AddTask extends Command {
     execute(options: any): void {
         let taskName:string = this.getArgument("name",options);
         let description:string = this.getOption("description",options);
-        let task = new Task(taskName, description);
+        let group:string = this.getOption("group",options);
+        let priority:number = parseInt(this.getOption("priority",options));
+        let task = new Task(taskName, description, null, null, null, group, priority);
         Tasks.addTask(task);
 
     }

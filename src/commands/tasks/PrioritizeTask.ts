@@ -8,19 +8,19 @@ import {Tasks} from "./Tasks";
 declare var require: any;
 declare var process: any;
 
-export class RemoveTask extends Command {
+export class PrioritizeTask extends Command {
 
     constructor() {
-        super("removetask", "Removes a task", 1);
+        super("prioritizetask", "prioritize a task", 1);
         this.commandArguments = [
-            "id"
+            "id", "priority"
         ];
-        
     }
 
     execute(options: any): void {
         let taskId:string = this.getArgument("id",options);
-        Tasks.removeTaskById(taskId);
+        let taskPriotity:number = parseInt(this.getArgument("priority",options));
+        Tasks.setPriority(taskId, taskPriotity);
     }
 
 }

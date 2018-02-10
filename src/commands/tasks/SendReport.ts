@@ -4,23 +4,21 @@ import {File} from "../../utils/File";
 import {TextFiles} from "../../utils/TextFiles";
 import {Prompt} from "../../core/Prompt";
 import {Command} from "../../core/Command";
+import {Task} from "./Task";
 import {Tasks} from "./Tasks";
+import {Reports} from "./Reports";
 declare var require: any;
 declare var process: any;
 
-export class RemoveTask extends Command {
+export class SendReport extends Command {
 
     constructor() {
-        super("removetask", "Removes a task", 1);
-        this.commandArguments = [
-            "id"
-        ];
-        
+        super("sendreport", "Sends report via mail", 1);
     }
 
     execute(options: any): void {
-        let taskId:string = this.getArgument("id",options);
-        Tasks.removeTaskById(taskId);
+        Reports.sendReport();
+
     }
 
 }

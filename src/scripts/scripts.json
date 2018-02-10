@@ -2,6 +2,7 @@
     "scripts": [
         "AggregateFiles",
         "AnalyzeJson",
+        "BashToPythonScriptForJenkins",
         "CleanWorksheetParamatersFileFromDebug",
         "ConvertToCLIToolboxCommand",
         "DiscoverPublishedEpisodes",
@@ -11,6 +12,7 @@
         "InfrastructureTypes",
         "InspectSourceOfEpisodes",
         "InspectSpineAtlasesForPop",
+        "MergeStrainsData",
         "MultiplicationRunningTimeTest",
         "OldPublishedToNewPublished",
         "ToolboxBuildShAndCmd",

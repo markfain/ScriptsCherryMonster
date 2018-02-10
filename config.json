@@ -9,6 +9,7 @@
 		"$PLAY$": "Playground/",
 		"$SCM_DISTRIBUTION$": "ScriptsCherryMonster/dist",
 		"$SCM_SCRIPTS$": "ScriptsCherryMonster/src/scripts",
-		"$SCM_COMMANDS$": "ScriptsCherryMonster/src/commands"
+		"$SCM_COMMANDS$": "ScriptsCherryMonster/src/commands",
+		"$SCM_TASKS$": "ScriptsCherryMonster/src/commands/tasks"
 	}
 }

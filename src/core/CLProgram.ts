@@ -51,6 +51,11 @@ export class CLProgram {
             if (userReply.indexOf("git")>=0){
                 return this.reply(GitUtils.getOptionalFilesToAdd(true));
             }
+
+            /*if (userReply.indexOf("task")>=0){
+                return this.reply()
+            }*/
+
             return this.reply(scripts);
         });
 

@@ -32,6 +32,8 @@ import {CompleteTask} from "./commands/tasks/CompleteTask";
 import {PauseTask} from "./commands/tasks/PauseTask";
 import {AddNote} from "./commands/tasks/AddNote";
 import {TaskNotes} from "./commands/tasks/TaskNotes";
+import {PrioritizeTask} from "./commands/tasks/PrioritizeTask";
+import {SendReport} from "./commands/tasks/SendReport";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -71,6 +73,8 @@ CLI.installCommand(new CompleteTask());
 CLI.installCommand(new PauseTask());
 CLI.installCommand(new AddNote());
 CLI.installCommand(new TaskNotes());
+CLI.installCommand(new PrioritizeTask());
+CLI.installCommand(new SendReport());
 
 
 //Network

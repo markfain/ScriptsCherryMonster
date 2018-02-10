@@ -4,10 +4,24 @@ import {TextFiles} from "../../utils/TextFiles";
 import {Logger} from "../../core/Logger";
 import * as Table from 'cli-table';
 import {RemoteTasks} from "./RemoteTasks";
+import * as Chalk from 'chalk';
 export class Tasks{
 
+    public static DEFAULT_GROUP = "Slate";
+    public static DEFAULT_PRIORITY = -1;
+    public static DEFAULT_PRIORITY_DISPLAY = "-";
+
     public static taskFromJson(json:any){
-        return new Task(json["name"], json["description"], json["notes"], json["id"], json["status"]);
+        return new Task(
+            json["name"],
+            json["description"],
+            json["notes"],
+            json["id"],
+            json["status"],
+            json["group"],
+            json["priority"],
+            json["added"]
+        );
     }
 
     public static async addTask(task:Task){
@@ -41,15 +55,36 @@ export class Tasks{
         Logger.log("Paused task "+id);
     }
 
-    public static async listTasks(){
+    public static async listTasks(listCompletedTasks, group){
         let tasks = await RemoteTasks.fetchAll();
 
         var table = new Table({
-            head: ['ID', 'Name', 'Status']
+            head: ['ID', 'Name', 'Status', 'Priority']
         });
 
+        if (listCompletedTasks){
+            tasks = this.filterTasks(tasks, (task)=>{return task.isCompleted()})
+        }
+        else {
+            tasks = this.filterTasks(tasks, (task)=>{return !task.isCompleted()});
+        }
+
+        if (!group){
+            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == this.DEFAULT_GROUP.toLowerCase()})
+        }
+        else {
+            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
+        }
+
+
         for (let task of tasks){
-            table.push([task.getId(), task.getName(), task.getStatus()]);
+            if (listCompletedTasks && task.isCompleted()){
+                table.push([task.getId(), task.getName(), task.getColoredStatus(), task.getPriority()]);
+            }
+            else{
+                table.push([task.getId(), task.getName(), task.getColoredStatus(), task.getPriority()]);
+            }
+
         }
         console.log(table.toString());
 
@@ -72,5 +107,31 @@ export class Tasks{
         task.addNote(note);
         await RemoteTasks.pushTask(task);
         Logger.log("Added note to task "+id);
+    }
+
+    public static async getTaskIds(){
+        let ids = [];
+        let tasks = await RemoteTasks.fetchAll();
+        for (let task of tasks){
+            ids.push(task.getId());
+        }
+    }
+
+    private static filterTasks(tasks:Task[], filter:(task)=>boolean){
+        let filtered = [];
+        for (let task of tasks){
+            if (filter(task)){
+                filtered.push(task);
+            }
+        }
+        return filtered;
+    }
+
+    public static async setPriority(id:string, priority:number){
+        let task = await RemoteTasks.fetchById(id);
+        task.setPriority(priority);
+        await RemoteTasks.pushTask(task);
+        Logger.log("Priority "+priority+" is set for task "+id);
+
     }
 }

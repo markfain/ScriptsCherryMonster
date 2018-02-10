@@ -16,16 +16,6 @@ export class AnalyzeJson extends Script{
         Logger.log(text.substring(charPosition+1, charPosition+200));
 
 
-        /*
-            prompt the user for something:
-            userPrompt
-                .input("name", "Command Name:")
-                .input("description", "Command Description:")
-                .input("tasks", "Number of tasks:")
-                .bind(this, this.handleAnswer);
-        */
-
-
     }
 }
 
