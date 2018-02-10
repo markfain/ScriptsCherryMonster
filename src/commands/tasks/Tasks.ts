@@ -5,6 +5,7 @@ import {Logger} from "../../core/Logger";
 import * as Table from 'cli-table';
 import {RemoteTasks} from "./RemoteTasks";
 import * as Chalk from 'chalk';
+import {ProgressBar} from "../../core/ProgressBar";
 export class Tasks{
 
     public static DEFAULT_GROUP = "Slate";
@@ -34,10 +35,14 @@ export class Tasks{
         Logger.log("Removed task "+id);
     }
 
-    public static async startTaskById(id:string){
+    public static async startTaskById(id:string, progress:ProgressBar){
+        progress.finishTask();
         let task = await RemoteTasks.fetchById(id);
+        progress.finishTask();
         task.start();
+        progress.finishTask();
         await RemoteTasks.pushTask(task);
+        progress.finishTask();
         Logger.log("Started task "+id);
     }
 

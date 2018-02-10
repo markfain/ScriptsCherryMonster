@@ -10,34 +10,35 @@ export class ProgressBar {
 
     private progressBar:any;
     private bar:any;
-    private tasksAccumilation:number = 0;
+    private tasksAccumulation:number = 0;
 
     constructor(commandName:string, numberOfTasks?:number){
         this.progressBar = Progress;
         let barOptions:IProgressBarOptions = {
             width: 20,
-            total: numberOfTasks || 10,
+            total: numberOfTasks+1 || 10,
             clear: true
         };
-        this.bar = new this.progressBar("Happily Executing: "+ commandName+ " [:bar] :percent :etas", barOptions);
+        this.bar = new this.progressBar(commandName + ":commandPart [:bar] :percent :etas", barOptions);
 
     }
 
-    finishTask(){
+    finishTask(commandPart?:string){
+        //{'commandPart': commandPart}
         this.bar.tick();
     }
 
     finishTasks(tasks:number){
         if (tasks<1){
-            this.tasksAccumilation = this.tasksAccumilation + tasks;
+            this.tasksAccumulation = this.tasksAccumulation + tasks;
         }
 
-        if (this.tasksAccumilation>1){
+        if (this.tasksAccumulation>1){
             tasks = 1;
-            this.tasksAccumilation = this.tasksAccumilation - 1;
+            this.tasksAccumulation = this.tasksAccumulation - 1;
         }
 
-        if (this.tasksAccumilation<1 && this.tasksAccumilation>0){
+        if (this.tasksAccumulation<1 && this.tasksAccumulation>0){
             return;
         }
         if (tasks>=1){

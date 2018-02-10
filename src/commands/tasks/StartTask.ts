@@ -11,7 +11,7 @@ declare var process: any;
 export class StartTask extends Command {
 
     constructor() {
-        super("starttask", "Starts a task", 1);
+        super("starttask", "Starts a task", 3);
         this.commandArguments = [
             "id"
         ];
@@ -19,7 +19,7 @@ export class StartTask extends Command {
 
     execute(options: any): void {
         let taskId:string = this.getArgument("id",options);
-        Tasks.startTaskById(taskId);
+        Tasks.startTaskById(taskId, this.getProgressBar());
     }
 
 }

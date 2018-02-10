@@ -105,6 +105,10 @@ export abstract class Command extends Script{
         this.progressBar.finishTasks(tasks);
     }
 
+    getProgressBar():ProgressBar{
+        return this.progressBar;
+    }
+
 
 
 
