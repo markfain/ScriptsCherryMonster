@@ -6,62 +6,81 @@ import {MailClient} from "./MailClient";
 var fs = require('fs');
 var readline = require('readline');
 var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
-var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
-var TOKEN_PATH = TOKEN_DIR + 'gmail-nodejs-quickstart.json';
 
 export class Reports {
 
-    /*public static async tasksAddedToday():Task[]{
-        let tasksAddedToday: Task[] = [];
+    public static async tasksAddedToday():Promise<Task[]>{
         let tasks:Task[] = await RemoteTasks.fetchAll();
-        let now = new Date();
-        for (let task of tasks){
-            var diff = new Date(now.getTime() - task.getDateAdded().getTime());
-            if (diff.getUTCDate() - 1<1){
-                tasksAddedToday.push(task);
+        return new Promise<Task[]>(resolve=>{
+            let tasksAddedToday: Task[] = [];
+            let now = new Date();
+            for (let task of tasks){
+                var diff = new Date(now.getTime() - task.getDateAdded().getTime());
+                if (diff.getUTCDate() - 1<1){
+                    tasksAddedToday.push(task);
+                }
             }
-        }
-        return tasksAddedToday;
+            resolve(tasksAddedToday);
+        })
+
     }
 
-    public static async tasksCurrentlyPaused(){
+    public static async tasksCurrentlyPaused():Promise<Task[]>{
         let tasksCurrentlyPaused: Task[] = [];
         let tasks:Task[] = await RemoteTasks.fetchAll();
-        for (let task of tasks){
-            if (task.getStatus() == TaskStatus.PAUSED){
-                tasksCurrentlyPaused.push(task);
+        return new Promise<Task[]>(resolve=>{
+            for (let task of tasks){
+                if (task.getStatus() == TaskStatus.PAUSED){
+                    tasksCurrentlyPaused.push(task);
+                }
             }
-        }
-        return tasksCurrentlyPaused;
+            resolve(tasksCurrentlyPaused);
+        });
+
     }
 
-    public static async tasksCurrentlyInStatedStatus(){
+    public static async tasksCurrentlyInStartedStatus():Promise<Task[]>{
         let tasksCurrentlyStarted: Task[] = [];
         let tasks:Task[] = await RemoteTasks.fetchAll();
-        for (let task of tasks){
-            if (task.getStatus() == TaskStatus.STARTED){
-                tasksCurrentlyStarted.push(task);
+        return new Promise<Task[]>(resolve=> {
+            for (let task of tasks) {
+                if (task.getStatus() == TaskStatus.STARTED) {
+                    tasksCurrentlyStarted.push(task);
+                }
             }
-        }
-        return tasksCurrentlyStarted;
+            resolve(tasksCurrentlyStarted);
+        });
     }
 
-    public static async tasksCompletedToday():Task[]{
+    public static async tasksCompletedToday():Promise<Task[]>{
         let tasksCompletedToday: Task[] = [];
         let tasks:Task[] = await RemoteTasks.fetchAll();
         let now = new Date();
-        for (let task of tasks){
-            var diff = new Date(now.getTime() - task.getDateCompleted().getTime());
-            if (diff.getUTCDate() - 1<1){
-                tasksCompletedToday.push(task);
+        return new Promise<Task[]>(resolve=> {
+            for (let task of tasks) {
+                var diff = new Date(now.getTime() - task.getDateCompleted().getTime());
+                if (diff.getUTCDate() - 1 < 1) {
+                    tasksCompletedToday.push(task);
+                }
             }
-        }
-        return tasksCompletedToday;
-    }*/
+            resolve(tasksCompletedToday);
+        });
+    }
 
-    public static sendReport(){
-        MailClient.sendMail();
+    public static async sendReport(){
+        let tasksStartedToday = await this.tasksCurrentlyInStartedStatus();
+        let tasksCurrentlyPaused = await this.tasksCurrentlyPaused();
+
+        let testMessage = "Tasks started today:<br><br>";
+        for (let task of tasksStartedToday){
+            testMessage = testMessage +task.getId()+" "+task.getName()+" "+task.getDescription()+"<br>";
+        }
+        testMessage = testMessage+"<br> Tasks currently paused:<br><br>";
+        for (let task of tasksCurrentlyPaused){
+            testMessage = testMessage +task.getId()+" "+task.getName()+" "+task.getDescription()+"<br>";
+        }
+
+        MailClient.sendMail(testMessage);
     }
 
 

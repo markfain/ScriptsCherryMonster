@@ -1,5 +1,5 @@
 import {Command} from "./Command";
-import * as Commander from 'commander';
+//import Commander = require('commander');
 import {TextFiles} from "../utils/TextFiles";
 import {JavascriptUtils} from "../utils/JavascriptUtils";
 import {Files} from "../utils/Files";
@@ -16,6 +16,7 @@ export class CLProgram {
     private scripts:Command[] = [];
 
     constructor() {
+        let Commander = require('commander');
         this.commander = Commander;
         this.addDescription();
 

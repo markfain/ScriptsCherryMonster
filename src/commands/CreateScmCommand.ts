@@ -5,7 +5,7 @@ import {File} from "../utils/File";
 import {TextFiles} from "../utils/TextFiles";
 import {Prompt} from "../core/Prompt";
 import {Templates} from "../core/Templates";
-import template = Handlebars.template;
+//import template = Handlebars.template;
 declare var require: any;
 declare var process: any;
 

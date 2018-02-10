@@ -26,7 +26,7 @@ export class Tasks{
 
     public static async addTask(task:Task){
         await RemoteTasks.pushTask(task);
-        Logger.log("Added task "+task.getName());
+        Logger.log("Added task "+task.getName()+" with id "+task.getId());
     }
 
     public static async removeTaskById(id:string){

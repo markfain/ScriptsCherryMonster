@@ -122,10 +122,10 @@ export class Task {
     getColoredStatus(): any {
         switch (this.status) {
             case TaskStatus.STARTED:
-                //noinspection TypeScriptValidateTypes
+                //noinspection TypeScriptValidateTypes,TypeScriptUnresolvedFunction
                 return Chalk.bold.green(this.status);
             case TaskStatus.PAUSED:
-                //noinspection TypeScriptValidateTypes
+                //noinspection TypeScriptValidateTypes,TypeScriptUnresolvedFunction
                 return Chalk.bold.yellow(this.status);
             default:
                 return this.status;

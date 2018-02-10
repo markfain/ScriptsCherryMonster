@@ -34,6 +34,7 @@ import {AddNote} from "./commands/tasks/AddNote";
 import {TaskNotes} from "./commands/tasks/TaskNotes";
 import {PrioritizeTask} from "./commands/tasks/PrioritizeTask";
 import {SendReport} from "./commands/tasks/SendReport";
+import {Notes} from "./commands/other/Notes";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -54,6 +55,7 @@ CLI.installCommand(new ShockTheUser());
 CLI.installCommand(new FindFile());
 CLI.installCommand(new DeleteFiles());
 CLI.installCommand(new Compare());
+CLI.installCommand(new Notes());
 
 //Git
 CLI.installCommand(new GitResetClean());

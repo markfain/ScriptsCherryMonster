@@ -58,15 +58,15 @@ export class MailClient{
         TextFiles.write(this.getTokenFile(), token);
     }
 
-    public static sendMail(){
+    public static sendMail(message){
         let auth = TextFiles.readJson(Files.file("$SCM$", "gmail.json"));
-        this.authorize(auth, (authClient)=>{this.sendMessage(authClient)});
+        this.authorize(auth, (authClient)=>{this.sendMessage(authClient, message)});
     }
 
-    public static sendMessage(auth){
+    public static sendMessage(auth, message){
         var google = require('googleapis');
         var gmail = google.gmail('v1');
-        var raw = this.constructBody('markfainstein@gmail.com', 'markfainstein@gmail.com', 'subject', 'message test');
+        var raw = this.constructBody('markfainstein@gmail.com', 'markfainstein@gmail.com', 'ScriptsMonster Tasks', message);
         gmail.users.messages.send({
             auth: auth,
             userId: 'me',
@@ -84,13 +84,13 @@ export class MailClient{
     }
 
     public static constructBody(to, from, subject, message){
-        var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
+        var str = ["Content-Type: text/html; charset=\"UTF-8\"\n",
             "MIME-Version: 1.0\n",
             "Content-Transfer-Encoding: 7bit\n",
             "to: ", to, "\n",
             "from: ", from, "\n",
             "subject: ", subject, "\n\n",
-            message
+            "<h1>"+message+"</h1>"
         ].join('');
 
         var encodedMail = new Buffer(str).toString("base64").replace(/\+/g, '-').replace(/\//g, '_');
