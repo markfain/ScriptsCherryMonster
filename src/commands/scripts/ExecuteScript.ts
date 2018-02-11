@@ -37,7 +37,8 @@ export class ExecuteScript extends Command {
             let distFolder = Files.file("$SCM_DISTRIBUTION$");
             let scriptFileJs:File = Files.file(distFolder, "scripts/"+scriptName+".js");
             let scmProject = Files.file("$SCM$");
-            this.execSyncRedirectOutput("tsc "+scriptFileTs.getAbsolutePath()+" --outDir "+distFolder.getAbsolutePath(), scmProject);
+            //TODO: how to compile only a specific file? is that possible?
+            this.execSyncRedirectOutput("tsc -p ./", scmProject);
             this.execSyncRedirectOutput("node "+scriptFileJs.getAbsolutePath(), scmProject);
         }
 
