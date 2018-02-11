@@ -15,6 +15,7 @@
         "MergeStrainsData",
         "MultiplicationRunningTimeTest",
         "OldPublishedToNewPublished",
+        "TestScript",
         "ToolboxBuildShAndCmd",
         "WorksheetVariantsWithText",
         "WorksheetsCleanGeneratedFilesFromDebug",
