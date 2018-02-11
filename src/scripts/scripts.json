@@ -4,7 +4,6 @@
         "AnalyzeJson",
         "BashToPythonScriptForJenkins",
         "CleanWorksheetParamatersFileFromDebug",
-        "ConvertSomethingToSomethingElse",
         "ConvertToCLIToolboxCommand",
         "DiscoverPublishedEpisodes",
         "EpisodesWithInvalidJsonDescriptors",
