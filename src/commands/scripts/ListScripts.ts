@@ -13,7 +13,7 @@ export class ListScripts extends Command {
         super("listscripts", "lists all available scripts", 1);
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let scriptsListFile:File = Files.file("$SCM_SCRIPTS$", "scripts.json");
         Logger.log(TextFiles.read(scriptsListFile));
 

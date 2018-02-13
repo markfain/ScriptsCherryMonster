@@ -11,7 +11,7 @@ export class GitAdd extends Command {
         ];
     }
 
-    execute(options) {
+    doExecute(options) {
         let filePath = this.getArgument("filePath", options);
         Logger.log(this.execSyncRedirectOutput("git add "+filePath, null, true));
     }

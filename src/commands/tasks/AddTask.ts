@@ -28,17 +28,22 @@ export class AddTask extends Command {
             {
                 flags: "-p, --priority <priority>",
                 description: "task priority (number, not -1)"
+            },
+            {
+                flags: "-a, --asana",
+                description: "if true, this task is associated with Asana"
             }
         ]
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let taskName:string = this.getArgument("name",options);
         let description:string = this.getOption("description",options);
         let group:string = this.getOption("group",options);
         let priority:number = parseInt(this.getOption("priority",options));
         let task = new Task(taskName, description, null, null, null, group, priority);
-        Tasks.addTask(task);
+
+        Tasks.addTask(task, this.getOption("asana",options));
 
     }
 

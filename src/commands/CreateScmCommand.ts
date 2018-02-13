@@ -35,7 +35,7 @@ export class CreateScmCommand extends Command {
      * @param options
      */
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let userPrompt = new Prompt();
 
         userPrompt

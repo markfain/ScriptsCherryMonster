@@ -17,7 +17,7 @@ export class Compare extends Command {
         ];
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         //let meld:File = Files.file("/Applications/Meld.app");
         //No support for this because Files.file needs to support path without home
         let meldPath = "/Applications/Meld.app"

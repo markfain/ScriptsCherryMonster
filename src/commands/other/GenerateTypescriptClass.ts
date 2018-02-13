@@ -19,7 +19,7 @@ export class GenerateTypescriptClass extends Command {
     handleAnswer(answer: any): void {
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let handlebars: any = require('handlebars');
         let userPrompt = new Prompt();
 

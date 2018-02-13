@@ -51,7 +51,7 @@ export class CreateScript extends Command {
         Templates.writeTemplateInstanceToFile(templateFile, scriptDestinationFile, data);
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let userPrompt = new Prompt();
 
         userPrompt

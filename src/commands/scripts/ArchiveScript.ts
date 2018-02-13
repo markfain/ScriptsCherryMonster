@@ -17,7 +17,7 @@ export class ArchiveScript extends Command {
             "scriptName"
         ];
     }
-    execute(options: any): void {
+    doExecute(options: any): void {
         let scriptName: string = this.getArgument("scriptName", options);
         let scriptSourceFile = Files.file("$SCM_SCRIPTS$", scriptName + ".ts");
         let scriptDestinationFile = Files.file("$SCM_SCRIPTS$", "../archive/"+scriptName + ".ts");

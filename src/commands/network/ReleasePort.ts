@@ -20,7 +20,7 @@ export class ReleasePort extends Command {
         }
     }
 
-    execute(options:any) {
+    doExecute(options:any) {
         let port: string = this.getArgument("port", options) || "8333";
         let output: string = this.execSyncRedirectOutput("sudo lsof -i :"+port, null, true);
         Logger.log(this.processLines(output.toString(), 0));

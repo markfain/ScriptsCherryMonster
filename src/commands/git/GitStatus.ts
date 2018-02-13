@@ -21,7 +21,7 @@ export class GitStatus extends Command {
         }
     }
 
-    execute() {
+    doExecute() {
         let statusMap = {};
         let repositoryMap = this.createRepositoryMap();
         for (let repositoryName in repositoryMap) {
@@ -33,6 +33,13 @@ export class GitStatus extends Command {
             let branchRegex = /On branch (.+)/g;
             let status = TextUtils.getRegexGroups(gitStatus, repositoryStatusRegex)[0];
             let branch = TextUtils.getRegexGroups(gitStatus, branchRegex)[0];
+
+
+            //TODO: fix later to get it correctly
+            if (!status || !branch){
+                status = "DETACHED!";
+                branch = "DETACHED!";
+            }
             statusMap[repositoryName] = {"status":status, "branch":branch};
         }
 

@@ -15,7 +15,7 @@ export class GitLog extends Command {
         ]
     }
 
-    execute(options) {
+    doExecute(options) {
         let author = this.getOption("author", options);
         let authorParam = "";
         if (author){

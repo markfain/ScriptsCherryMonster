@@ -9,6 +9,7 @@ export class Task {
     notes: string[];
     description: string;
     id: number;
+    asanaId: number;
     group: string;
     priority: number;
     added: Date;
@@ -20,15 +21,15 @@ export class Task {
                 status?: TaskStatus,
                 group?: string,
                 priority?: number,
-                added?:string
-    ) {
+                added?: string,
+                asanaId?: number) {
 
         this.name = taskName;
         this.description = description;
         this.notes = notes || [];
         this.group = group || Tasks.DEFAULT_GROUP;
         this.priority = priority || Tasks.DEFAULT_PRIORITY;
-        this.added = added? new Date(added): new Date();
+        this.added = added ? new Date(added) : new Date();
         if (status == null) {
             this.status = TaskStatus.DEFINED;
         }
@@ -37,11 +38,12 @@ export class Task {
         }
 
         if (id == null) {
-            this.id = Math.floor(Math.random() * 10000);
+            this.id = Math.floor(Math.random() * 1000000);
         }
         else {
             this.id = id;
         }
+        this.asanaId = asanaId;
     }
 
     addNote(note: string) {
@@ -66,7 +68,8 @@ export class Task {
             description: this.description.toString(),
             group: this.group,
             priority: this.priority == -1 ? Tasks.DEFAULT_PRIORITY_DISPLAY : this.priority.toString(),
-            added: this.added
+            added: this.added,
+            asanaId: this.asanaId ? this.asanaId.toString() : null
         }
 
     }
@@ -133,8 +136,8 @@ export class Task {
 
     }
 
-    getPriority():string{
-        if (this.priority!=-1){
+    getPriority(): string {
+        if (this.priority != -1) {
             return this.priority.toString();
         }
         else {
@@ -142,16 +145,24 @@ export class Task {
         }
     }
 
-    getDateAdded():Date{
+    getDateAdded(): Date {
         return this.added;
     }
 
-    getDateCompleted():Date{
+    getDateCompleted(): Date {
         return this.completionTime;
     }
 
-    setPriority(priority:number):void{
+    setPriority(priority: number): void {
         this.priority = priority;
+    }
+
+    setAsanaId(asanaId: number): void {
+        this.asanaId = asanaId;
+    }
+
+    getAsanaId(): string {
+        return this.asanaId ? this.asanaId.toString() : null;
     }
 }
 

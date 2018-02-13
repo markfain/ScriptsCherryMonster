@@ -25,7 +25,7 @@ export class ListTasks extends Command {
         //TODO: add listing tasks options
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
        let listCompletedTasks:string = this.getOption("completed",options);
        let group:string = this.getOption("group",options);
        Tasks.listTasks(listCompletedTasks, group);

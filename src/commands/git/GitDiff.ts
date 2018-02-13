@@ -25,17 +25,17 @@ export class GitDiff extends Command {
         ]
     }
 
-    execute(options) {
+    doExecute(options) {
         let commit = this.getOption("commit", options);
         let file = this.getArgument("fileOrChanges", options);
         if (!commit){
             commit = "HEAD";
         }
         if (file.toLowerCase()!="changes"){
-            Logger.log(this.execSyncRedirectOutput("git difftool "+commit+"^ "+file, null, true));
+            Logger.log(this.execSyncRedirectOutput("git difftool "+commit+"^ "+commit+" "+file, null, true));
         }
         else {
-            Logger.log(this.execSyncRedirectOutput("git diff "+commit+"^ --name-only", null, true));
+            Logger.log(this.execSyncRedirectOutput("git diff "+commit+"^ "+commit+" --name-only", null, true));
         }
 
     }

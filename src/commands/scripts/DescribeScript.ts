@@ -24,7 +24,7 @@ export class DescribeScript extends Command {
         let groups = TextUtils.getRegexGroups(line, regex);
         return groups[0];
     }
-    execute(options: any): void {
+    doExecute(options: any): void {
         let scriptName: string = this.getArgument("scriptName", options);
         let scriptSourceFile = Files.file("$SCM_SCRIPTS$", scriptName + ".ts");
         let lines = TextFiles.readLines(scriptSourceFile);

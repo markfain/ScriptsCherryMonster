@@ -6,6 +6,7 @@ import * as Table from 'cli-table';
 import {RemoteTasks} from "./RemoteTasks";
 import * as Chalk from 'chalk';
 import {ProgressBar} from "../../core/ProgressBar";
+import {AsanaClient} from "./AsanaClient";
 export class Tasks{
 
     public static DEFAULT_GROUP = "Slate";
@@ -21,34 +22,41 @@ export class Tasks{
             json["status"],
             json["group"],
             json["priority"],
-            json["added"]
+            json["added"],
+            json["asanaId"]
         );
     }
 
-    public static async addTask(task:Task){
+    public static async addTask(task:Task, isAsana){
+        if (isAsana){
+            let asanaId = await AsanaClient.addTask(task);
+            task.setAsanaId(asanaId)
+        }
         await RemoteTasks.pushTask(task);
         Logger.log("Added task "+task.getName()+" with id "+task.getId());
     }
 
     public static async removeTaskById(id:string){
+        let task = await RemoteTasks.fetchById(id);
+        if (task.getAsanaId()){
+            await AsanaClient.removeTask(task.getAsanaId());
+        }
         await RemoteTasks.removeById(id);
         Logger.log("Removed task "+id);
     }
 
-    public static async startTaskById(id:string, progress:ProgressBar){
-        progress.finishTask();
+    public static async startTaskById(id:string){
         let task = await RemoteTasks.fetchById(id);
-        progress.finishTask();
         task.start();
-        progress.finishTask();
+        await AsanaClient.startTask(task);
         await RemoteTasks.pushTask(task);
-        progress.finishTask();
         Logger.log("Started task "+id);
     }
 
     public static async completeTaskById(id:string){
         let task = await RemoteTasks.fetchById(id);
         task.complete();
+        await AsanaClient.completeTask(task);
         await RemoteTasks.pushTask(task);
         Logger.log("Completed task "+id);
     }
@@ -56,6 +64,7 @@ export class Tasks{
     public static async pauseTaskById(id:string){
         let task = await RemoteTasks.fetchById(id);
         task.pause();
+        await AsanaClient.pauseTask(task);
         await RemoteTasks.pushTask(task);
         Logger.log("Paused task "+id);
     }

@@ -16,7 +16,7 @@ export class Notes extends Command {
         //TODO: add option to clear notes, open new notes and so on, open a specific note and so on.
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         if (!this.notesFile.exists()) {
             this.execSync("touch "+this.notesFile.getAbsolutePath());
         }

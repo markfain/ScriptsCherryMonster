@@ -17,9 +17,9 @@ export class StartTask extends Command {
         ];
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let taskId:string = this.getArgument("id",options);
-        Tasks.startTaskById(taskId, this.getProgressBar());
+        Tasks.startTaskById(taskId);
     }
 
 }

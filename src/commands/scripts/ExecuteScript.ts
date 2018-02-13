@@ -4,6 +4,7 @@ import {File} from "../../utils/File";
 import {TextFiles} from "../../utils/TextFiles";
 import {Prompt} from "../../core/Prompt";
 import {Command} from "../../core/Command";
+import {Spinner} from "../../core/Spinner";
 declare var require: any;
 declare var process: any;
 
@@ -22,7 +23,7 @@ export class ExecuteScript extends Command {
         ];
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let scriptName = this.getArgument("scriptName", options);
 
         if (this.getOption("desc", options)){
@@ -41,6 +42,7 @@ export class ExecuteScript extends Command {
             this.execSyncRedirectOutput("tsc -p ./", scmProject);
             this.execSyncRedirectOutput("node "+scriptFileJs.getAbsolutePath(), scmProject);
         }
+
 
     }
 

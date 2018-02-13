@@ -2,6 +2,7 @@ import {CLProgram} from "./CLProgram";
 import {ProgressBar} from "./ProgressBar";
 import {GenerateTypescriptClass} from "../commands/other/GenerateTypescriptClass";
 import {Script} from "./Script";
+import {Spinner} from "./Spinner";
 declare var require: any;
 declare var process: any;
 
@@ -17,6 +18,7 @@ export abstract class Command extends Script{
     protected commandArguments: string[] = [];
 
     private progressBar: ProgressBar;
+    private spinner:Spinner;
     protected options: ICommandOption[] = [];
     private numberOfTasks: number = 0;
 
@@ -73,7 +75,7 @@ export abstract class Command extends Script{
     }
 
     getAction(): (options)=>any {
-        return (...options: any[]): any => this.execute(options)
+        return (...options: any[]): any => this.execute(options);
     }
 
     getDescription(): string {
@@ -97,8 +99,12 @@ export abstract class Command extends Script{
         this.commandArguments.push(argument);
     }
 
+    startTask(taskName:string):void{
+        this.spinner.startTask(taskName);
+    }
+
     finishTask(): void {
-        this.progressBar.finishTask();
+        //this.progressBar.finishTask();
     }
 
     finishTasks(tasks: number): void {
@@ -108,6 +114,12 @@ export abstract class Command extends Script{
     getProgressBar():ProgressBar{
         return this.progressBar;
     }
+
+    execute(options:any){
+        this.doExecute(options);
+    }
+
+    abstract doExecute(options:any);
 
 
 

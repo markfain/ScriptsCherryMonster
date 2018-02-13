@@ -18,7 +18,7 @@ export class RemoveTask extends Command {
         
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let taskId:string = this.getArgument("id",options);
         Tasks.removeTaskById(taskId);
     }

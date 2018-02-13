@@ -29,7 +29,7 @@ export class DeleteScript extends Command {
         }
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let scriptName: string = this.getArgument("scriptName", options);
         let scriptsFolder: File = Files.file("$SCM_SCRIPTS$");
         let scriptToDelete = Files.file(scriptsFolder, scriptName + ".ts");

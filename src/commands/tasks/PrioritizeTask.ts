@@ -17,7 +17,7 @@ export class PrioritizeTask extends Command {
         ];
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let taskId:string = this.getArgument("id",options);
         let taskPriotity:number = parseInt(this.getArgument("priority",options));
         Tasks.setPriority(taskId, taskPriotity);

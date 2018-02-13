@@ -28,7 +28,7 @@ export class GitResetClean extends Command {
         }
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let dir:string = this.getCurrentDir();
 
         let gitParentPath:string = this.getGitParent(Files.file(dir));

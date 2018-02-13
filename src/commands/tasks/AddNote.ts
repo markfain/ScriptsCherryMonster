@@ -19,7 +19,7 @@ export class AddNote extends Command {
         ];
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         let note:string = this.getArgument("note",options);
         let taskId:string = this.getArgument("id",options);
         Tasks.addNoteToTaskById(taskId, note);

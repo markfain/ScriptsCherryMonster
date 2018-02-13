@@ -16,7 +16,7 @@ export class SendReport extends Command {
         super("sendreport", "Sends report via mail", 1);
     }
 
-    execute(options: any): void {
+    doExecute(options: any): void {
         Reports.sendReport();
 
     }
