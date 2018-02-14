@@ -38,6 +38,10 @@ export class Tasks{
 
     public static async removeTaskById(id:string){
         let task = await RemoteTasks.fetchById(id);
+        if (!task){
+            Logger.error("Task "+id+" Does not exist");
+            return;
+        }
         if (task.getAsanaId()){
             await AsanaClient.removeTask(task.getAsanaId());
         }
@@ -47,6 +51,10 @@ export class Tasks{
 
     public static async startTaskById(id:string){
         let task = await RemoteTasks.fetchById(id);
+        if (!task){
+            Logger.error("Task "+id+" Does not exist");
+            return;
+        }
         task.start();
         await AsanaClient.startTask(task);
         await RemoteTasks.pushTask(task);
@@ -63,6 +71,10 @@ export class Tasks{
 
     public static async pauseTaskById(id:string){
         let task = await RemoteTasks.fetchById(id);
+        if (!task){
+            Logger.error("Task "+id+" Does not exist");
+            return;
+        }
         task.pause();
         await AsanaClient.pauseTask(task);
         await RemoteTasks.pushTask(task);

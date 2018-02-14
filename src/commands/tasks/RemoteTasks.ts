@@ -53,9 +53,14 @@ export class RemoteTasks {
             var reference = database.ref("tasks/"+id);
             reference.once("value", (taskJsonRemote)=>{
                 let taskJson = taskJsonRemote.val();
-                taskJson["id"] = id;
-                let task:Task = Tasks.taskFromJson(taskJson);
-                resolve(task);
+                if (taskJson){
+                    taskJson["id"] = id;
+                    let task:Task = Tasks.taskFromJson(taskJson);
+                    resolve(task);
+                }
+                else {
+                    resolve(null);
+                }
                 this.firebsaeDisconnect(firebaseConnection);
             });
         });
