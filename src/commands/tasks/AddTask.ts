@@ -36,14 +36,15 @@ export class AddTask extends Command {
         ]
     }
 
-    doExecute(options: any): void {
+    async doExecute(options: any) {
         let taskName:string = this.getArgument("name",options);
         let description:string = this.getOption("description",options);
         let group:string = this.getOption("group",options);
         let priority:number = parseInt(this.getOption("priority",options));
         let task = new Task(taskName, description, null, null, null, group, priority);
-
-        Tasks.addTask(task, this.getOption("asana",options));
+        this.startTask();
+        let taskId:number = await Tasks.addTask(task, this.getOption("asana",options));
+        this.finishTask(true, "Added task "+taskName+" with id "+taskId);
 
     }
 

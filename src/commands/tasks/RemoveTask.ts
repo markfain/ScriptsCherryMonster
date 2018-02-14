@@ -1,8 +1,3 @@
-import {Logger} from "../../core/Logger";
-import {Files} from "../../utils/Files";
-import {File} from "../../utils/File";
-import {TextFiles} from "../../utils/TextFiles";
-import {Prompt} from "../../core/Prompt";
 import {Command} from "../../core/Command";
 import {Tasks} from "./Tasks";
 declare var require: any;
@@ -15,12 +10,18 @@ export class RemoveTask extends Command {
         this.commandArguments = [
             "id"
         ];
-        
+        this.options = [
+            {
+                flags: "-ignoreAsana, --ignoreAsana",
+                description: "remove only locally"
+            }
+        ]
     }
 
     doExecute(options: any): void {
         let taskId:string = this.getArgument("id",options);
-        Tasks.removeTaskById(taskId);
+
+        Tasks.removeTaskById(taskId, this.getOption("ignoreAsana", options));
     }
 
 }

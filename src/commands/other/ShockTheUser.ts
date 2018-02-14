@@ -17,11 +17,17 @@ export class ShockTheUser extends Command {
         }
         let command: Command = this;
         let counter = 0;
-        var timer = setInterval(function () {
+        this.startTask("startingToShock");
+        var timer = setInterval(()=> {
             counter++;
-            command.finishTask();
+            if (counter == 7){
+                this.finishTask();
+                this.startTask("still shocking...");
+            }
             if (counter == 20) {
+                this.finishTask();
                 Logger.shockTheUser("SjknanIJSIDNIU hDsuh DuI SHD UIhIuISh IUHSIuI HSIuFH IUhFIsuH IUf UISFH IUfh IUH uFIHuI H HIsuFH s ");
+
                 clearInterval(timer);
             }
         }, 200);

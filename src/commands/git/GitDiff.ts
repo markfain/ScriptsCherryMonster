@@ -29,7 +29,9 @@ export class GitDiff extends Command {
         let commit = this.getOption("commit", options);
         let file = this.getArgument("fileOrChanges", options);
         if (!commit){
-            commit = "HEAD";
+            //TODO: get current branch instead of master
+            Logger.log(this.execSyncRedirectOutput("git difftool HEAD:"+file+" "+file, null, true));
+            return;
         }
         if (file.toLowerCase()!="changes"){
             Logger.log(this.execSyncRedirectOutput("git difftool "+commit+"^ "+commit+" "+file, null, true));

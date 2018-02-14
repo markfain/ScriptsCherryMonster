@@ -27,46 +27,69 @@ export class Tasks{
         );
     }
 
-    public static async addTask(task:Task, isAsana){
-        if (isAsana){
-            let asanaId = await AsanaClient.addTask(task);
-            task.setAsanaId(asanaId)
-        }
-        await RemoteTasks.pushTask(task);
-        Logger.log("Added task "+task.getName()+" with id "+task.getId());
+    public static async addTask(task:Task, isAsana):Promise<any>{
+        return new Promise(async(resolve)=>{
+            if (isAsana){
+                let asanaId = await AsanaClient.addTask(task);
+                task.setAsanaId(asanaId)
+            }
+            await RemoteTasks.pushTask(task);
+            resolve(task.getId());
+        });
+
+
     }
 
-    public static async removeTaskById(id:string){
+    public static async removeTaskById(id:string, shouldIgnoreAsana:boolean){
         let task = await RemoteTasks.fetchById(id);
         if (!task){
             Logger.error("Task "+id+" Does not exist");
             return;
         }
-        if (task.getAsanaId()){
+        //TODO: should be 'shouldIgnoreIntegrations' or something else
+        if (task.getAsanaId() && !shouldIgnoreAsana){
             await AsanaClient.removeTask(task.getAsanaId());
         }
         await RemoteTasks.removeById(id);
         Logger.log("Removed task "+id);
     }
 
-    public static async startTaskById(id:string){
-        let task = await RemoteTasks.fetchById(id);
-        if (!task){
-            Logger.error("Task "+id+" Does not exist");
-            return;
-        }
-        task.start();
-        await AsanaClient.startTask(task);
-        await RemoteTasks.pushTask(task);
-        Logger.log("Started task "+id);
+    public static async startTaskById(id:string):Promise<any>{
+        return new Promise(async(resolve)=>{
+            let task = await RemoteTasks.fetchById(id);
+            if (!task){
+                Logger.error("Task "+id+" Does not exist");
+                return;
+            }
+            task.start();
+            try{
+                await AsanaClient.startTask(task);
+
+            }
+            catch(e){
+                //Logger.warn("This task is not associated with asana");
+            }
+            await RemoteTasks.pushTask(task);
+            resolve(id);
+        })
+
     }
 
-    public static async completeTaskById(id:string){
-        let task = await RemoteTasks.fetchById(id);
-        task.complete();
-        await AsanaClient.completeTask(task);
-        await RemoteTasks.pushTask(task);
-        Logger.log("Completed task "+id);
+    public static async completeTaskById(id:string):Promise<any>{
+        return new Promise(async(resolve)=>{
+            let task = await RemoteTasks.fetchById(id);
+            task.complete();
+            try{
+                await AsanaClient.completeTask(task);
+            }
+            catch(e){
+                //Logger.log(e);
+            }
+
+            await RemoteTasks.pushTask(task);
+            resolve(id);
+        });
+
     }
 
     public static async pauseTaskById(id:string){

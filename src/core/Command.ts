@@ -3,6 +3,8 @@ import {ProgressBar} from "./ProgressBar";
 import {GenerateTypescriptClass} from "../commands/other/GenerateTypescriptClass";
 import {Script} from "./Script";
 import {Spinner} from "./Spinner";
+import {isNullOrUndefined} from "util";
+import {Logger} from "./Logger";
 declare var require: any;
 declare var process: any;
 
@@ -17,8 +19,8 @@ export abstract class Command extends Script{
 
     protected commandArguments: string[] = [];
 
-    private progressBar: ProgressBar;
-    private spinner:Spinner;
+    private spinner;
+    private spinningStarted;
     protected options: ICommandOption[] = [];
     private numberOfTasks: number = 0;
 
@@ -26,6 +28,8 @@ export abstract class Command extends Script{
         super(name, description);
         this.numberOfTasks = numberOfTasks;
         this.validateCommand(); //Throws exception
+        this.spinner = require('ora')(name);
+        this.spinningStarted = false;
     }
 
     getOptions():ICommandOption[] {
@@ -56,15 +60,11 @@ export abstract class Command extends Script{
         return -1;
     }
 
-    getOption(optionName: string, commandOptions: any[]): string {
+    getOption(optionName: string, commandOptions: any[]): any {
         let i = this.commandArguments.length;
         let option: any = commandOptions[i][optionName];
-        if (typeof option == "boolean") {
-            return option.toString();
-        }
-        else {
-            return option;
-        }
+        //generally can be string or boolean, maybe can become a more especific type than any
+        return option;
     }
 
     getArgument(argName: string, commandOptions: any[]): string {
@@ -91,28 +91,54 @@ export abstract class Command extends Script{
     }
 
     finalize(): void {
+        //TODO: is this method needed?
         //this.setCommandArguments();
-        this.progressBar = new ProgressBar(this.name, this.numberOfTasks);
+        //this.progressBar = new ProgressBar(this.name, this.numberOfTasks);
     }
 
     addArgument(argument: string): void {
         this.commandArguments.push(argument);
     }
 
-    startTask(taskName:string):void{
-        this.spinner.startTask(taskName);
+    startSpinner(){
+        this.spinner.start(this.name);
+        this.spinningStarted = true;
     }
 
-    finishTask(): void {
-        //this.progressBar.finishTask();
+    stopSpinner(){
+        this.spinner.stop();
     }
 
-    finishTasks(tasks: number): void {
-        this.progressBar.finishTasks(tasks);
+    startTask(taskName?:string):void{
+        if (!this.spinningStarted){
+            this.spinner.start(this.name);
+            this.spinningStarted = true;
+        }
+        //noinspection TypeScriptUnresolvedVariable
+        if (taskName){
+            this.spinner.text = taskName;
+        }
+
     }
 
-    getProgressBar():ProgressBar{
-        return this.progressBar;
+    finishTask(success?:boolean, info?:string): void {
+        if (!this.spinningStarted){
+            return;
+        }
+        if (success == isNullOrUndefined(success)){
+            //noinspection TypeScriptUnresolvedFunction
+            this.spinner.succeed();
+            this.spinner.stop();
+        }
+        if (success == true){
+            //noinspection TypeScriptUnresolvedFunction
+            this.spinner.succeed(info);
+            this.spinner.stop();
+        }
+        else {
+            this.spinner.fail(info);
+            this.spinner.stop();
+        }
     }
 
     execute(options:any){

@@ -29,21 +29,20 @@ export class AsanaClient{
             };
             client.tasks.createInWorkspace(this.WORKSPACE_ID, newTask).then((response)=>{
                 client.tasks.addProject(response.id, {project:this.PROJECT_ID, section:this.DEFINED_SECTION})
-                resolve(response.id);
+                return resolve(response.id);
             });
         });
     }
 
     public static startTask(task:Task):Promise<boolean>{
         let client = this.connect();
-        return new Promise((resolve)=>{
+        return new Promise((resolve, reject)=>{
             if (!task.getAsanaId()){
-                Logger.warn("This task is not associated with asana");
-                return;
+                return reject();
             }
 
             client.tasks.addProject(task.asanaId, {project:this.PROJECT_ID, section: this.STARTED_SECTION}).then(()=>{
-                resolve(true);
+                return resolve(true);
             }).catch((error)=>{
                 console.log(error.value);
             });
@@ -75,19 +74,18 @@ export class AsanaClient{
         });
     }
 
-    public static completeTask(task:Task):Promise<boolean>{
+    public static completeTask(task:Task):Promise<any>{
 
         let client = this.connect();
-        return new Promise((resolve)=>{
+        return new Promise((resolve, reject)=>{
             if (!task.getAsanaId()){
-               resolve(false);
-                return;
+               return reject();
             }
             client.tasks.update(task.getAsanaId(), {completed: true}).catch((error)=> {
                     console.log(error.value)
                 }
             ).then(()=>{
-                resolve(true);
+                return resolve();
             })
         });
 

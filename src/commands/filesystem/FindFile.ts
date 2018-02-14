@@ -72,7 +72,7 @@ export class FindFile extends Command {
                 if (file.isDirectory()) {
                     this.findFileInFolder(file, find, list, progressStep);
                     if (root.getAbsolutePath() == this.root.getAbsolutePath()) {
-                        this.finishTasks(progressStep);
+                        //this.finishTasks(progressStep);
                     }
                 }
                 else {
@@ -141,7 +141,7 @@ export class FindFile extends Command {
             let progressLeft: number = this.NUMBER_OF_TASKS - progressEstimation * progressStep;
 
             this.findFileInFolder(root, fileToFind, list, progressStep, ignoreFlag);
-            this.finishTasks(progressLeft);
+            //this.finishTasks(progressLeft);
             if (list.length == 0) {
                 Logger.highlight("No files found of name " + fileToFind);
                 return;

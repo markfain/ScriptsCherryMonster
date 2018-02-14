@@ -17,9 +17,11 @@ export class StartTask extends Command {
         ];
     }
 
-    doExecute(options: any): void {
+    async doExecute(options: any) {
         let taskId:string = this.getArgument("id",options);
-        Tasks.startTaskById(taskId);
+        this.startTask();
+        let id = await Tasks.startTaskById(taskId);
+        this.finishTask(true,  "Started task "+id);
     }
 
 }
