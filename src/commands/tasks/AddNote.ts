@@ -6,6 +6,7 @@ import {Prompt} from "../../core/Prompt";
 import {Command} from "../../core/Command";
 import {Task} from "./Task";
 import {Tasks} from "./Tasks";
+import {Spinner} from "../../core/Spinner";
 declare var require: any;
 declare var process: any;
 
@@ -22,7 +23,9 @@ export class AddNote extends Command {
     doExecute(options: any): void {
         let note:string = this.getArgument("note",options);
         let taskId:string = this.getArgument("id",options);
+        Spinner.start(this.name);
         Tasks.addNoteToTaskById(taskId, note);
+        Spinner.stop("Added note to task " + taskId);
     }
 
 }

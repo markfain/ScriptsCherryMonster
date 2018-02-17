@@ -7,6 +7,7 @@ import {RemoteTasks} from "./RemoteTasks";
 import * as Chalk from 'chalk';
 import {ProgressBar} from "../../core/ProgressBar";
 import {AsanaClient} from "./AsanaClient";
+import {Spinner} from "../../core/Spinner";
 export class Tasks{
 
     public static DEFAULT_GROUP = "Slate";
@@ -40,18 +41,20 @@ export class Tasks{
 
     }
 
-    public static async removeTaskById(id:string, shouldIgnoreAsana:boolean){
-        let task = await RemoteTasks.fetchById(id);
-        if (!task){
-            Logger.error("Task "+id+" Does not exist");
-            return;
-        }
-        //TODO: should be 'shouldIgnoreIntegrations' or something else
-        if (task.getAsanaId() && !shouldIgnoreAsana){
-            await AsanaClient.removeTask(task.getAsanaId());
-        }
-        await RemoteTasks.removeById(id);
-        Logger.log("Removed task "+id);
+    public static async removeTaskById(id:string, shouldIgnoreAsana:boolean):Promise<any>{
+        return new Promise(async(resolve)=> {
+            let task = await RemoteTasks.fetchById(id);
+            if (!task) {
+                Spinner.fail("Task " + id + " does not exist");
+                return;
+            }
+            //TODO: should be 'shouldIgnoreIntegrations' or something else
+            if (task.getAsanaId() && !shouldIgnoreAsana) {
+                await AsanaClient.removeTask(task.getAsanaId());
+            }
+            await RemoteTasks.removeById(id);
+            resolve(id);
+        });
     }
 
     public static async startTaskById(id:string):Promise<any>{
@@ -67,11 +70,11 @@ export class Tasks{
 
             }
             catch(e){
-                //Logger.warn("This task is not associated with asana");
+                Spinner.info("This task is not associated with asana");
             }
             await RemoteTasks.pushTask(task);
             resolve(id);
-        })
+        });
 
     }
 
@@ -92,21 +95,24 @@ export class Tasks{
 
     }
 
-    public static async pauseTaskById(id:string){
-        let task = await RemoteTasks.fetchById(id);
-        if (!task){
-            Logger.error("Task "+id+" Does not exist");
-            return;
-        }
-        task.pause();
-        await AsanaClient.pauseTask(task);
-        await RemoteTasks.pushTask(task);
-        Logger.log("Paused task "+id);
+    public static async pauseTaskById(id:string):Promise<any>{
+        return new Promise(async(resolve)=> {
+            let task = await RemoteTasks.fetchById(id);
+            if (!task) {
+                Spinner.fail("Task " + id + " does not exist");
+                return;
+            }
+            task.pause();
+            await AsanaClient.pauseTask(task);
+            await RemoteTasks.pushTask(task);
+            resolve(id);
+        });
     }
 
     public static async listTasks(listCompletedTasks, group){
+        Spinner.start("Fetching tasks...");
         let tasks = await RemoteTasks.fetchAll();
-
+        Spinner.stop();
         var table = new Table({
             head: ['ID', 'Name', 'Status', 'Priority']
         });
@@ -140,7 +146,9 @@ export class Tasks{
     }
 
     public static async listTaskNotes(id){
+        Spinner.start("Fetching task notes...");
         let task = await RemoteTasks.fetchById(id);
+        Spinner.stop();
         var table = new Table({
             head: ['#', "Note (Task '"+task.getName()+"')"]
         });
@@ -151,11 +159,13 @@ export class Tasks{
         console.log(table.toString());
     }
 
-    public static async addNoteToTaskById(id:string, note:string){
-        let task = await RemoteTasks.fetchById(id);
-        task.addNote(note);
-        await RemoteTasks.pushTask(task);
-        Logger.log("Added note to task "+id);
+    public static async addNoteToTaskById(id:string, note:string):Promise<any>{
+        return new Promise(async(resolve)=> {
+            let task = await RemoteTasks.fetchById(id);
+            task.addNote(note);
+            await RemoteTasks.pushTask(task);
+            resolve(true);
+        });
     }
 
     public static async getTaskIds(){

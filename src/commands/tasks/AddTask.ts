@@ -6,6 +6,7 @@ import {Prompt} from "../../core/Prompt";
 import {Command} from "../../core/Command";
 import {Task} from "./Task";
 import {Tasks} from "./Tasks";
+import {Spinner} from "../../core/Spinner";
 declare var require: any;
 declare var process: any;
 
@@ -42,9 +43,9 @@ export class AddTask extends Command {
         let group:string = this.getOption("group",options);
         let priority:number = parseInt(this.getOption("priority",options));
         let task = new Task(taskName, description, null, null, null, group, priority);
-        this.startTask();
+        Spinner.start(this.name);
         let taskId:number = await Tasks.addTask(task, this.getOption("asana",options));
-        this.finishTask(true, "Added task "+taskName+" with id "+taskId);
+        Spinner.stop("Added task "+taskName+" with id "+taskId);
 
     }
 

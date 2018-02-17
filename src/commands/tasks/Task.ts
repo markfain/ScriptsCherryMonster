@@ -1,6 +1,6 @@
-import {Logger} from "../../core/Logger";
 import {Tasks} from "./Tasks";
 import * as Chalk from 'chalk';
+import {Spinner} from "../../core/Spinner";
 export class Task {
     name: string;
     status: TaskStatus;
@@ -86,7 +86,7 @@ export class Task {
     complete(): void {
         this.completionTime = new Date();
         if (this.status == TaskStatus.DEFINED) {
-            Logger.warn("Completing a task that was not started or paused!")
+            Spinner.info("Completing a task that was not started or paused!")
         }
         this.setStatus(TaskStatus.COMPLETED);
     }

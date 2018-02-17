@@ -19,6 +19,7 @@ export class TaskNotes extends Command {
 
     doExecute(options: any): void {
        let taskId:string = this.getArgument("id",options);
+
        Tasks.listTaskNotes(taskId);
     }
 

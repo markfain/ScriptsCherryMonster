@@ -63,19 +63,22 @@ export class Logger {
 
 
     public static log(message: string) {
+        //noinspection TypeScriptUnresolvedFunction
         console.log(Chalk.cyan(message));
     }
 
     public static warn(message: string) {
+        //noinspection TypeScriptUnresolvedFunction
         console.log(Chalk.bold.magenta(message));
     }
 
     public static highlight(message: string) {
+        //noinspection TypeScriptUnresolvedVariable
         console.log(Chalk.white.bgYellow(message));
     }
 
     public static error(message: string) {
-
+        //noinspection TypeScriptUnresolvedFunction
         console.log(Chalk.bold.red(message));
     }
 

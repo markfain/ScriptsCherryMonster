@@ -1,35 +1,57 @@
 import {Logger} from "./Logger";
 export class Spinner {
+    private static spinner:any;
+    private static isSpinning = true;
 
-    private spinner:any;
-    private started:boolean;
-    private commandName:string;
-
-    constructor(commandName:string){
-        var CliSpinner = require('cli-spinner').Spinner;
-        var spinner = new CliSpinner('%s '+commandName);
-        spinner.setSpinnerString(1);
-        this.spinner = spinner;
+    public static start(text){
+        if (!this.spinner){
+            this.spinner = require('ora')(text);
+        }
+        this.spinner.start(text);
+        this.isSpinning = true;
     }
 
-
-    start(commandName:string){
-        this.commandName = commandName;
-        this.spinner.start();
-        Logger.log("spinner started");
+    public static stop(text?:string){
+        if (!this.spinner){
+            this.recreate();
+        }
+        if (text){
+            this.spinner.succeed(text);
+        }
+        this.spinner.stop();
+        this.isSpinning = false;
     }
 
-    startTask(name:string){
-        this.spinner.setSpinnerTitle(this.commandName+" : "+name);
+    public static info(text:string){
+        if (!this.spinner){
+            this.recreate();
+        }
+        this.spinner.info(text);
     }
 
-    finishTask(){
-        //TODO: nothing for now
+    public static clear(){
+        if (!this.spinner){
+            this.recreate();
+        }
+        this.spinner.clear();
+        this.isSpinning = false;
     }
 
-    stop(){
-        this.spinner.stop(true);
+    public static recreate(){
+        this.spinner = require('ora')(name);
     }
 
+    public static success(text){
+        if (!this.spinner){
+            this.recreate();
+        }
+        this.spinner.success(text);
+    }
 
+    public static fail(text){
+        if (!this.spinner){
+            this.recreate();
+        }
+        this.spinner.fail(text);
+    }
 }

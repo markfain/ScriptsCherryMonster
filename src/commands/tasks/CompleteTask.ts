@@ -5,6 +5,7 @@ import {TextFiles} from "../../utils/TextFiles";
 import {Prompt} from "../../core/Prompt";
 import {Command} from "../../core/Command";
 import {Tasks} from "./Tasks";
+import {Spinner} from "../../core/Spinner";
 declare var require: any;
 declare var process: any;
 
@@ -19,9 +20,9 @@ export class CompleteTask extends Command {
 
     async doExecute(options: any) {
         let taskId:string = this.getArgument("id",options);
-        this.startTask();
+        Spinner.start(this.name);
         await Tasks.completeTaskById(taskId);
-        this.finishTask(true, "Completed task "+taskId);
+        Spinner.stop("Completed task "+taskId);
     }
 
 }

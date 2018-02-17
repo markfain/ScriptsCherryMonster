@@ -2,6 +2,7 @@ import {TextFiles} from "../../utils/TextFiles";
 import {Files} from "../../utils/Files";
 import {Logger} from "../../core/Logger";
 import {Task} from "./Task";
+import {Spinner} from "../../core/Spinner";
 export class AsanaClient{
 
     //TODO: externalize
@@ -50,21 +51,21 @@ export class AsanaClient{
 
     }
 
-    public static pauseTask(task:Task){
+    public static pauseTask(task:Task):Promise<any>{
         let client = this.connect();
         return new Promise((resolve)=>{
             if (!task.getAsanaId()){
-                Logger.warn("This task is not associated with asana");
-                return;
+                Spinner.info("This task is not associated with asana");
+                return resolve(false);
             }
             client.tasks.addProject(task.asanaId, {project:this.PROJECT_ID, section: this.DEFINED_SECTION}).then(()=>{
-                resolve(true);
+                return resolve(true);
             });
         });
 
     }
 
-    public static removeTask(id:string):Promise<boolean>{
+    public static removeTask(id:string):Promise<any>{
         let client = this.connect();
         return new Promise((resolve)=>{
 
