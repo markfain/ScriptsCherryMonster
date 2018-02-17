@@ -1,4 +1,4 @@
-# Project Title
+# Scripts Cherry Monster
 
 The scripts monster can do anything for you!
 A convenient command line tool, mainly for creating scripts right from the terminal, but also:
@@ -81,7 +81,13 @@ for (let file of beesAndFlowersEpisode.listFiles()){
 ```
 
 ## Tasks
-Simple tasks tool management, with integrations. Currently integrated to asana (//TODO: link)
+Simple tasks tool management, with integrations. Currently integrated to asana (//TODO: link).
+
+### Configuration ###
+To configure the task tool, two things are needed:
+1. Firebase configuration file: firebase.json (should be saved in the root)
+2. Asana access token.
+
 
 ```
 Configuration

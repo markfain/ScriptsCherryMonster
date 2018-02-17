@@ -3,22 +3,22 @@ import {Files} from "../../utils/Files";
 import {Logger} from "../../core/Logger";
 import {Task} from "./Task";
 import {Spinner} from "../../core/Spinner";
+import {Configs} from "../../utils/Configs";
 export class AsanaClient{
 
     //TODO: externalize
-    private static ACCESS_TOKEN:string = "0/a2b4068ec6fb818231d7d572a1fa310a";
     private static WORKSPACE_ID:number = 476668459614204;
     private static PROJECT_ID:number = 531512670855893;
     private static STARTED_SECTION:number = 534025267190026;
     private static DEFINED_SECTION:number = 531512670855894;
-    private static MY_USER:number = 531515432792521;
 
 
     private client;
 
     public static connect(){
         let asana = require('asana');
-        return asana.Client.create().useAccessToken(this.ACCESS_TOKEN);
+        let accessToken = TextFiles.readJson(Files.file("$SCM$", "asana.json")).token;
+        return asana.Client.create().useAccessToken(accessToken);
     }
 
     public static addTask(task:Task):Promise<number>{
