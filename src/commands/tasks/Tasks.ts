@@ -163,6 +163,7 @@ export class Tasks{
         return new Promise(async(resolve)=> {
             let task = await RemoteTasks.fetchById(id);
             task.addNote(note);
+            await AsanaClient.addNote(task, note);
             await RemoteTasks.pushTask(task);
             resolve(true);
         });

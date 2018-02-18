@@ -20,11 +20,11 @@ export class AddNote extends Command {
         ];
     }
 
-    doExecute(options: any): void {
+    async doExecute(options: any): Promise<any> {
         let note:string = this.getArgument("note",options);
         let taskId:string = this.getArgument("id",options);
         Spinner.start(this.name);
-        Tasks.addNoteToTaskById(taskId, note);
+        await Tasks.addNoteToTaskById(taskId, note);
         Spinner.stop("Added note to task " + taskId);
     }
 

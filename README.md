@@ -49,7 +49,7 @@ npm run link
 ```
 
 
-## Configuration
+## File System Configuration
 In the root folder, open config.json and specify the paths likeso:
 
 ```
@@ -86,7 +86,10 @@ Simple tasks tool management, with integrations. Currently integrated to asana (
 ### Configuration ###
 To configure the task tool, two things are needed:
 1. Firebase configuration file: firebase.json (should be saved in the root)
-2. Asana access token.
+TODO: how to get this file
+
+
+2. Asana configuration file: asana.json (should be saved in root)
 
 
 ```

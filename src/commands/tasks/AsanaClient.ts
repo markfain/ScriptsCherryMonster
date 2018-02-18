@@ -21,6 +21,22 @@ export class AsanaClient{
         return asana.Client.create().useAccessToken(accessToken);
     }
 
+    public static addNote(task:Task, comment:string){
+        let client = this.connect();
+        return new Promise((resolve)=>{
+            if (!task.getAsanaId()){
+                Spinner.info("This task is not associated with asana");
+                return resolve(false);
+            }
+            client.tasks.addComment(task.asanaId, {text : comment}).then((message)=>{
+                Logger.log(JSON.stringify(message));
+                return resolve(true);
+            }).catch((error)=>{
+                Logger.log(error);
+            });
+        });
+    }
+
     public static addTask(task:Task):Promise<number>{
         let client = this.connect();
         return new Promise((resolve)=>{
