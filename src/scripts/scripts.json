@@ -8,6 +8,7 @@
         "DiscoverPublishedEpisodes",
         "EpisodesWithInvalidJsonDescriptors",
         "FixParametersFile",
+        "HelloWorld",
         "ImportSpineFoldersToPop",
         "InfrastructureTypes",
         "InspectSourceOfEpisodes",

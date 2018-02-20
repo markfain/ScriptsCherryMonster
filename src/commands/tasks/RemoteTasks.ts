@@ -1,12 +1,13 @@
 import {Task} from "./Task";
 import {Tasks} from "./Tasks";
-import {Logger} from "../../core/Logger";
 import {Observable} from 'rxjs/Observable';
+import {Files} from "../../utils/Files";
+import {TextFiles} from "../../utils/TextFiles";
 
 export class RemoteTasks {
 
     private static firebaseConnect(){
-        let serviceAccount = require('/Users/markfainstein/Dev/ScriptsCherryMonster/firebase.json');
+        let serviceAccount = TextFiles.readJson(Files.file("$SCM$", "firebase.json"));
 
         let admin = require("firebase-admin");
 

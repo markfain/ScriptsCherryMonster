@@ -29,7 +29,6 @@ export class AsanaClient{
                 return resolve(false);
             }
             client.tasks.addComment(task.asanaId, {text : comment}).then((message)=>{
-                Logger.log(JSON.stringify(message));
                 return resolve(true);
             }).catch((error)=>{
                 Logger.log(error);

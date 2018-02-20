@@ -12,7 +12,7 @@ The command line is written in typescript above node.js.
 
 ### Installing
 
-1. Clone the ScriptsCherryMonster
+1. Clone the ScriptsCherryMonster (for example ~/ScriptsCherryMonster)
 2. cd to the ScriptsCherryMonster, install using
 
 ```
@@ -80,18 +80,62 @@ for (let file of beesAndFlowersEpisode.listFiles()){
 }
 ```
 
+## General
+To see all available commands, use scm <tab>. Autocompletion of course works, start typing and press <tab>.
+To get information about a specific command, type scm <command> --help.
+
+## Scripts
+The idea is to create scripts (written in Typescript), fast, using the keyboard only.
+
+### API
+1. scm createScript
+    prompts for script name and description. It will then open the IntelliJ on this file. Make sure the project is open
+    for maximum convenience.
+2. scm executeScript <script>
+    executes a script (compiles and runs). To list all available scripts to execute, use scm executeScript <tab>.
+3. scm archive <script>
+
+
 ## Tasks
 Simple tasks tool management, with integrations. Currently integrated to asana (//TODO: link).
 
-### Configuration ###
+### Configuration
 To configure the task tool, two things are needed:
 1. Firebase configuration file: firebase.json (should be saved in the root)
-TODO: how to get this file
-
+    You should open a new empty project. All tasks will be saved there, under tasks in the database.
+    To produce this file, go to Settings (in the console)->Service Sccounts ->Firebase Admin SDK->Generate new private key/
+    Save this file in the root under firebase.json.
 
 2. Asana configuration file: asana.json (should be saved in root)
-
+    This file contains the secret token. This can be also generated in the Asana settings.
+    The file is named asana.json (in the root), and looks this way:
 
 ```
-Configuration
+    {
+        token: "the asana token"
+    }
 ```
+
+### API
+1. scm addtask <description>
+    use --asana to add this task to the asana board.
+    use -g for group name. Default group is "Slate"
+```
+    $ scm addtask "Develop a new browser" --asana -g Personal
+```
+2. scm listtasks
+    lists all the tasks.
+    use -g to specify the group to list
+```
+    $ scm listtasks -g Personal
+```
+3. scm removetask <id>
+4. scm addnote <id> note
+
+```
+    $ scm listtasks -g Personal
+```
+
+5. scm starttask <id>
+6. scm complete <id>
+7. scm pausetask <id>
