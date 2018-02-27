@@ -14,7 +14,7 @@ export class DeleteScript extends Command {
     private scriptToDelete: File;
 
     constructor() {
-        super("deleteScript", "Deletes a script (as fast as possible)", 1);
+        super("deletescript", "Deletes a script (as fast as possible)", 1);
         this.commandArguments = [
             "scriptName"
         ];

@@ -12,7 +12,7 @@ declare var process: any;
 export class CreateScript extends Command {
 
     constructor() {
-        super("createScript", "Creates a script (as fast as possible)", 1);
+        super("createscript", "Creates a script (as fast as possible)", 1);
     }
 
     private cleanSubfolderName(subfolderName:string):string{

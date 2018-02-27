@@ -80,7 +80,7 @@ export class Reports {
             testMessage = testMessage +task.getId()+" "+task.getName()+" "+task.getDescription()+"<br>";
         }
 
-        MailClient.sendMail(testMessage);
+        //MailClient.sendMail(testMessage);
     }
 
 

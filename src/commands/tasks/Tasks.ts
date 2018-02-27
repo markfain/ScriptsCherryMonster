@@ -8,6 +8,8 @@ import * as Chalk from 'chalk';
 import {ProgressBar} from "../../core/ProgressBar";
 import {AsanaClient} from "./AsanaClient";
 import {Spinner} from "../../core/Spinner";
+import {PrioritizeTask} from "./PrioritizeTask";
+import {Prioritizer} from "./Prioritizer";
 export class Tasks{
 
     public static DEFAULT_GROUP = "Slate";
@@ -53,6 +55,10 @@ export class Tasks{
                 await AsanaClient.removeTask(task.getAsanaId());
             }
             await RemoteTasks.removeById(id);
+
+            //TODO: not the best way, maybe the prioritizer needs to fetch the tasks
+            let tasks = await RemoteTasks.fetchAll(task.group || Tasks.DEFAULT_GROUP);
+            await Prioritizer.rePrioritize(tasks);
             resolve(id);
         });
     }
@@ -90,6 +96,8 @@ export class Tasks{
             }
 
             await RemoteTasks.pushTask(task);
+            let tasks = await RemoteTasks.fetchAll(task.group || Tasks.DEFAULT_GROUP);
+            await Prioritizer.rePrioritize(tasks);
             resolve(id);
         });
 
@@ -113,6 +121,7 @@ export class Tasks{
         Spinner.start("Fetching tasks...");
         let tasks = await RemoteTasks.fetchAll();
         Spinner.stop();
+
         var table = new Table({
             head: ['ID', 'Name', 'Status', 'Priority']
         });
@@ -130,7 +139,6 @@ export class Tasks{
         else {
             tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
         }
-
 
         for (let task of tasks){
             if (listCompletedTasks && task.isCompleted()){
@@ -189,9 +197,18 @@ export class Tasks{
 
     public static async setPriority(id:string, priority:number){
         let task = await RemoteTasks.fetchById(id);
+        let group = task.getGroup();
+        let tasks = await RemoteTasks.fetchAll();
+        if (!group){
+            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == this.DEFAULT_GROUP.toLowerCase()})
+        }
+        else {
+            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
+        }
+        await Prioritizer.eliminatePriority(tasks, priority);
+
         task.setPriority(priority);
         await RemoteTasks.pushTask(task);
-        Logger.log("Priority "+priority+" is set for task "+id);
 
     }
 }

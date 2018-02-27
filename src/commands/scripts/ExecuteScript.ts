@@ -11,7 +11,7 @@ declare var process: any;
 export class ExecuteScript extends Command {
 
     constructor() {
-        super("executeScript", "Execute a script and hope it will work", 1);
+        super("executescript", "Execute a script and hope it will work", 1);
         this.commandArguments = [
             "scriptName"
         ];

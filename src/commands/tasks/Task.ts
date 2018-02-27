@@ -145,6 +145,10 @@ export class Task {
         }
     }
 
+    getPriorityAsNumber(): number{
+        return this.priority;
+    }
+
     getDateAdded(): Date {
         return this.added;
     }

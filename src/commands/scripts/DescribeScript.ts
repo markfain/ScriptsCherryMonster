@@ -13,7 +13,7 @@ declare var process: any;
 export class DescribeScript extends Command {
 
     constructor() {
-        super("describeScript", "Prints the description of a script", 1);
+        super("describescript", "Prints the description of a script", 1);
         this.commandArguments = [
             "scriptName"
         ];

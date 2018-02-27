@@ -24,7 +24,7 @@ export class RemoteTasks {
     }
 
 
-    public static fetchAll():Promise<Task[]>{
+    public static fetchAll(group?:string):Promise<Task[]>{
         //noinspection TypeScriptUnresolvedFunction
         let firebaseConnection = this.firebaseConnect();
         return new Promise<Task[]>(resolve=>{
@@ -37,7 +37,13 @@ export class RemoteTasks {
             reference.once("value", (tasksJson)=>{
                 let remoteTasks = tasksJson.val();
                 for (let taskId in remoteTasks){
+                    if (group){
+                        if (remoteTasks[taskId]["group"]!=group){
+                            continue;
+                        }
+                    }
                     remoteTasks[taskId]["id"] = taskId;
+
                     tasks.push(Tasks.taskFromJson(remoteTasks[taskId]));
                 }
                 resolve(tasks);

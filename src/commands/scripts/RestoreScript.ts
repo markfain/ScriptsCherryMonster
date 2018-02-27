@@ -12,7 +12,7 @@ declare var process: any;
 export class RestoreScript extends Command {
 
     constructor() {
-        super("restoreScript", "Restores a script", 1);
+        super("restorescript", "Restores a script", 1);
         this.commandArguments = [
             "scriptName"
         ];

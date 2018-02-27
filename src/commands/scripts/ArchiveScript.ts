@@ -12,7 +12,7 @@ declare var process: any;
 export class ArchiveScript extends Command {
 
     constructor() {
-        super("archiveScript", "Archives a script", 1);
+        super("archivescript", "Archives a script", 1);
         this.commandArguments = [
             "scriptName"
         ];
