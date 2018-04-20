@@ -2,5 +2,14 @@ Failed to re-release: BalloonsGame,VillageDesign, CherryMonster, WordProblems, S
 
 =============================================================================================================
 
-
+ "competition": {
+            "name" : "competition-cdn-slatemathweb",
+            "cdn" : "akamai",
+            "s3host": "competition-cdn-slatemathweb.s3.amazonaws.com",
+            "aliases" : [
+                "competition-moe.matific.com",
+                "competition-moe.matific.com",
+                "competition-moe.matific.com"
+            ]
+        }
 

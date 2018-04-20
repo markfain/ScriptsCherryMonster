@@ -1,6 +1,7 @@
-import {Task} from "./Task";
+import {Task, TaskStatus} from "./Task";
 import {Tasks} from "./Tasks";
 import {RemoteTasks} from "./RemoteTasks";
+import {Logger} from "../../core/Logger";
 export class Prioritizer {
 
     private static findFirstTaskWithPriority(tasks:Task[], min?:number):Task{
@@ -8,6 +9,9 @@ export class Prioritizer {
             min = 0;
         }
         for (let task of tasks){
+            if (task.getStatus()== TaskStatus.COMPLETED){
+                continue;
+            }
             let priority = task.getPriorityAsNumber();
             if (priority!=-1 && priority>min){
                 return task;
@@ -25,6 +29,9 @@ export class Prioritizer {
             min = 0;
         }
         for (let task of tasks){
+            if (task.getStatus()== TaskStatus.COMPLETED){
+                continue;
+            }
             let priority = task.getPriorityAsNumber();
             if (priority<minPriority && priority>min){
                 minPriority = priority;

@@ -6,7 +6,9 @@ import {Prompt} from "../core/Prompt";
 import {MailClient} from "../commands/tasks/MailClient";
 export class HelloWorld extends Script{
     execute(){
-        MailClient.sendMail();
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        Logger.log(today.getTime().toString());
 
 
     }

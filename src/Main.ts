@@ -35,6 +35,7 @@ import {TaskNotes} from "./commands/tasks/TaskNotes";
 import {PrioritizeTask} from "./commands/tasks/PrioritizeTask";
 import {SendReport} from "./commands/tasks/SendReport";
 import {Notes} from "./commands/other/Notes";
+import {GitPull} from "./commands/git/GitPull";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -65,6 +66,7 @@ CLI.installCommand(new GitDiff());
 CLI.installCommand(new GitReset());
 CLI.installCommand(new GitCheckout());
 CLI.installCommand(new GitLog());
+CLI.installCommand(new GitPull());
 
 //Tasks
 CLI.installCommand(new AddTask());
