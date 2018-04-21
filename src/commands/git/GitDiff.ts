@@ -30,46 +30,59 @@ export class GitDiff extends Command {
         let filesPrompt = [];
 
         for (let file of files){
-            filesPrompt.push({title:file, value:file});
+            if (file){
+                filesPrompt.push({title:file, value:file});
+            }
+
         }
 
-        prompt('Choose a file to diff?', filesPrompt, {cursor: 3})
+        prompt('Choose a file to diff...:', filesPrompt, {cursor: 0})
             .on('submit', (v) => this.diffFile(v, commit));
 
     }
 
+    extractCommitSection(lines:string[], commitSuffix:string){
+        let section = [];
+        for (let i=0; i<lines.length; i++){
+            let line = lines[i];
+            if (line.endsWith(commitSuffix)){
+
+                if (i==lines.length){
+                    return;
+                }
+                section[0] = line;
+                let j = i+1;
+                let nextCommitLine = lines[j];
+                while (!nextCommitLine.startsWith("commit")){
+                    section[j-i]=lines[j];
+                    j++;
+                    nextCommitLine = lines[j]
+                }
+                break;
+
+            }
+        }
+        return section
+    }
+
     doExecute(options) {
         let file = this.getArgument("fileOrChanges", options);
-        let commit = this.getOption("commit", options);
-        if (!commit){
+        let commitSuffix = this.getOption("commit", options);
+        if (!commitSuffix){
             Logger.log(this.execSyncRedirectOutput("git difftool HEAD:"+file+" "+file, null, true));
             return;
         }
         else {
-            let log = this.execSyncRedirectOutput("git log --name-only -2", null, true);
+            let log = this.execSyncRedirectOutput("git log --name-only", null, true);
             let lines:string[] = log.toString().split("\n");
-            let section = [];
+            let section = this.extractCommitSection(lines, commitSuffix);
             let files = [];
-            let actualCommit = "";
-            for (let i=0; i<lines.length; i++){
-                let line = lines[i];
-                if (line.endsWith(commit)){
-                    actualCommit = line.replace("commit ", "");
-                    if (i==lines.length){
-                        return;
-                    }
-                    let j = i+1;
-                    let nextCommitLine = lines[j];
-                    while (!nextCommitLine.startsWith("commit")){
-                        section[j-(i+1)]=lines[j];
-                        j++;
-                        nextCommitLine = lines[j]
-                    }
-                    break;
 
-                }
-            }
             let k=0;
+            if (section.length<2){
+                Logger.warn("No commit that ends with "+commitSuffix+" found!");
+                return;
+            }
             let i=section.length-2;
 
             while (section[i]!="" && i>0){
@@ -77,7 +90,7 @@ export class GitDiff extends Command {
                 k++;
                 i--;
             }
-
+            let actualCommit = section[0].replace("commit ", "");
             this.prompt(files, actualCommit);
 
 

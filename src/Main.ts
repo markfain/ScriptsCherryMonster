@@ -36,6 +36,7 @@ import {PrioritizeTask} from "./commands/tasks/PrioritizeTask";
 import {SendReport} from "./commands/tasks/SendReport";
 import {Notes} from "./commands/other/Notes";
 import {GitPull} from "./commands/git/GitPull";
+import {GitBrowse} from "./commands/git/GitBrowse";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -67,6 +68,7 @@ CLI.installCommand(new GitReset());
 CLI.installCommand(new GitCheckout());
 CLI.installCommand(new GitLog());
 CLI.installCommand(new GitPull());
+CLI.installCommand(new GitBrowse());
 
 //Tasks
 CLI.installCommand(new AddTask());
