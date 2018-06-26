@@ -4,10 +4,10 @@ import {Files} from "../utils/Files";
 import {File} from "../utils/File";
 import {Prompt} from "../core/Prompt";
 import {MailClient} from "../commands/tasks/MailClient";
-import {CalendarClient} from "../commands/tasks/CalendarClient";
+import {CalendarClient} from "../commands/scheduler/CalendarClient";
 export class HelloWorld extends Script{
     execute(){
-        CalendarClient.authorizeAndCreateEvent();
+        //CalendarClient.authorizeAndCreateEvent();
 
     }
 }

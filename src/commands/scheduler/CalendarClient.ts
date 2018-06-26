@@ -4,33 +4,40 @@ import {TextFiles} from "../../utils/TextFiles";
 import {Files} from "../../utils/Files";
 
 export class CalendarClient{
+    /*
+        Two options for date prompt:
+        1. https://www.npmjs.com/package/inquirer-datepicker-prompt
+        2. https://github.com/derhuerst/date-prompt
+
+     */
     private static TOKEN_PATH = 'credentials.json';
+    private static TIME_ZONE = 'Asia/Jerusalem';
     private static pad(n){return n<10 ? '0'+n : n}
 
     private static ISODateString(d){
 
-    return d.getUTCFullYear()+'-'
-        + this.pad(d.getUTCMonth()+1)+'-'
-        + this.pad(d.getUTCDate())+'T'
-        + this.pad(d.getUTCHours())+':'
-        + this.pad(d.getUTCMinutes())+':'
-        + this.pad(d.getUTCSeconds())+'Z'
+        return d.getUTCFullYear()+'-'
+            + this.pad(d.getUTCMonth()+1)+'-'
+            + this.pad(d.getUTCDate())+'T'
+            + this.pad(d.getUTCHours())+':'
+            + this.pad(d.getUTCMinutes())+':'
+            + this.pad(d.getUTCSeconds())+'Z'
     }
 
-    private static createEvent(auth){
-        let dateStart = this.ISODateString(new Date(Date.now()));
-        let dateEnd = this.ISODateString(new Date(Date.now()+3.6e+6));
+    private static createEvent(auth, subject:string, location:string, description:string, date:Date){
+        let dateStart = this.ISODateString(date);
+        let dateEnd = this.ISODateString(new Date(date.getTime()+3.6e+6));
         var event = {
-            'summary': 'New Event Test',
-            'location': 'Somewhere on the planet',
-            'description': 'Baaaah',
+            'summary': subject,
+            'location': location,
+            'description': description,
             'start': {
                 'dateTime': dateStart,
-                'timeZone': 'Asia/Jerusalem',
+                'timeZone': this.TIME_ZONE,
             },
             'end': {
                 'dateTime': dateEnd,
-                'timeZone': 'Asia/Jerusalem',
+                'timeZone': this.TIME_ZONE,
             }
         };
         //noinspection TypeScriptValidateTypes
@@ -46,15 +53,14 @@ export class CalendarClient{
                 console.log('There was an error contacting the Calendar service: ' + err);
                 return;
             }
-            console.log('Event created: %s', event.htmlLink);
+            console.log('Event created!');
         });
     }
 
-    public static authorizeAndCreateEvent(){
-
+    public static authorizeAndCreateEvent(subject:string, location:string, description:string, dateStart:Date){
         let secret = TextFiles.readJson(Files.file("$SCM$", "client_secret.json"));
         this.authorize(secret, (auth)=>{
-            this.createEvent(auth)
+            this.createEvent(auth, subject, location, description, dateStart);
         });
 
     }

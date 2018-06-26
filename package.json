@@ -39,6 +39,7 @@
     "cli-spinner": "^0.2.7",
     "cli-table": "^0.3.1",
     "commander": "^2.9.0",
+    "date-prompt": "^0.7.0",
     "dtsmake": "0.0.10",
     "file-system": "^2.2.1",
     "firebase-admin": "^4.2.1",

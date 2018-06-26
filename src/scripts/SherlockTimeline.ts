@@ -34,7 +34,7 @@ export class SherlockTimeline extends Script{
         let closestStoryYear = ""; //TODO
         for (let candidate of monthCandidates){
             let day = storyDates[candidate+1];
-            if (Math.abs(currentDay-day)<min){
+            if (Math.abs(currentDay-day)<=min){
                 min = Math.abs(currentDay-day);
                 closestStoryName = storyDates[candidate+2];
                 closestStoryDay = storyDates[candidate+1];

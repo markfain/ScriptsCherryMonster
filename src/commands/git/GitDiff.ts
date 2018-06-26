@@ -73,7 +73,7 @@ export class GitDiff extends Command {
             return;
         }
         else {
-            let log = this.execSyncRedirectOutput("git log --name-only", null, true);
+            let log = this.execSyncRedirectOutput("git log --name-only -100", null, true);
             let lines:string[] = log.toString().split("\n");
             let section = this.extractCommitSection(lines, commitSuffix);
             let files = [];

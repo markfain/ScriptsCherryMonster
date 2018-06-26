@@ -37,6 +37,7 @@ import {SendReport} from "./commands/tasks/SendReport";
 import {Notes} from "./commands/other/Notes";
 import {GitPull} from "./commands/git/GitPull";
 import {GitBrowse} from "./commands/git/GitBrowse";
+import {AddEvent} from "./commands/scheduler/AddEvent";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -81,6 +82,9 @@ CLI.installCommand(new AddNote());
 CLI.installCommand(new TaskNotes());
 CLI.installCommand(new PrioritizeTask());
 CLI.installCommand(new SendReport());
+
+//Scheduler
+CLI.installCommand(new AddEvent());
 
 
 //Network

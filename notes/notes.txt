@@ -2,14 +2,45 @@ Failed to re-release: BalloonsGame,VillageDesign, CherryMonster, WordProblems, S
 
 =============================================================================================================
 
- "competition": {
-            "name" : "competition-cdn-slatemathweb",
-            "cdn" : "akamai",
-            "s3host": "competition-cdn-slatemathweb.s3.amazonaws.com",
-            "aliases" : [
-                "competition-moe.matific.com",
-                "competition-moe.matific.com",
-                "competition-moe.matific.com"
-            ]
-        }
+  folderSelected(fileId){
+    const request = this.http.post('http://localhost:8334/graphicworksheets/resources_folder', {
+      headers: new HttpHeaders().set("Access-Control-Allow-Origin *",""),
+      fileId: fileId
+    });
+    request.subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
 
+  }
+
+  HttpClientModule
+
+
+
+
+messaging.addReceiveListener(GraphicWorksheetPreviewMessages.SCREENSHOT_REQUEST, this, function(message) {
+            episode.handleScreenshotRequest(message, true);
+        });
+
+
+handleScreenshotRequest: function(message) {
+        var canvas = this.episode.getContext().canvas.canvas;
+        var mimeType = EntityUtils.getValue(message, "screenshotFormat", "image/png");
+        var imageData = canvas.toDataURL(mimeType);
+        var messaging = Services.get(MessagingManager.SERVICE_ID);
+        messaging.postMessageToContainer(GraphicWorksheetPreviewMessages.SCREENSHOT_TAKEN, {
+            format : this.screenshotFormat,
+            imageData : imageData
+        });
+    },
+
+
+
+    SCREENSHOT_REQUEST: "ScreenshotRequest",
+
+        SCREENSHOT_TAKEN: "ScreenshotTaken"
