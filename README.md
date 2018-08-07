@@ -139,3 +139,21 @@ To configure the task tool, two things are needed:
 5. scm starttask <id>
 6. scm complete <id>
 7. scm pausetask <id>
+
+## Compare
+I am using meld as a diff tool - https://yousseb.github.io/meld/
+scm compare <file1> <file2> will compare file1 and file2.
+
+## Git
+A collection of useful tools and abbreviations to work with git, using the command line.
+
+### API
+1. scm gitadd <file>
+    autocomplete, use TAB!
+2. scm gitdiff <file>
+    will diff current version against pushed version
+3. scm gitbrowse
+    opens a dual window, ctrl+a+backspace to switch between windows
+    the left window shows the changes by commit, in the right window you can use somthing like scm gitdiff changes -c <partial_commit>
+    then you can choose a specific file easily that will be compared
+
