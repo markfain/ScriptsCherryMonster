@@ -44,3 +44,50 @@ handleScreenshotRequest: function(message) {
     SCREENSHOT_REQUEST: "ScreenshotRequest",
 
         SCREENSHOT_TAKEN: "ScreenshotTaken"
+
+
+
+
+
+
+
+
+
+
+        BeesAndFlowers (V), BirdFlocksParity (X), Nets (V), PingPong (V), PouringRiddles 1.02(V), SkyJumpMultiplication (V)
+        MakingNewShapes (V), BubbleAddition (X - missing bubble_addition_separate_and_combine_to_calculate), PotionDecimals 1.09(V), DiceTossingHistogram (V), CampingRiddles (V)
+
+
+40a167a7199f0ee6f789c55f6b59b5b60bb48208
+bdfef784b921c1ea9bf3ff10dd5f40eeb930a80c
+
+---- BirdFlocksParity --
+435704a610861b6e65cce82039fe37d415bcb013
+
+
+
+
+
+
+
+
+-----------------
+
+e7f3853526cfe6e329cec1141d86a63e0cd70373
+5d23f608cd107158637f5134ab8171caf29dbe7b
+
+
+
+
+
+
+----------------------------
+
+
+
+
+TravelMultiplication,TreasureIsland,TruckLoading,UnderstandingNumberLines,UnitSquareConstruction (V)
+MultiplyingDecimalsMovingPoint,Nets,NotesNumerals,NumberLineEquivalentFractions,NumberLineEstimatingSumOfFractions,ParkPlanning (V)
+VariabilityUsingHistogramAndBoxPlot,VegetableGardenArea,VillageDesign,VillageMeasuringCubes,VillageMeasuringSticks (V)
+VolumeOfRectangularPrisms,VolumeWithFractionalEdgeLengths,WeighingMattersDecimals,WeighingRiddles
+WhatWillHappen,WordProblemsBrainTeasers,WholeNumberFractionsOnTheNumberLine,WordProblemsTheme
