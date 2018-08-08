@@ -12,5 +12,6 @@
 		"$SCM_COMMANDS$": "ScriptsCherryMonster/src/commands",
 		"$SCM_TASKS$": "ScriptsCherryMonster/src/commands/tasks",
 		"$SCM_NOTES$": "ScriptsCherryMonster/notes"
-	}
+	},
+	"diffToolCommandTemplate": "open -a /Applications/Meld.app --args $FILE1$ $FILE2$"
 }

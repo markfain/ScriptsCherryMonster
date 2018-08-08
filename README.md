@@ -97,7 +97,7 @@ The idea is to create scripts (written in Typescript), fast, using the keyboard 
 
 
 ## Tasks
-Simple tasks tool management, with integrations. Currently integrated to asana (//TODO: link).
+Simple tasks tool management, with integrations. Currently integrated to Asana (//TODO: link).
 
 ### Configuration
 To configure the task tool, two things are needed:
@@ -145,6 +145,7 @@ I am using meld as a diff tool - https://yousseb.github.io/meld/
 scm compare <file1> <file2> will compare file1 and file2.
 
 ## Git
+TODO: git configuration (.gitconfig difftool)
 A collection of useful tools and abbreviations to work with git, using the command line.
 
 ### API
