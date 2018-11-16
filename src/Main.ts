@@ -4,7 +4,6 @@ import {Files, IConfig} from "./utils/Files";
 import {GenerateTypescriptClass} from "./commands/other/GenerateTypescriptClass";
 import {CreateScmCommand} from "./commands/CreateScmCommand";
 import {GitResetClean} from "./commands/git/GitResetClean";
-import {UpdateEpisode} from "./commands/episodes/UpdateEpisode";
 import {ShockTheUser} from "./commands/other/ShockTheUser";
 import {FindFile} from "./commands/filesystem/FindFile";
 import {DeleteFiles} from "./commands/filesystem/DeleteFiles";
@@ -49,9 +48,6 @@ let CLI = new CLProgram();
 //Generation
 CLI.installCommand(new GenerateTypescriptClass());
 CLI.installCommand(new CreateScmCommand());
-
-//Toolbox related
-CLI.installCommand(new UpdateEpisode());
 
 //General
 CLI.installCommand(new ShockTheUser());

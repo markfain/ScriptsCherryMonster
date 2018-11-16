@@ -58,7 +58,7 @@ export class CalendarClient{
     }
 
     public static authorizeAndCreateEvent(subject:string, location:string, description:string, dateStart:Date){
-        let secret = TextFiles.readJson(Files.file("$SCM$", "client_secret.json"));
+        let secret = TextFiles.readJson(Files.file("$SCM$", "gmail.json"));
         this.authorize(secret, (auth)=>{
             this.createEvent(auth, subject, location, description, dateStart);
         });

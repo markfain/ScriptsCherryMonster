@@ -16,11 +16,16 @@ export class Notes extends Command {
         //TODO: add option to clear notes, open new notes and so on, open a specific note and so on.
     }
 
+    getEditor(){
+        //TODO: implement
+    }
+
     doExecute(options: any): void {
         if (!this.notesFile.exists()) {
             this.execSync("touch "+this.notesFile.getAbsolutePath());
         }
-        this.execSync("idea " + this.notesFile.getAbsolutePath());
+        //TODO: should be getEditor() instead of "code"
+        this.execSync("code " + this.notesFile.getAbsolutePath());
     }
 
 }
