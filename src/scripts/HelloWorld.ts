@@ -7,8 +7,7 @@ import {MailClient} from "../commands/tasks/MailClient";
 import {CalendarClient} from "../commands/scheduler/CalendarClient";
 export class HelloWorld extends Script{
     execute(){
-        //CalendarClient.authorizeAndCreateEvent();
-
+        Logger.highlight("Hello World!");
     }
 }
 
