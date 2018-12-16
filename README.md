@@ -141,7 +141,9 @@ To configure the task tool, two things are needed:
 7. scm pausetask <id>
 
 ## Compare
-I am using meld as a diff tool - https://yousseb.github.io/meld/
+I am using meld as a diff tool - https://yousseb.github.io/meld/.
+For macOS users: https://yousseb.github.io/meld/
+
 scm compare <file1> <file2> will compare file1 and file2.
 
 ## Git
