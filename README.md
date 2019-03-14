@@ -149,6 +149,7 @@ scm compare <file1> <file2> will compare file1 and file2.
 ## Git
 TODO: git configuration (.gitconfig difftool)
 A collection of useful tools and abbreviations to work with git, using the command line.
+TODO: currently it requires stmux to be globally installed - i.e npm install -g stmux
 
 ### API
 1. scm gitadd <file>
