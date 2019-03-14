@@ -88,10 +88,10 @@ To get information about a specific command, type scm <command> --help.
 The idea is to create scripts (written in Typescript), fast, using the keyboard only.
 
 ### API
-1. scm createScript
+1. scm createscript
     prompts for script name and description. It will then open the IntelliJ on this file. Make sure the project is open
     for maximum convenience.
-2. scm executeScript <script>
+2. scm executescript <script>
     executes a script (compiles and runs). To list all available scripts to execute, use scm executeScript <tab>.
 3. scm archive <script>
 
