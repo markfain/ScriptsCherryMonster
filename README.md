@@ -147,9 +147,27 @@ For macOS users: https://yousseb.github.io/meld/
 scm compare <file1> <file2> will compare file1 and file2.
 
 ## Git
-TODO: git configuration (.gitconfig difftool)
 A collection of useful tools and abbreviations to work with git, using the command line.
 TODO: currently it requires stmux to be globally installed - i.e npm install -g stmux
+
+### Configuration 
+Add the following to our .gitconfig (/Users/$USERNAME$/.gitconfig in Mac)
+```
+[diff]
+  tool = meld
+[difftool]
+  prompt = false
+[difftool "meld"]
+  trustExitCode = true
+  cmd = open -W -a Meld --args \"$LOCAL\" \"$PWD/$REMOTE\"
+[merge]
+  tool = meld
+[mergetool]
+  prompt = false
+[mergetool "meld"]
+  trustExitCode = true
+  cmd = open -a /Applications/Meld.app --args --auto-merge \"$PWD/$LOCAL\" \"$PWD/$BASE\" \"$REMOTE\" --output=\"$PWD/$MERGED\"
+  ```
 
 ### API
 1. scm gitadd <file>
