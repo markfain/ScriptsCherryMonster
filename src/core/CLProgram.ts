@@ -1,12 +1,15 @@
 import {Command} from "./Command";
 //import Commander = require('commander');
 import {TextFiles} from "../utils/TextFiles";
-import {JavascriptUtils} from "../utils/JavascriptUtils";
+
 import {Files} from "../utils/Files";
 import {File} from "../utils/File";
-import {Logger} from "./Logger";
-import {ProcessUtils} from "../utils/ProcessUtils";
+
 import {GitUtils} from "../utils/GitUtils";
+import {TaskUtils} from "../utils/TaskUtils";
+import {Tasks} from "../commands/tasks/Tasks";
+import {RemoteTasks} from "../commands/tasks/RemoteTasks";
+import {Task} from "../commands/tasks/Task";
 declare var require: any;
 declare var process: any;
 export class CLProgram {
@@ -28,7 +31,7 @@ export class CLProgram {
         return scripts.scripts;
     }
 
-    addAutoCompleteCommands(): void {
+    public async addAutoCompleteCommands() {
 
         let scripts:string[] = this.getScripts();
 
@@ -48,14 +51,17 @@ export class CLProgram {
             return this.reply(commands);
         });
 
-        comp.on("script", function (userReply) {
+        comp.on("script", async function (userReply) {
             if (userReply.indexOf("git")>=0){
                 return this.reply(GitUtils.getOptionalFilesToAdd(true));
             }
 
-            /*if (userReply.indexOf("task")>=0){
-                return this.reply()
-            }*/
+            if (userReply.indexOf("task")>=0){
+                //let tasks:Task[] = await RemoteTasks.fetchAll(); why this won't work?
+                let taskIds:string[] = Tasks.getCachedTasks();
+
+                return this.reply(taskIds);
+            }
 
             return this.reply(scripts);
         });
@@ -92,4 +98,6 @@ export class CLProgram {
     parse() {
         this.commander.parse(process.argv);
     }
+
+    //a
 }

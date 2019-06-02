@@ -7,6 +7,7 @@ import {Command} from "../../core/Command";
 import {Task} from "./Task";
 import {Tasks} from "./Tasks";
 import {Spinner} from "../../core/Spinner";
+import {Prioritizer} from "./Prioritizer";
 declare var require: any;
 declare var process: any;
 
@@ -44,6 +45,7 @@ export class AddTask extends Command {
         let priority:number = parseInt(this.getOption("priority",options));
         let task = new Task(taskName, description, null, null, null, group, priority);
         Spinner.start(this.name);
+        //Tasks.autoPrioritizeTask(task);
         let taskId:number = await Tasks.addTask(task, this.getOption("asana",options));
         Spinner.stop("Added task "+taskName+" with id "+taskId);
 

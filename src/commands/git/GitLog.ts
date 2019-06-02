@@ -23,6 +23,6 @@ export class GitLog extends Command {
         }
         let branch = this.getOption("branch", options) || "";
 
-        this.execSyncRedirectOutput("git log --all "+branch+" "+authorParam+" --name-status --stat --graph --pretty=format:'commit: %C(bold red)%h%Creset %C(red)<%H>%Creset %C(bold magenta)%d %Creset%ndate: %C(bold yellow)%cd %Creset%C(yellow)%cr%Creset%nauthor: %C(bold blue)%an%Creset %C(blue)<%ae>%Creset%n%C(cyan)%s%n%Creset'", null, false);
+        this.execSyncRedirectOutput("git log "+branch+" "+authorParam+" --name-status --stat --graph --pretty=format:'commit: %C(bold red)%h%Creset %C(red)<%H>%Creset %C(bold magenta)%d %Creset%ndate: %C(bold yellow)%cd %Creset%C(yellow)%cr%Creset%nauthor: %C(bold blue)%an%Creset %C(blue)<%ae>%Creset%n%C(cyan)%s%n%Creset'", null, false);
     }
 }

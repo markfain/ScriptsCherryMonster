@@ -10,11 +10,14 @@ import {AsanaClient} from "./AsanaClient";
 import {Spinner} from "../../core/Spinner";
 import {PrioritizeTask} from "./PrioritizeTask";
 import {Prioritizer} from "./Prioritizer";
+import {TaskUtils} from "../../utils/TaskUtils";
 export class Tasks{
 
     public static DEFAULT_GROUP = "Slate";
     public static DEFAULT_PRIORITY = -1;
     public static DEFAULT_PRIORITY_DISPLAY = "-";
+
+    public static cachedTaskIdsNotCompleted:string[] = [];
 
     public static taskFromJson(json:any){
         return new Task(
@@ -120,6 +123,7 @@ export class Tasks{
     public static async listTasks(listCompletedTasks, group){
         Spinner.start("Fetching tasks...");
         let tasks = await RemoteTasks.fetchAll();
+        Tasks.cacheTaskIds(TaskUtils.buildTaskIdsNotCompletedFromTasks(tasks));
         Spinner.stop();
 
         var table = new Table({
@@ -127,17 +131,17 @@ export class Tasks{
         });
 
         if (listCompletedTasks){
-            tasks = this.filterTasks(tasks, (task)=>{return task.isCompleted()})
+            tasks = TaskUtils.filterTasks(tasks, (task)=>{return task.isCompleted()})
         }
         else {
-            tasks = this.filterTasks(tasks, (task)=>{return !task.isCompleted()});
+            tasks = TaskUtils.filterTasks(tasks, (task)=>{return !task.isCompleted()});
         }
 
         if (!group){
-            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == this.DEFAULT_GROUP.toLowerCase()})
+            tasks = TaskUtils.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == this.DEFAULT_GROUP.toLowerCase()})
         }
         else {
-            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
+            tasks = TaskUtils.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
         }
 
         for (let task of tasks){
@@ -185,30 +189,33 @@ export class Tasks{
         }
     }
 
-    private static filterTasks(tasks:Task[], filter:(task)=>boolean){
-        let filtered = [];
-        for (let task of tasks){
-            if (filter(task)){
-                filtered.push(task);
-            }
-        }
-        return filtered;
-    }
-
     public static async setPriority(id:string, priority:number){
         let task = await RemoteTasks.fetchById(id);
         let group = task.getGroup();
         let tasks = await RemoteTasks.fetchAll();
         if (!group){
-            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == this.DEFAULT_GROUP.toLowerCase()})
+            tasks = TaskUtils.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == this.DEFAULT_GROUP.toLowerCase()})
         }
         else {
-            tasks = this.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
+            tasks = TaskUtils.filterTasks(tasks, (task)=>{return task.getGroup().toLowerCase() == group.toLowerCase()})
         }
         await Prioritizer.eliminatePriority(tasks, priority);
 
         task.setPriority(priority);
         await RemoteTasks.pushTask(task);
 
+    }
+
+    public static async autoPrioritizeTask(task:Task){
+        let tasks = await RemoteTasks.fetchAll(task.group || Tasks.DEFAULT_GROUP);
+        await Prioritizer.autoPrioritize(task, tasks);
+    }
+
+    public static cacheTaskIds(taskIds:string[]){
+        this.cachedTaskIdsNotCompleted = taskIds;
+    }
+
+    public static getCachedTasks(){
+        return this.cachedTaskIdsNotCompleted;
     }
 }
