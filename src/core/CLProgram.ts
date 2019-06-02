@@ -15,8 +15,8 @@ declare var process: any;
 export class CLProgram {
 
     private commander: any;
-    private commands:Command[] = [];
-    private scripts:Command[] = [];
+    private commands: Command[] = [];
+    private scripts: Command[] = [];
 
     constructor() {
         let Commander = require('commander');
@@ -25,18 +25,18 @@ export class CLProgram {
 
     }
 
-    getScripts(): string[]{
-        let scriptsList:File = Files.file("$SCM_SCRIPTS$", "scripts.json");
-        let scripts:any = JSON.parse(TextFiles.read(scriptsList));
+    getScripts(): string[] {
+        let scriptsList: File = Files.file("$SCM_SCRIPTS$", "scripts.json");
+        let scripts: any = JSON.parse(TextFiles.read(scriptsList));
         return scripts.scripts;
     }
 
     public async addAutoCompleteCommands() {
 
-        let scripts:string[] = this.getScripts();
+        let scripts: string[] = this.getScripts();
 
-        let commands:string[] = [];
-        for (let command of this.commands){
+        let commands: string[] = [];
+        for (let command of this.commands) {
             commands.push(command.getName());
         }
 
@@ -52,13 +52,13 @@ export class CLProgram {
         });
 
         comp.on("script", async function (userReply) {
-            if (userReply.indexOf("git")>=0){
+            if (userReply.indexOf("git") >= 0) {
                 return this.reply(GitUtils.getOptionalFilesToAdd(true));
             }
 
-            if (userReply.indexOf("task")>=0){
+            if (userReply.indexOf("task") >= 0) {
                 //let tasks:Task[] = await RemoteTasks.fetchAll(); why this won't work?
-                let taskIds:string[] = Tasks.getCachedTasks();
+                let taskIds: string[] = Tasks.getCachedTasks();
 
                 return this.reply(taskIds);
             }
@@ -77,7 +77,7 @@ export class CLProgram {
         return this.commander;
     }
 
-    private install(instabllable: Command){
+    private install(instabllable: Command) {
 
     }
 
@@ -86,7 +86,7 @@ export class CLProgram {
         let command = this.commander.command(commandToInstall.getName());
         command.description(commandToInstall.getDescription());
 
-        for (let option of commandToInstall.getOptions()){
+        for (let option of commandToInstall.getOptions()) {
             command.option(option.flags, option.description);
         }
         command.arguments(commandToInstall.getCommandArguments());
@@ -100,4 +100,5 @@ export class CLProgram {
     }
 
     //d
+}
    
