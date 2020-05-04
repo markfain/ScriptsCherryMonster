@@ -1,6 +1,7 @@
 import {Tasks} from "./Tasks";
 import * as Chalk from 'chalk';
 import {Spinner} from "../../core/Spinner";
+import * as colors from 'colors/safe';
 export class Task {
     name: string;
     status: TaskStatus;
@@ -122,14 +123,18 @@ export class Task {
         return this.group;
     }
 
+    /**
+     * TODO: chalk doesn't work??
+     *
+     */
     getColoredStatus(): any {
         switch (this.status) {
             case TaskStatus.STARTED:
                 //noinspection TypeScriptValidateTypes,TypeScriptUnresolvedFunction
-                return Chalk.bold.green(this.status);
+                return colors.green(this.status);
             case TaskStatus.PAUSED:
                 //noinspection TypeScriptValidateTypes,TypeScriptUnresolvedFunction
-                return Chalk.bold.yellow(this.status);
+                return colors.yellow(this.status);
             default:
                 return this.status;
         }

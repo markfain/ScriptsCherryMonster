@@ -29,7 +29,7 @@ import {ListTasks} from "./commands/tasks/ListTasks";
 import {StartTask} from "./commands/tasks/StartTask";
 import {CompleteTask} from "./commands/tasks/CompleteTask";
 import {PauseTask} from "./commands/tasks/PauseTask";
-import {AddNote} from "./commands/tasks/AddNote";
+import {AddTaskNote} from "./commands/tasks/AddTaskNote";
 import {TaskNotes} from "./commands/tasks/TaskNotes";
 import {PrioritizeTask} from "./commands/tasks/PrioritizeTask";
 import {SendReport} from "./commands/tasks/SendReport";
@@ -37,6 +37,7 @@ import {Notes} from "./commands/other/Notes";
 import {GitPull} from "./commands/git/GitPull";
 import {GitBrowse} from "./commands/git/GitBrowse";
 import {AddEvent} from "./commands/scheduler/AddEvent";
+import {Pomodoro} from "./commands/other/Pomodoro";
 
 
 Files.setPlaceholders(Configs.get<IConfig>("/Users/markfainstein/Dev/ScriptsCherryMonster/config.json"));
@@ -55,6 +56,7 @@ CLI.installCommand(new FindFile());
 CLI.installCommand(new DeleteFiles());
 CLI.installCommand(new Compare());
 CLI.installCommand(new Notes());
+CLI.installCommand(new Pomodoro());
 
 //Git
 CLI.installCommand(new GitResetClean());
@@ -74,7 +76,7 @@ CLI.installCommand(new ListTasks());
 CLI.installCommand(new StartTask());
 CLI.installCommand(new CompleteTask());
 CLI.installCommand(new PauseTask());
-CLI.installCommand(new AddNote());
+CLI.installCommand(new AddTaskNote());
 CLI.installCommand(new TaskNotes());
 CLI.installCommand(new PrioritizeTask());
 CLI.installCommand(new SendReport());

@@ -5,6 +5,7 @@ import {Script} from "./Script";
 import {Spinner} from "./Spinner";
 import {isNullOrUndefined} from "util";
 import {Logger} from "./Logger";
+
 declare var require: any;
 declare var process: any;
 
@@ -13,7 +14,7 @@ interface ICommandOption {
     description: string;
 }
 
-export abstract class Command extends Script{
+export abstract class Command extends Script {
 
     protected command: any;
 
@@ -32,7 +33,7 @@ export abstract class Command extends Script{
         this.spinningStarted = false;
     }
 
-    getOptions():ICommandOption[] {
+    getOptions(): ICommandOption[] {
         return this.options;
     }
 
@@ -74,7 +75,7 @@ export abstract class Command extends Script{
         }
     }
 
-    getAction(): (options)=>any {
+    getAction(): (options) => any {
         return (...options: any[]): any => this.execute(options);
     }
 
@@ -100,54 +101,51 @@ export abstract class Command extends Script{
         this.commandArguments.push(argument);
     }
 
-    startSpinner(){
+    startSpinner() {
         this.spinner.start(this.name);
         this.spinningStarted = true;
     }
 
-    stopSpinner(){
+    stopSpinner() {
         this.spinner.stop();
     }
 
-    startTask(taskName?:string):void{
-        if (!this.spinningStarted){
+    startTask(taskName?: string): void {
+        if (!this.spinningStarted) {
             this.spinner.start(this.name);
             this.spinningStarted = true;
         }
         //noinspection TypeScriptUnresolvedVariable
-        if (taskName){
+        if (taskName) {
             this.spinner.text = taskName;
         }
 
     }
 
-    finishTask(success?:boolean, info?:string): void {
-        if (!this.spinningStarted){
+    finishTask(success?: boolean, info?: string): void {
+        if (!this.spinningStarted) {
             return;
         }
-        if (success == isNullOrUndefined(success)){
+        if (success == isNullOrUndefined(success)) {
             //noinspection TypeScriptUnresolvedFunction
             this.spinner.succeed();
             this.spinner.stop();
         }
-        if (success == true){
+        if (success == true) {
             //noinspection TypeScriptUnresolvedFunction
             this.spinner.succeed(info);
             this.spinner.stop();
-        }
-        else {
+        } else {
             this.spinner.fail(info);
             this.spinner.stop();
         }
     }
 
-    execute(options:any){
+    execute(options: any) {
         this.doExecute(options);
     }
 
-    abstract doExecute(options:any);
-
-
+    abstract doExecute(options: any);
 
 
 }

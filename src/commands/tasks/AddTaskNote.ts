@@ -10,10 +10,10 @@ import {Spinner} from "../../core/Spinner";
 declare var require: any;
 declare var process: any;
 
-export class AddNote extends Command {
+export class AddTaskNote extends Command {
 
     constructor() {
-        super("addnote", "Adds a task", 1);
+        super("tasknote", "Adds a task", 1);
         this.commandArguments = [
             "id",
             "note"

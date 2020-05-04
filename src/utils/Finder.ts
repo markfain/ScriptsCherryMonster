@@ -1,9 +1,10 @@
 import {File} from "./File";
+import {Logger} from "../core/Logger";
 export class Finder {
 
     public static findFileInFolderStartingWith(root: File,
                                                 find: string,
-                                                list: string[],
+                                                appendTo: string[],
                                                 namePredicate:(str:string)=>boolean,
                                                 ignoreCase:boolean = false
     ) {
@@ -11,13 +12,13 @@ export class Finder {
             return;
         }
         else {
-            if (list == null) {
-                list = [];
+            if (appendTo == null) {
+                appendTo = [];
             }
 
             for (let file of root.listFiles()) {
                 if (file.isDirectory()) {
-                    this.findFileInFolderStartingWith(file, find, list, namePredicate, ignoreCase);
+                    this.findFileInFolderStartingWith(file, find, appendTo, namePredicate, ignoreCase);
                 }
                 else {
                     let fileNameWithExtension = file.getName() + "." + file.getExtension();
@@ -25,7 +26,8 @@ export class Finder {
                         fileNameWithExtension = fileNameWithExtension.toLowerCase();
                     }
                     if (namePredicate(fileNameWithExtension)) {
-                        list.push(file.getAbsolutePath());
+
+                        appendTo.push(file.getAbsolutePath());
                     }
                 }
             }

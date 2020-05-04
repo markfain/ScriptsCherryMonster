@@ -9,7 +9,7 @@ export class GitUtils {
      *
      * @returns {Array}
      */
-    public static getOptionalFilesToAdd(withParents:boolean){
+    public static getOptionalFilesToAdd(withParents:boolean):string[]{
         let pathsToReturn = [];
         let outputDiff = ProcessUtils.execSyncRedirectOutput("git diff --name-only", null, true);
         let outputNew = ProcessUtils.execSyncRedirectOutput("git ls-files --others --exclude-standard", null, true);

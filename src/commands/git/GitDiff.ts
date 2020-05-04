@@ -37,7 +37,7 @@ export class GitDiff extends Command {
         }
 
         prompt('Choose a file to diff...:', filesPrompt, {cursor: 0})
-            .on('submit', (v) => this.diffFile(v, commit));
+            .on('submit', (fileChosen) => this.diffFile(fileChosen, commit));
 
     }
 
@@ -69,7 +69,8 @@ export class GitDiff extends Command {
         let file = this.getArgument("fileOrChanges", options);
         let commitSuffix = this.getOption("commit", options);
         if (!commitSuffix){
-            Logger.log(this.execSyncRedirectOutput("git difftool HEAD:"+file+" "+file, null, true));
+            let fullPath:string = Files.file(this.getCurrentDir(), file).getAbsolutePath();
+            Logger.log(this.execSyncRedirectOutput("git difftool HEAD^ "+file, null, true));
             return;
         }
         else {
@@ -100,7 +101,7 @@ export class GitDiff extends Command {
     }
 
     private diffFile(file:string, commit:string) {
-        Logger.log("git difftool "+commit+"^! ");
-        Logger.log(this.execSyncRedirectOutput("git difftool "+commit+"^! "+file, null, true));
+        Logger.log("git difftool "+commit+"^ "+file);
+        Logger.log(this.execSyncRedirectOutput("git difftool "+commit+"^"+" "+file, null, true));
     }
 }

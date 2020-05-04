@@ -57,6 +57,13 @@ export class Prioritizer {
 
     }
 
+    public static async autoPrioritize(task:Task, tasks:Task[]){
+        let lowestTask = this.findTaskWithLowestPriority(tasks, 0);
+        let priority = lowestTask.getPriorityAsNumber()+1;
+        Logger.log("Setting priority automatically for task "+priority);
+        task.setPriority(priority);
+    }
+
     public static async eliminatePriority(tasks:Task[], priority:number){
         for (let task of tasks){
             if (task.getPriorityAsNumber() == priority){
