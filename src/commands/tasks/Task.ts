@@ -143,6 +143,10 @@ export class Task {
 
     getPriority(): string {
         if (this.priority != -1) {
+            if (this.priority == 1){
+                //TODO: is this ugly?
+                return colors.bgYellow.white(this.priority);
+            }
             return this.priority.toString();
         }
         else {
